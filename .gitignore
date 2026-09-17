@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+*.egg-info/
+build/
+dist/
+.superpowers/
+/snapshot-copy.json
+/snapshot.json
+/analysis.json
+/report.html
+/investigation/

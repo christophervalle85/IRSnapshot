@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "irsnapshot"
+version = "0.1.0"
+description = "A bounded Windows incident-response snapshot tool"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "Jinja2>=3.1,<4",
+    "psutil>=7,<8",
+    "pydantic>=2.12,<3",
+    "rich>=13.9,<15",
+    "typer>=0.16,<1",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.3,<10"]
+
+[project.scripts]
+irsnapshot = "irsnapshot.cli:app"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["irsnapshot", "irsnapshot.*"]
+namespaces = false
+
+[tool.pytest.ini_options]
+addopts = ["--import-mode=importlib"]
+testpaths = ["tests"]

@@ -1,0 +1,3 @@
+recursive-include docs *.md *.json
+recursive-include samples *.md *.json
+recursive-include tests *.py

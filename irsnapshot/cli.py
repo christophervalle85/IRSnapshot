@@ -9,7 +9,7 @@ from irsnapshot import __version__
 
 app = typer.Typer(
     name="irsnapshot",
-    help="IRSnapshot Milestone 1: validated snapshot foundations.",
+    help="IRSnapshot Milestone 2: offline evidence interpretation APIs.",
     add_completion=False,
     invoke_without_command=True,
     no_args_is_help=False,

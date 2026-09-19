@@ -18,7 +18,7 @@ runner = CliRunner()
 
 
 def assert_milestone_help(output: str) -> None:
-    assert "IRSnapshot Milestone 1" in output
+    assert "IRSnapshot Milestone 2" in output
     assert "--version" in output
     assert "--help" in output
     assert not re.search(

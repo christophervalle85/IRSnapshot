@@ -74,7 +74,12 @@ def write_snapshot(snapshot: SystemSnapshot, path: Path, *, overwrite: bool = Fa
     payload = (validated.model_dump_json(indent=2) + "\n").encode("utf-8")
     if len(payload) > MAX_SNAPSHOT_BYTES:
         raise SnapshotValidationError("Snapshot exceeds the supported file size limit (64 MiB)")
-    destination = Path(path)
+    _publish_bytes(payload, Path(path), overwrite=overwrite)
+    logger.info("Saved snapshot %s to %s", validated.snapshot_id, path)
+
+
+def _publish_bytes(payload: bytes, destination: Path, *, overwrite: bool = False) -> None:
+    """Publish validated bytes atomically in an existing destination directory."""
     temporary: Path | None = None
     try:
         # Close before publishing: Windows cannot rename an open NamedTemporaryFile.
@@ -90,11 +95,10 @@ def write_snapshot(snapshot: SystemSnapshot, path: Path, *, overwrite: bool = Fa
             os.replace(temporary, destination)
         else:
             os.link(temporary, destination)
-        logger.info("Saved snapshot %s to %s", validated.snapshot_id, destination)
     finally:
         if temporary is not None:
             try:
                 temporary.unlink(missing_ok=True)
             except OSError:
                 # Preserve the original publication error; surface leftover evidence.
-                logger.warning("Unable to remove temporary snapshot file %s", temporary, exc_info=True)
+                logger.warning("Unable to remove temporary output file %s", temporary, exc_info=True)

@@ -8,6 +8,7 @@ from dataclasses import dataclass
 import ntpath
 from typing import Literal
 
+from irsnapshot.analyzers.commands import parse_command_target
 from irsnapshot.models import TaskAction
 
 
@@ -63,6 +64,15 @@ class _ScanFailure(ValueError):
     pass
 
 
+def _quote_is_backslash_escaped(raw: str, index: int) -> bool:
+    backslashes = 0
+    cursor = index - 1
+    while cursor >= 0 and raw[cursor] == "\\":
+        backslashes += 1
+        cursor -= 1
+    return backslashes % 2 == 1
+
+
 def _basename(value: str) -> str:
     return ntpath.basename(value.replace("/", "\\")).casefold()
 
@@ -108,6 +118,10 @@ def _scan_windows_subset(raw: str) -> list[str]:
             end = raw.find('"', index + 1)
             if end < 0:
                 raise _ScanFailure("A double-quoted token is unterminated.")
+            if _quote_is_backslash_escaped(raw, end):
+                raise _ScanFailure(
+                    "Backslash-escaped quote boundaries are outside the supported subset."
+                )
             token = raw[index + 1 : end]
             if end + 1 < len(raw) and raw[end + 1] not in " \t":
                 raise _ScanFailure("Quoted and unquoted token segments are not supported.")
@@ -342,7 +356,23 @@ def parse_persistence_command(command: str | None) -> PersistenceTarget:
     try:
         tokens = _scan_windows_subset(command)
     except _ScanFailure as exc:
-        return _unresolved(str(exc), raw_value=command)
+        reason = str(exc)
+        executable = None
+        if reason in {
+            "A double-quoted token is unterminated.",
+            "Backslash-escaped quote boundaries are outside the supported subset.",
+            "Quoted and unquoted token segments are not supported.",
+            "Embedded quotes are outside the supported subset.",
+        }:
+            direct = parse_command_target(command)
+            if not direct.ambiguous:
+                executable = direct.path
+        return _unresolved(
+            reason,
+            raw_value=command,
+            executable=executable,
+            arguments=command,
+        )
     return _interpret(
         tokens[0],
         tokens[1:],

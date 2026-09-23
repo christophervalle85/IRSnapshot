@@ -165,6 +165,103 @@ def test_raw_scanner_accepts_tab_separator_and_pwsh_double_dash_file():
     assert modern_working_directory.path == r"C:\Users\Alice\job.ps1"
 
 
+def test_raw_escaped_quote_does_not_expose_later_file_target(snapshot_data):
+    from irsnapshot.analyzers.persistence import parse_persistence_command
+    from irsnapshot.rules.persistence_rules import R001
+
+    raw = (
+        r'pwsh.exe -WorkingDirectory "C:\Tools\" '
+        r'-File C:\Users\Alice\AppData\Roaming\late.ps1'
+    )
+    target = parse_persistence_command(raw)
+    entry = _artifact(
+        107,
+        "persistence",
+        kind="run_key",
+        location="HKCU Run",
+        entry_name="Ambiguous quote",
+        command=raw,
+        owner_sid=ALICE_SID,
+    )
+    context = _context(snapshot_data, persistence=[entry], path_context=_path_context())
+
+    assert target.path is None
+    assert target.kind == "unresolved"
+    assert "quote" in target.reason.casefold()
+    assert R001.evaluate(context) == []
+
+
+def test_raw_escaped_quote_preserves_independent_explicit_executable(snapshot_data):
+    from irsnapshot.analyzers.persistence import parse_persistence_command
+    from irsnapshot.rules.persistence_rules import R001
+
+    raw = (
+        r'"C:\Users\Alice\AppData\Local\Acme\pwsh.exe" '
+        r'-WorkingDirectory "C:\Tools\" -File C:\Windows\safe.ps1'
+    )
+    target = parse_persistence_command(raw)
+    entry = _artifact(
+        108,
+        "persistence",
+        kind="run_key",
+        location="HKCU Run",
+        entry_name="Explicit interpreter",
+        command=raw,
+        owner_sid=ALICE_SID,
+    )
+    context = _context(snapshot_data, persistence=[entry], path_context=_path_context())
+
+    assert target.path is None
+    assert target.executable == r"C:\Users\Alice\AppData\Local\Acme\pwsh.exe"
+    findings = R001.evaluate(context)
+    assert len(findings) == 1
+    assert next(
+        item.value for item in findings[0].evidence if item.field == "interpreted_target"
+    ) == r"C:\Users\Alice\AppData\Local\Acme\pwsh.exe"
+
+
+def test_structured_interpreter_escaped_quote_does_not_expose_later_file_target(
+    snapshot_data,
+):
+    from irsnapshot.analyzers.persistence import parse_task_action
+    from irsnapshot.rules.persistence_rules import R002
+
+    arguments = (
+        r'-WorkingDirectory "C:\Tools\" '
+        r'-File C:\Users\Alice\AppData\Roaming\late.ps1'
+    )
+    action = TaskAction(
+        kind="exec",
+        executable=r"C:\Windows\System32\pwsh.exe",
+        arguments=arguments,
+    )
+    task = _artifact(
+        206,
+        "scheduled_tasks",
+        name="Ambiguous quote",
+        task_path=r"\Examples\Ambiguous quote",
+        actions=[action.model_dump(mode="json")],
+    )
+    target = parse_task_action(action)
+    context = _context(snapshot_data, tasks=[task], path_context=_path_context())
+
+    assert target.path is None
+    assert target.kind == "unresolved"
+    assert "quote" in target.reason.casefold()
+    assert R002.evaluate(context) == []
+
+
+def test_quoted_token_without_escaped_boundary_remains_supported():
+    from irsnapshot.analyzers.persistence import parse_persistence_command
+
+    target = parse_persistence_command(
+        r'pwsh.exe -WorkingDirectory "C:\Tools With Space" '
+        r'-File "C:\Users\Alice\Job Files\daily.ps1"'
+    )
+
+    assert target.path == r"C:\Users\Alice\Job Files\daily.ps1"
+
+
 def test_task_action_keeps_separately_collected_spaced_executable():
     from irsnapshot.analyzers.persistence import parse_task_action
 
@@ -434,6 +531,35 @@ def test_r002_matches_interpreter_executable_before_unsupported_inline_payload(s
     assert next(
         item.value for item in findings[0].evidence if item.field == "actions[0].target"
     ) == r"C:\Users\Alice\AppData\Local\Acme\pwsh.exe"
+
+
+@pytest.mark.parametrize("kind", ["com_handler", "other"])
+def test_r002_non_exec_action_executable_is_inventory_only(snapshot_data, kind):
+    from irsnapshot.analyzers.persistence import parse_task_action
+    from irsnapshot.rules.persistence_rules import R002
+
+    action = TaskAction(
+        kind=kind,
+        executable=r"C:\Users\Alice\AppData\Local\Acme\agent.exe",
+        class_id=(
+            "{00000000-0000-0000-0000-000000000001}"
+            if kind == "com_handler"
+            else None
+        ),
+    )
+    task = _artifact(
+        207,
+        "scheduled_tasks",
+        name="Non-exec inventory",
+        task_path=r"\Examples\Non-exec inventory",
+        actions=[action.model_dump(mode="json")],
+    )
+    target = parse_task_action(action)
+    context = _context(snapshot_data, tasks=[task], path_context=_path_context())
+
+    assert target.kind == "unresolved"
+    assert target.executable == action.executable
+    assert R002.evaluate(context) == []
 
 
 def test_r003_matches_only_service_command_executable_without_pid_hint(snapshot_data):

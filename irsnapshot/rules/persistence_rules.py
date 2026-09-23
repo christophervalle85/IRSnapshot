@@ -183,6 +183,8 @@ def _evaluate_r002(context: AnalysisContext):
             tuple[int, PersistenceTarget, list[tuple[str, str, PathAssessment]]]
         ] = []
         for index, action in enumerate(task.actions):
+            if action.kind != "exec":
+                continue
             target = parse_task_action(action)
             target_matches = _matching_targets(
                 context,

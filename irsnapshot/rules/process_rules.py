@@ -4,11 +4,12 @@ The command rules inspect already-tokenized argv only. They never decode a
 PowerShell value, join and reparse tokens, resolve a program, or execute data.
 Supported transfer/script forms are deliberately narrow:
 
-* certutil requires exact ``-urlcache`` and ``-f`` tokens plus a later,
-  standalone HTTP(S) URL; ``-split`` is optional.
+* certutil accepts exact ``-urlcache`` and ``-f`` no-value flags, optional
+  ``-split``, then the standalone HTTP(S) source and optional output token.
+  Flags may occur in any order before the source; unrelated options are rejected.
 * rundll32 requires the first argument to begin with the explicit
-  ``javascript:\\..\\mshtml,RunHTMLApplication`` form (an optional quote after
-  the colon is accepted).
+  ``javascript:..\\mshtml,RunHTMLApplication`` form (an optional quote after
+  the colon and optional backslash before ``..`` are accepted).
 * regsvr32 requires an inline ``/i:http(s)://...`` token and a separate token
   whose Windows basename is exactly ``scrobj.dll``.
 """
@@ -30,7 +31,7 @@ _OFFICE = frozenset(
     ("winword", "excel", "powerpnt", "outlook", "msaccess", "mspub", "onenote")
 )
 _RUNDLL32_SCRIPT = re.compile(
-    r'''^javascript\s*:\s*["']?\\\.\.\\mshtml\s*,\s*runhtmlapplication(?=$|[\s"'`;])''',
+    r'''^javascript\s*:\s*["']?(?:\\)?\.\.\\mshtml\s*,\s*runhtmlapplication(?=$|[\s"'`;])''',
     re.IGNORECASE,
 )
 
@@ -345,7 +346,11 @@ def _p007(context: AnalysisContext):
 def _standalone_http_url(value: str) -> bool:
     if value != value.strip() or any(character.isspace() for character in value):
         return False
-    parsed = urlsplit(value)
+    try:
+        parsed = urlsplit(value)
+    except ValueError:
+        # Malformed captured URL syntax is unsupported evidence, not a rule error.
+        return False
     return parsed.scheme.casefold() in ("http", "https") and bool(parsed.netloc)
 
 
@@ -366,29 +371,40 @@ def _command_finding(
     )
 
 
+def _certutil_source(argv: list[str]) -> str | None:
+    """Recognize only URLCache with no-value flags, source, optional output."""
+
+    index = 1
+    options: list[str] = []
+    while index < len(argv) and argv[index].casefold() in ("-urlcache", "-f", "-split"):
+        options.append(argv[index].casefold())
+        index += 1
+    if options.count("-urlcache") != 1 or "-f" not in options or index == len(argv):
+        return None
+    # The first positional token must itself be the URL source. Unknown options
+    # and their possible values are not skipped or promoted into that position.
+    source = argv[index]
+    if not _standalone_http_url(source):
+        return None
+    trailing = argv[index + 1 :]
+    if len(trailing) > 1 or any(
+        not token or token.startswith("-") or token.casefold() == "delete"
+        for token in trailing
+    ):
+        return None
+    return source
+
+
 def _p008(context: AnalysisContext):
     findings = []
     for process in _processes(context):
         argv = process.command_line
         if _identity(process) != "certutil" or not argv:
             continue
-        folded = [token.casefold() for token in argv]
-        if (
-            "-urlcache" not in folded
-            or "-f" not in folded
-            or "delete" in folded[1:]
-        ):
-            continue
-        boundary = folded.index("-urlcache")
-        source = next(
-            (token for token in argv[boundary + 1 :] if _standalone_http_url(token)),
-            None,
-        )
+        source = _certutil_source(argv)
         if source is None:
             continue
-        options = [
-            token for token in argv[1:] if token.casefold() in ("-urlcache", "-split", "-f")
-        ]
+        options = argv[1 : argv.index(source)]
         findings.append(
             _command_finding(
                 context,
@@ -405,7 +421,7 @@ def _p008(context: AnalysisContext):
                         artifact_id=process.artifact_id,
                         field="remote_source",
                         value=source,
-                        explanation="Standalone HTTP(S) source token following -urlcache.",
+                        explanation="Standalone HTTP(S) URLCache positional source after supported no-value flags.",
                     ),
                 ],
                 "Certutil combined -urlcache and forced retrieval with a standalone HTTP(S) "

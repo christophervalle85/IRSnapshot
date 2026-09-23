@@ -15,7 +15,29 @@ These APIs interpret already captured, validated evidence. They do not collect e
 | `correlation.relationships` | `correlate_findings(findings, tree, links)` | List of `FindingContext` |
 | `correlation.timeline` | `build_timeline(snapshot)` | List of `TimelineEvent` |
 
-Imports begin with `irsnapshot.`. Command/path facts are intermediate dataclasses; existing Pydantic contracts represent trees, links, contexts, and timeline events. No detection engine is required for these functions. The [offline example](../examples/interpret_snapshot.py) demonstrates their use, apart from finding correlation, which is exercised with synthetic findings in tests until Milestone 3 supplies rules.
+Imports begin with `irsnapshot.`. Command/path facts are intermediate dataclasses; existing Pydantic contracts represent trees, links, contexts, and timeline events. These APIs remain usable independently of detection rules. The [offline example](../examples/interpret_snapshot.py) demonstrates interpretation without detections; Milestone 3's `analyze` command evaluates rules and applies finding correlation.
+
+## Milestone 3 investigation API
+
+```python
+from pathlib import Path
+from rich.console import Console
+from irsnapshot.storage import load_snapshot
+from irsnapshot.analyzers.engine import analyze_snapshot
+from irsnapshot.models import InvestigationReport
+from irsnapshot.reporting.console import render_console
+from irsnapshot.reporting.json_report import write_json_report
+
+snapshot = load_snapshot(Path('samples/review.snapshot.json'))
+analysis = analyze_snapshot(snapshot)
+report = InvestigationReport(snapshot=snapshot, analysis=analysis)
+render_console(report, Console())
+write_json_report(report, Path('analysis.json'))
+```
+
+The report writer refuses an existing destination unless `overwrite=True` is explicit. `analyze_snapshot` uses the bundled `DEFAULT_RULES`; an optional `rules` sequence enables controlled library tests/custom evaluation, not a runtime plugin loader. Rules receive isolated copies of an `AnalysisContext` containing snapshot, process tree, and network links. Rule exceptions yield incomplete analysis with an issue; structural engine failures raise `AnalysisError`. The command-line wrapper maps these outcomes to the documented exit codes and protects the input path. Library callers choose separate output paths themselves.
+
+Persistence-specific target extraction is implemented in `analyzers.persistence`; its conservative supported subset and limitations are documented in the [rule reference](rules.md). These helpers neither modify the original raw fields nor execute their contents.
 
 ## Process relationships and rendering
 

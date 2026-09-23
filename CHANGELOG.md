@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.3.0 — Milestone 3
+
+- Implement ten process rules and three persistence rules with fixed severity, deterministic finding IDs, original evidence, and benign explanations.
+- Extract direct executable and supported interpreter/file persistence targets conservatively; aggregate multiple matching task actions without duplicate projection findings.
+- Add the analysis engine with per-rule failure isolation, stable ordering, preserved evidence, and separate collection/analysis completeness.
+- Add literal-text console reporting and atomic JSON investigation-report publication.
+- Add `irsnapshot analyze SNAPSHOT [--output PATH] [--overwrite]` with explicit outcomes for partial collection and invalid input.
+- Include synthetic review/partial walkthroughs, rule documentation, and positive/near-miss regression tests.
+
+Snapshot and analysis schemas remain `1.0`; bundled ruleset version is `1.0.0`. Live collection and HTML reporting remain planned.
+
 ## 0.2.0 — Milestone 2
 
 - Build stable process forests, preserve missing parents and uncertain times, and break cycles deterministically.

@@ -1,6 +1,6 @@
 # IRSnapshot v1.0 — proposed architecture and milestone contract
 
-Status: accepted design. Milestones 1 and 2 are implemented; later milestones remain planned. See README and testing.md for current capabilities and verification.
+Status: accepted design. Milestones 1–3 are implemented; later milestones remain planned. See README and testing.md for current capabilities and verification.
 
 ## 1. Scope and recommended approach
 
@@ -181,7 +181,7 @@ Findings require at least one evidence item and referenced artifact. Finding IDs
 
 ## 4. Component interfaces and data flow
 
-These signatures are design contracts, not an implemented API yet.
+These signatures are design contracts. Milestones 1–3 implement storage, interpretation, analysis, console output, and JSON reporting; collection and HTML contracts remain planned.
 
 | Component | Contract | Responsibility |
 |---|---|---|
@@ -351,4 +351,4 @@ Current environment limitation: this project starts in an empty, non-Git workspa
 
 All four commands are implemented and verified; all seven collector categories have honest coverage results; 13 documented rules have positive and negative fixtures; required tree/correlation/serialization tests pass; the wheel includes its template; reports escape untrusted text and work offline; samples are synthetic and labelled; and Windows smoke evidence is recorded with OS, Python version, privilege context, and limitations. The documentation describes partial coverage, heuristics, privacy of local evidence, and collection side effects without calling the tool an EDR or malware scanner.
 
-This document retains the accepted v1 target. The implementation status is tracked in README.md; Milestones 1 and 2 are included in release 0.2.0.
+This document retains the accepted v1 target. The implementation status is tracked in README.md; Milestones 1–3 are included in release 0.3.0.

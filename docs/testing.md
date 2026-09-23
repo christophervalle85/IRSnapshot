@@ -1,5 +1,32 @@
 # Verification evidence
 
+## Milestone 3 — release 0.3.0
+
+Verified on 2026-09-23, on macOS 26.5.2 (ARM64). These checks establish portable offline analysis and reporting behavior, not Windows integration readiness.
+
+| Check | Result |
+|---|---|
+| Full pytest suite, Python 3.12.14 | 407 passed, 0 skipped |
+| Full pytest suite, Python 3.14.7 | 407 passed, 0 skipped |
+| Dependency integrity (`pip check`) | No broken requirements in development or clean installation |
+| Package, example, and test compilation | Passed |
+| Whitespace/error diff check | Passed |
+| Independent final specification and quality review | Passed after regression fixes |
+| Wheel build | `irsnapshot-0.3.0-py3-none-any.whl` built successfully |
+| Clean wheel installation | Installed offline into a new Python 3.12 environment |
+| Installed package outside source tree | CLI help/version/analyze and JSON validation passed |
+| Installed benign sample | 0 findings, exit 0 |
+| Installed review sample | 13 findings, exit 0 |
+| Installed partial sample | 11 findings, exit 3; evaluation complete, collection incomplete |
+
+The clean environment imported from `site-packages`, not the repository or an editable install. Package metadata and the installed console entry point reported `0.3.0`. Real subprocess checks validated every sample's JSON against `InvestigationReport`, preserved its original snapshot, and confirmed ruleset `1.0.0`. Refused writes preserved existing reports; explicit overwrites reproduced identical report bytes. Selecting the input as output was rejected even with overwrite enabled, and unsupported snapshot versions returned exit 2.
+
+The 407 cases retain the foundation and interpretation coverage below and add process/persistence predicates, rule-failure isolation, deterministic findings, console/JSON reports, and real CLI behavior. Tests cover both positive and near-miss evidence, unsupported grammar, disabled and multi-action tasks, owner-scoped paths, malformed rule outputs, mutation isolation, duplicate evidence, missing system data, literal terminal rendering, file publication failures, and input aliases.
+
+Independent review found a missing canonical rundll32 form, a certutil URL mistaken for an unrelated option's value, malformed URLs raising rule errors, non-exec task fields being promoted into findings, and escaped quotes exposing an unsupported script target. Each fix has a regression that failed before correction. No fixture command was executed. Engine, reporter, and CLI review found no further actionable issues.
+
+Tested dependency versions remain Pydantic 2.13.5, Typer 0.27.2, Rich 14.3.4, psutil 7.2.2, Jinja2 3.1.6, and pytest 9.1.1. The wheel supplies the Python package; the source ZIP also supplies documentation, tests, examples, and synthetic snapshots.
+
 ## Milestone 2 — release 0.2.0
 
 Verified on 2026-09-18, on macOS 26.5.2 (ARM64). These checks establish portable offline interpretation behavior; they do not establish Windows integration readiness.
@@ -66,14 +93,17 @@ py -3.12 -m venv .venv
 .\.venv\Scripts\python.exe -m pip check
 .\.venv\Scripts\irsnapshot.exe --version
 .\.venv\Scripts\irsnapshot.exe --help
+.\.venv\Scripts\irsnapshot.exe analyze samples/review.snapshot.json --output analysis.json
+.\.venv\Scripts\irsnapshot.exe analyze samples/partial.snapshot.json
+$LASTEXITCODE
 .\.venv\Scripts\python.exe examples/interpret_snapshot.py samples/benign.snapshot.json
 .\.venv\Scripts\python.exe -m pip wheel --no-deps --wheel-dir dist .
 ```
 
-The suite has 247 cases. A Windows account without permission to create symbolic links may skip the single symlink test; inspect the test summary rather than assuming a zero-skip result. The [README](../README.md) includes the exact Milestone 2 subset command and a sample storage round trip.
+The review sample should produce thirteen findings and exit 0; the partial sample should produce eleven and exit 3. A Windows account without permission to create symbolic links may skip alias tests; inspect the test summary rather than assuming a zero-skip result. The [README](../README.md) includes the Milestone 3 subset command and a sample storage round trip. The output file must not already exist unless you explicitly add `--overwrite`.
 
 ## Remaining validation limits
 
-No Windows host was available for this milestone. Windows installation, NTFS publication semantics, path permissions, and actual PowerShell host behavior still require Windows execution. Hard-link publication is intentionally unsupported on filesystems that do not provide it. No endpoint collectors, detection rules, live integration tests, or full console/HTML investigation reports exist yet. Rich tree output and the offline demonstration are verified here.
+No Windows host was available for this milestone. Windows installation, NTFS publication semantics, path permissions, and actual PowerShell host behavior still require Windows execution. Hard-link publication is intentionally unsupported on filesystems that do not provide it. Endpoint collectors, live integration tests, and HTML reports remain unimplemented. The current portable scope includes deterministic rules, console/JSON investigation reports, and the offline demonstration.
 
 Tests use synthetic inputs; no suspicious fixture is executed. JSON Schema documents types and field constraints, but Python validators also enforce semantic and cross-record constraints. Validating a file with a generic JSON Schema checker alone is not equivalent to `load_snapshot`.

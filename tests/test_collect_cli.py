@@ -1,5 +1,8 @@
 """Collect command behavior with live endpoint collection replaced at its boundary."""
 from pathlib import Path
+from datetime import UTC, datetime
+import logging
+import sys
 
 from typer.testing import CliRunner
 
@@ -109,3 +112,64 @@ def test_fatal_and_interrupt_never_publish_partial_file(tmp_path, monkeypatch):
 def test_collect_usage_requires_output_and_overwrite_requires_output():
     assert runner.invoke(app, ["collect"]).exit_code == 2
     assert runner.invoke(app, ["collect", "--overwrite"]).exit_code == 2
+
+
+def test_collector_traceback_renders_control_chars_literally_and_saves_partial(tmp_path, monkeypatch, capsys):
+    """A source exception and its cause must not send terminal controls to stderr."""
+    import irsnapshot.cli as cli
+    import irsnapshot.pipeline as pipeline
+    from irsnapshot.collectors.base import CollectionContext
+    from irsnapshot.collectors.contracts import (
+        RunResponse, StartupResponse, SystemReading, TasksResponse, UsersResponse,
+        WindowsQuery,
+    )
+    from irsnapshot.models import CollectorName
+
+    class Adapter:
+        def ensure_supported(self): pass
+        def system_reading(self):
+            return SystemReading(
+                hostname="fixture", windows_version="Windows 11", architecture="AMD64",
+                boot_time=datetime(2020, 1, 1, tzinfo=UTC),
+                collector_username="fixture-user", collector_sid="S-1-5-21-1",
+                elevated=False)
+        def net_connections(self): return []
+        def service_iter(self): return iter(())
+        def sessions(self): return []
+        def run_query(self, query, inputs=None, timeout_seconds=30):
+            if query == WindowsQuery.USERS:
+                return UsersResponse()
+            if query == WindowsQuery.TASKS:
+                return TasksResponse()
+            raise AssertionError("unexpected query")
+        def read_run_values(self, owner_sid): return RunResponse()
+        def startup_files(self, path_context): return StartupResponse()
+
+    def broken_processes(context):
+        try:
+            raise ValueError("cause\rspoof")
+        except ValueError as cause:
+            raise RuntimeError("captured\x1b[2Jname") from cause
+
+    monkeypatch.setattr(pipeline.processes, "collect", broken_processes)
+    terminal_logger = logging.getLogger("irsnapshot.test.terminal")
+    terminal_logger.handlers = [logging.StreamHandler(sys.stderr)]
+    terminal_logger.setLevel(logging.ERROR)
+    terminal_logger.propagate = False
+    monkeypatch.setattr(pipeline, "logger", terminal_logger)
+    context = CollectionContext(windows=Adapter())
+    monkeypatch.setattr(cli, "collect_snapshot", lambda: pipeline.collect_snapshot(context))
+    destination = tmp_path / "partial.json"
+
+    result = runner.invoke(app, ["collect", "--output", str(destination)])
+    logged = capsys.readouterr().err
+
+    assert result.exit_code == 3, result.output
+    assert destination.exists()
+    snapshot = load_snapshot(destination)
+    assert {r.collector: r.status for r in snapshot.collector_runs}[CollectorName.PROCESSES] == CollectionStatus.FAILED
+    assert "Traceback (most recent call last)" in logged
+    assert "ValueError: cause\\rspoof" in logged
+    assert "RuntimeError: captured\\x1b[2Jname" in logged
+    assert "\x1b" not in logged
+    assert "\r" not in logged

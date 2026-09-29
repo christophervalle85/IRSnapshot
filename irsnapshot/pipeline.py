@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import logging
+import traceback
 from datetime import datetime
 from uuid import UUID
 
@@ -164,7 +165,13 @@ def collect_snapshot(context: CollectionContext | None = None) -> SystemSnapshot
                 context.path_context = original_paths
                 context.collector_sid = original_sid
         except Exception as exc:
-            logger.exception("%s collection failed", name.value)
+            formatted = ''.join(traceback.format_exception(exc, chain=True))
+            safe_traceback = ''.join(
+                char if char == '\n' or char.isprintable()
+                else char.encode('unicode_escape').decode('ascii')
+                for char in formatted
+            )
+            logger.error("%s collection failed\n%s", name.value, safe_traceback.rstrip('\n'))
             context.snapshot_id = original_snapshot_id
             context.clock = original_clock
             context.id_factory = original_id_factory

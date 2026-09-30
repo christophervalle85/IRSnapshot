@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.4.0 — Milestone 4
+
+- Add Windows system, process, network, user, service, scheduled-task, and persistence collectors.
+- Add typed Windows source responses, fixed read-only PowerShell queries, native path/identity discovery, and explicit registry views.
+- Preserve partial records, unavailable fields, and source failures in the existing coverage model.
+- Add failure-isolated collection orchestration and `collect --output PATH [--overwrite]` with atomic snapshot publication.
+- Add injected adapter/collector/pipeline tests, opt-in Windows smoke coverage, and collection documentation.
+
+Snapshot and analysis schemas remain `1.0`; ruleset remains `1.0.0`. Actual Windows integration remains unverified on the macOS development host. HTML reporting and `report`/`run` remain planned.
+
 ## 0.3.0 — Milestone 3
 
 - Implement ten process rules and three persistence rules with fixed severity, deterministic finding IDs, original evidence, and benign explanations.

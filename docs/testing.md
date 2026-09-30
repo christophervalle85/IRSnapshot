@@ -1,5 +1,34 @@
 # Verification evidence
 
+## Milestone 4 — release 0.4.0
+
+Verified on 2026-09-30, on macOS 26.5.2 (ARM64). These are portable tests with injected Windows boundaries and installed-package checks. **Actual Windows collection remains unverified.**
+
+| Check | Result |
+|---|---|
+| Full portable suite, Python 3.12.14 | 467 passed, 1 live test deselected |
+| Full portable suite, Python 3.14.7 | 467 passed, 1 live test deselected |
+| Compilation and dependency integrity | Passed; no broken requirements |
+| Whitespace/error diff check | Passed |
+| Independent specification and quality review | Passed after traceback control-escaping regression fix |
+| Wheel build | `irsnapshot-0.4.0-py3-none-any.whl` built successfully |
+| Clean wheel installation | Installed offline in a new Python 3.12 environment |
+| Installed help/version and both command help pages | Passed outside source tree |
+| Installed sample analysis | 0/13/11 findings and exit 0/0/3 for benign/review/partial samples |
+| Installed collect on macOS | Actionable Windows-only rejection, exit 1, no snapshot created |
+| Existing output protection | Refusal and unsupported-platform failures preserve existing bytes, including with overwrite requested |
+| Actual Windows read-only smoke | Not run; requires a Windows x64 host |
+
+New cases exercise typed PowerShell envelopes and zero/one/many results, UTF-8 and malformed output, timeouts/nonzero exits, fixed script routing, data-only shortcut inputs, explicit registry views and shared duplicates, native discovery failures, remote/reparse path rejection, owner SID uncertainty, malformed nested task data, partial field and iteration failures, source projections, collector isolation, and CLI status/identity rendering. Reproducing regressions preceded corrections.
+
+Independent review found that default traceback logging could expose terminal controls from a source exception. The repair retains readable chained diagnostics while escaping those controls before logging; its CLI regression verifies visible escapes, preserved traceback context, and a saved partial snapshot. Scoped re-review closed the finding with no remaining blocking issues.
+
+An end-to-end fixture test uses all seven real collectors through the collection pipeline with only the Windows adapter replaced. It validates the snapshot, writes and reloads it, checks source references, and runs the actual analysis engine. Separate pipeline failure tests ensure malformed references, unexpected exceptions, context mutation, and invalid intervals do not erase other collectors' results. No fixture command or live endpoint query was executed.
+
+The installed package imported from its new environment's `site-packages`; metadata and CLI reported `0.4.0`. Saved sample reports validated against `InvestigationReport` and retained the original snapshots. Repeated explicit overwrites were byte-identical, and refused writes preserved earlier files. Dependency versions remain those recorded for Milestone 3 below.
+
+Live tests are deliberately excluded by default. On Windows, explicitly run `python -m pytest tests/test_windows_smoke.py -m windows_live -q`; see [collection verification](collection.md#verification-on-windows). That test requires usable basic evidence while allowing permission-related partial sources and variable ambient process counts.
+
 ## Milestone 3 — release 0.3.0
 
 Verified on 2026-09-23, on macOS 26.5.2 (ARM64). These checks establish portable offline analysis and reporting behavior, not Windows integration readiness.
@@ -100,10 +129,10 @@ $LASTEXITCODE
 .\.venv\Scripts\python.exe -m pip wheel --no-deps --wheel-dir dist .
 ```
 
-The review sample should produce thirteen findings and exit 0; the partial sample should produce eleven and exit 3. A Windows account without permission to create symbolic links may skip alias tests; inspect the test summary rather than assuming a zero-skip result. The [README](../README.md) includes the Milestone 3 subset command and a sample storage round trip. The output file must not already exist unless you explicitly add `--overwrite`.
+The review sample should produce thirteen findings and exit 0; the partial sample should produce eleven and exit 3. A Windows account without permission to create symbolic links may skip alias tests; inspect the test summary rather than assuming a zero-skip result. The [README](../README.md) includes the analysis/collection subset commands and a sample storage round trip. The output file must not already exist unless you explicitly add `--overwrite`.
 
 ## Remaining validation limits
 
-No Windows host was available for this milestone. Windows installation, NTFS publication semantics, path permissions, and actual PowerShell host behavior still require Windows execution. Hard-link publication is intentionally unsupported on filesystems that do not provide it. Endpoint collectors, live integration tests, and HTML reports remain unimplemented. The current portable scope includes deterministic rules, console/JSON investigation reports, and the offline demonstration.
+No Windows host was available for this milestone. Windows installation, NTFS publication semantics, path permissions, native API behavior, and actual PowerShell queries still require Windows execution. Hard-link publication is intentionally unsupported on filesystems that do not provide it. Endpoint collectors and an opt-in live test are now implemented but have only portable fixture coverage here. HTML reports remain unimplemented.
 
 Tests use synthetic inputs; no suspicious fixture is executed. JSON Schema documents types and field constraints, but Python validators also enforce semantic and cross-record constraints. Validating a file with a generic JSON Schema checker alone is not equivalent to `load_snapshot`.

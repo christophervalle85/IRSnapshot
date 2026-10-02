@@ -265,7 +265,7 @@ def test_keyboard_interrupt_propagates_without_later_sources(monkeypatch):
     assert calls == [CollectorName.SYSTEM, CollectorName.PROCESSES]
 
 
-def test_real_collectors_integrate_through_typed_adapter_and_round_trip(tmp_path):
+def test_real_collectors_integrate_through_typed_adapter_and_round_trip(tmp_path, monkeypatch):
     """Catch broken interfaces between the seven real normalizers and snapshot model."""
     from irsnapshot.analyzers.engine import analyze_snapshot
     from irsnapshot.collectors.contracts import (
@@ -354,3 +354,20 @@ def test_real_collectors_integrate_through_typed_adapter_and_round_trip(tmp_path
     restored = load_snapshot(destination)
     assert restored.snapshot_id == snapshot.snapshot_id
     assert analyze_snapshot(restored).snapshot_id == snapshot.snapshot_id
+
+    # Exercise the full workflow through the same seven actual normalizers.
+    import irsnapshot.investigation as investigation
+    from irsnapshot.models import InvestigationReport
+    workflow_ids = iter(range(100, 120))
+    workflow_context = CollectionContext(snapshot_id=UUID(int=2), clock=Clock(),
+                                        id_factory=lambda: UUID(int=next(workflow_ids)),
+                                        windows=TypedAdapter())
+    monkeypatch.setattr(investigation, 'collect_snapshot', lambda: collect_snapshot(workflow_context))
+    output = tmp_path / 'full-investigation'
+    report = investigation.run_investigation(output)
+    assert all(run.status == CollectionStatus.OK for run in report.snapshot.collector_runs)
+    assert len(report.snapshot.collector_runs) == 7
+    assert load_snapshot(output / 'snapshot.json') == report.snapshot
+    assert InvestigationReport.model_validate_json((output / 'analysis.json').read_bytes()) == report
+    assert 'example-host' in (output / 'report.html').read_text()
+    assert report.analysis.network_links[0].process_id == report.snapshot.processes[0].artifact_id

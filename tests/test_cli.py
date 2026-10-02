@@ -18,15 +18,13 @@ runner = CliRunner()
 
 
 def assert_milestone_help(output: str) -> None:
-    assert "IRSnapshot Milestone 4" in output
+    assert "IRSnapshot Milestone 5" in output
     assert "--version" in output
     assert "--help" in output
     assert "analyze" in output
     assert "collect" in output
-    assert not re.search(
-        r"(?m)^\s+(report|run)\s",
-        output,
-    )
+    assert "report" in output
+    assert "run" in output
 
 
 def test_version_matches_package_version() -> None:
@@ -36,7 +34,7 @@ def test_version_matches_package_version() -> None:
     assert result.stdout.strip() == f"IRSnapshot {__version__}"
 
 
-def test_help_describes_the_current_milestone_without_future_commands() -> None:
+def test_help_describes_all_available_commands() -> None:
     result = runner.invoke(app, ["--help"], color=False)
 
     assert result.exit_code == 0
@@ -51,10 +49,10 @@ def test_bare_invocation_prints_help_and_succeeds() -> None:
 
 
 def test_nonexistent_command_is_a_usage_error() -> None:
-    result = runner.invoke(app, ["report"], color=False)
+    result = runner.invoke(app, ["unknown-command"], color=False)
 
     assert result.exit_code == 2
-    assert "No such command 'report'" in result.output
+    assert "No such command 'unknown-command'" in result.output
 
 
 @pytest.mark.parametrize(
@@ -63,7 +61,7 @@ def test_nonexistent_command_is_a_usage_error() -> None:
         (("--help",), 0),
         (("--version",), 0),
         ((), 0),
-        (("report",), 2),
+        (("unknown-command",), 2),
     ],
 )
 def test_python_module_entry_point(
@@ -87,7 +85,7 @@ def test_python_module_entry_point(
     elif arguments in {("--help",), ()}:
         assert_milestone_help(result.stdout)
     else:
-        assert "No such command 'report'" in result.stderr
+        assert "No such command 'unknown-command'" in result.stderr
 
 
 def test_analyze_benign_and_json_output(tmp_path):

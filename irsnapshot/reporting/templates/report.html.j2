@@ -1,0 +1,108 @@
+{% macro coverage_hint(source) -%}Source status: <strong>{{ coverage[source].status.value }}</strong>. <a href="#coverage-{{ source }}">Review {{ source }} coverage and limits</a>.{%- endmacro %}
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IRSnapshot analyst report · {{ snapshot.snapshot_id }}</title>
+<style>
+:root { color-scheme: light; --ink:#172b3a; --muted:#435b6e; --line:#c9d5de; --paper:#fff; --wash:#edf3f6; --accent:#005a70; }
+* { box-sizing:border-box; } body { margin:0; background:var(--wash); color:var(--ink); font:16px/1.55 system-ui,sans-serif; }
+a { color:var(--accent); text-underline-offset:.18em; } a:focus-visible,summary:focus-visible { outline:3px solid #b14b00; outline-offset:3px; }
+header,main,footer { max-width:1180px; margin:auto; padding:2rem; } header { padding-top:3rem; }
+.eyebrow { font-size:.78rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); }
+h1 { font-size:clamp(2rem,4vw,3.3rem); line-height:1.1; letter-spacing:-.04em; margin:.6rem 0 1rem; }
+h2 { font-size:1.45rem; margin:0 0 1.2rem; } h3 { font-size:1.1rem; } p { margin:.65rem 0; } .muted { color:var(--muted); }
+nav { display:flex; flex-wrap:wrap; gap:.6rem 1.2rem; margin-top:1.5rem; } main { padding-top:0; }
+section { background:var(--paper); border-top:3px solid var(--accent); padding:1.7rem; margin-bottom:1.5rem; scroll-margin-top:1rem; }
+.counts { display:flex; flex-wrap:wrap; gap:1rem 2rem; margin:1rem 0; } .counts strong { display:block; font-size:1.65rem; }
+.status { display:inline-block; padding:.18rem .55rem; border:1px solid var(--line); border-radius:.2rem; font-weight:700; }
+.partial,.incomplete { color:#7c3100; background:#fff0df; } .complete { color:#174c32; background:#eaf6ed; }
+.critical,.high { color:#8a1720; background:#ffedf0; } .medium { color:#754100; background:#fff1d9; } .low,.informational { color:#174b68; background:#eaf3ff; }
+.table-wrap { overflow-x:auto; } table { width:100%; border-collapse:collapse; font-size:.92rem; } caption { text-align:left; font-weight:700; margin-bottom:.7rem; }
+.coverage-table { min-width:650px; table-layout:fixed; } .coverage-table col:nth-child(1) { width:11rem; } .coverage-table col:nth-child(2) { width:6rem; } .coverage-table col:nth-child(3),.coverage-table col:nth-child(5) { width:4rem; }
+.coverage-table th,.coverage-table td:nth-child(2),.coverage-table td:nth-child(3),.coverage-table td:nth-child(5) { white-space:nowrap; }
+.network-table { min-width:800px; table-layout:fixed; } .network-table col:nth-child(1) { width:8rem; } .network-table col:nth-child(2) { width:32%; } .network-table col:nth-child(3) { width:10rem; } .network-table th,.compact { white-space:nowrap; }
+th,td { text-align:left; vertical-align:top; border-bottom:1px solid var(--line); padding:.7rem .55rem; overflow-wrap:anywhere; } th { background:var(--wash); }
+code,pre { font: .86rem/1.5 ui-monospace,monospace; white-space:pre-wrap; overflow-wrap:anywhere; word-break:break-word; } pre { padding:1rem; background:#f2f5f7; border:1px solid var(--line); }
+dl { display:grid; grid-template-columns:minmax(9rem,1fr) 3fr; gap:.35rem 1rem; } dt { font-weight:600; } dd { margin:0; overflow-wrap:anywhere; }
+article { border:1px solid var(--line); border-left:4px solid var(--accent); padding:1.15rem; margin:1rem 0; overflow-wrap:anywhere; }
+article h3 { margin:.6rem 0; } details { border-bottom:1px solid var(--line); padding:.7rem 0; } summary { cursor:pointer; font-weight:600; overflow-wrap:anywhere; }
+.note { border-left:3px solid #7892a3; padding:.6rem 1rem; background:#f2f6f8; } .depth { color:var(--muted); display:block; font-size:.8rem; }
+@media(max-width:640px) { header,main,footer { padding:1rem; } section { padding:1rem; } dl { grid-template-columns:1fr; } dd { margin-bottom:.5rem; } }
+@media print { .table-wrap { overflow:visible; } .coverage-table,.network-table { min-width:0; table-layout:auto; } .coverage-table th,.coverage-table td,.network-table th,.compact { white-space:normal; } body { background:white; font-size:10pt; } header,main,footer { padding:.4rem; max-width:none; } nav { display:none; } section { border-top:1px solid #435b6e; padding:.6rem 0; } article { break-inside:avoid; } th { background:white; } a { color:inherit; } details { break-inside:auto; } }
+</style>
+</head>
+<body>
+<header>
+<div class="eyebrow">IRSnapshot · Local incident response</div>
+<h1>Analyst investigation report</h1>
+<p>{{ snapshot.system.hostname if snapshot.system and snapshot.system.hostname else 'Host unavailable' }} · <code>{{ snapshot.snapshot_id }}</code></p>
+<p class="muted">Captured {{ snapshot.started_at|utc }} — {{ snapshot.finished_at|utc }}<br>Capture tool {{ snapshot.tool_version }} · Snapshot schema {{ snapshot.schema_version }} · Analysis schema {{ analysis.schema_version }} · Ruleset {{ analysis.ruleset_version }}</p>
+<nav aria-label="Report sections">
+{% for anchor,label in [('summary','Summary'),('system','System'),('findings','Findings'),('ancestry','Process ancestry'),('processes','Referenced processes'),('network','Network'),('persistence','Persistence'),('timeline','Timeline'),('issues','Issues'),('raw','Raw evidence')] %}<a href="#{{ anchor }}">{{ label }}</a>{% endfor %}
+</nav>
+</header>
+<main>
+<section id="summary">
+<h2>Summary and collection coverage</h2>
+<p><span class="status {{ 'partial' if partial else 'complete' }}">{{ 'Partial investigation' if partial else 'Investigation complete' }}</span> · Analysis: <strong>{{ 'Complete' if analysis.complete else 'Incomplete' }}</strong></p>
+<p>Findings are review priorities from supported rules, not verdicts. Associations do not inherit severity.</p>
+<div class="counts">{% for label,count in counts %}<div><strong>{{ count }}</strong>{{ label }} findings</div>{% endfor %}</div>
+{% if not findings %}<p class="note">No findings. This is not malware clearance: only supported rules and available evidence were evaluated. A clean result does not prove a clean host.</p>{% endif %}
+<div class="table-wrap"><table class="coverage-table"><colgroup><col><col><col><col><col></colgroup><caption>Collection coverage</caption><thead><tr><th scope="col">Source</th><th scope="col">Status</th><th scope="col">Items</th><th scope="col">Scope and limits</th><th scope="col">Issues</th></tr></thead><tbody>
+{% for run in snapshot.collector_runs %}<tr id="coverage-{{ run.collector.value }}"><th scope="row">{{ run.collector.value }}</th><td>{{ run.status.value }}</td><td>{{ run.item_count }}</td><td>{% for scope in run.scope %}<p>{{ scope }}</p>{% endfor %}</td><td>{{ run.issues|length }}</td></tr>{% endfor %}
+</tbody></table></div>
+<p class="muted">Zero items means none captured within the recorded scope. Partial, failed, and skipped sources cannot establish absence.</p>
+</section>
+<section id="system"><h2>System and identity</h2>
+{% if snapshot.system %}{% set system = snapshot.system %}<dl>
+{% for label,value in [('Hostname',system.hostname),('Windows version',system.windows_version),('Architecture',system.architecture),('Collector username',system.collector_username),('Collector SID',system.collector_sid)] %}<dt>{{ label }}</dt><dd>{{ value if value is not none else 'unavailable' }}</dd>{% endfor %}
+<dt>Elevated</dt><dd>{{ 'unavailable' if system.elevated is none else ('yes' if system.elevated else 'no') }}</dd><dt>Reported system time</dt><dd>{{ system.current_time|utc }}</dd><dt>Reported boot time</dt><dd>{{ system.boot_time|utc }}</dd><dt>Observed</dt><dd>{{ system.observed_at|utc }}</dd>
+</dl>{% else %}<p>System information unavailable. {{ coverage_hint('system') }}</p>{% endif %}
+<details><summary>User and session inventory · {{ snapshot.users|length }} items</summary>{% for user in snapshot.users %}<pre>{{ user.model_dump(mode='json')|evidence_json }}</pre>{% else %}<p>No users captured. {{ coverage_hint('users') }}</p>{% endfor %}</details>
+</section>
+<section id="findings"><h2>Findings · {{ findings|length }}</h2>
+{% for finding in findings %}<article id="finding-{{ finding.finding_id }}">
+<span class="status {{ finding.severity.value }}">{{ finding.severity.value }}</span> <code>{{ finding.rule_id }}</code><h3>{{ finding.title }}</h3><p>{{ finding.description }}</p>
+{% if finding.mitre_technique %}<p>MITRE technique: {{ finding.mitre_technique }}</p>{% endif %}
+<p>Artifacts: {% for ident in finding.artifact_ids %}<a href="#artifact-{{ ident }}">{{ ident }}</a>{% if not loop.last %}, {% endif %}{% endfor %} · PIDs: {{ finding.pids|join(', ') or 'none' }}</p>
+{% for evidence in finding.evidence %}<details><summary>Evidence · {{ evidence.field }}</summary><p>{{ evidence.explanation }}</p><p>Artifact: <code>{{ evidence.artifact_id }}</code></p><pre>{{ evidence.value|evidence_json }}</pre></details>{% endfor %}
+{% set context = contexts.get(finding.finding_id) %}{% if context %}<h4>Correlation context</h4><p class="muted">Associations only; not additional findings or proof of historical ownership.</p><dl>
+{% for label,ids in [('Processes',context.process_ids),('Ancestors',context.ancestor_ids),('Immediate children',context.child_ids)] %}<dt>{{ label }}</dt><dd>{% for ident in ids %}<a href="#artifact-{{ ident }}">{{ processes[ident].name or 'unknown' }} (PID {{ processes[ident].pid }})</a>{% if not loop.last %}, {% endif %}{% else %}none{% endfor %}</dd>{% endfor %}
+<dt>Connections</dt><dd>{% for ident in context.connection_ids %}<a href="#artifact-{{ ident }}">{{ ident }}</a>{% if not loop.last %}, {% endif %}{% else %}none{% endfor %}</dd></dl>{% endif %}
+</article>{% else %}<p>No findings. Review coverage and limitations before concluding an investigation.</p>{% endfor %}
+</section>
+<section id="ancestry"><h2>Process ancestry</h2><p>Reported PPIDs and creation times inform parent links. Unverified, missing, newer-parent and cycle-broken links retain uncertainty. The flat traversal is labelled by depth; associations do not transfer suspicion.</p>
+<div class="table-wrap"><table><thead><tr><th scope="col">Process / depth</th><th scope="col">Reported PPID</th><th scope="col">Parent status</th><th scope="col">Associated parent</th></tr></thead><tbody>
+{% for process,node,depth in tree_rows %}<tr><td><span class="depth">Depth {{ depth }}</span><a href="#artifact-{{ process.artifact_id }}">{{ process.name or 'unknown' }} (PID {{ process.pid }})</a></td><td>{{ process.ppid if process.ppid is not none else 'unavailable' }}</td><td>{{ node.parent_status }}</td><td>{% if node.parent_id %}{{ processes[node.parent_id].name or 'unknown' }} (PID {{ processes[node.parent_id].pid }}){% else %}none{% endif %}</td></tr>{% endfor %}
+{% for process in missing_tree %}<tr><td><a href="#artifact-{{ process.artifact_id }}">{{ process.name or 'unknown' }} (PID {{ process.pid }})</a></td><td>{{ process.ppid if process.ppid is not none else 'unavailable' }}</td><td>not represented in tree</td><td>unavailable</td></tr>{% endfor %}
+</tbody></table></div>{% if not snapshot.processes %}<p>No processes captured. {{ coverage_hint('processes') }}</p>{% endif %}
+</section>
+<section id="processes"><h2>Referenced processes</h2><p class="muted">Finding artifacts and supplied correlation context, including ancestors and children.</p>
+{% for process in referenced %}<details><summary>{{ process.name or 'unknown' }} · PID {{ process.pid }} · {{ process.username or 'user unavailable' }}</summary><dl><dt>Executable</dt><dd><code>{{ process.executable if process.executable is not none else 'unavailable' }}</code></dd><dt>Reported creation</dt><dd>{{ process.created_at|utc }}</dd><dt>Observed</dt><dd>{{ process.observed_at|utc }}</dd></dl><pre>{{ process.command_line|evidence_json }}</pre><a href="#artifact-{{ process.artifact_id }}">Complete process evidence</a></details>{% else %}<p>No processes referenced by findings or correlation context.</p>{% endfor %}
+</section>
+<section id="network"><h2>Network ownership</h2><p>Snapshot PID associations are not historical ownership proof. Missing owners and temporal conflicts remain explicit.</p>
+<div class="table-wrap"><table class="network-table"><colgroup><col><col><col><col></colgroup><thead><tr><th scope="col">Connection</th><th scope="col">Local → remote</th><th scope="col">State / owning PID</th><th scope="col">Association status / process</th></tr></thead><tbody>
+{% for connection in snapshot.network %}{% set link=links.get(connection.artifact_id) %}<tr><td><a href="#artifact-{{ connection.artifact_id }}">{{ connection.protocol }} / {{ connection.family }}</a></td><td><code>{{ '[' ~ connection.local.address ~ ']' if connection.family == 'ipv6' else connection.local.address }}:{{ connection.local.port }} → {% if connection.remote %}{{ '[' ~ connection.remote.address ~ ']' if connection.family == 'ipv6' else connection.remote.address }}:{{ connection.remote.port }}{% else %}none{% endif %}</code></td><td>{{ connection.state or 'unavailable' }} / {{ connection.owning_pid if connection.owning_pid is not none else 'unavailable' }}</td><td><span class="compact">{{ link.status if link else 'association unavailable' }}</span>{% if link and link.process_id %}<br><a href="#artifact-{{ link.process_id }}">{{ processes[link.process_id].name or 'unknown' }} (PID {{ processes[link.process_id].pid }})</a>{% endif %}</td></tr>{% endfor %}
+</tbody></table></div>{% if not snapshot.network %}<p>No network items captured. {{ coverage_hint('network') }}</p>{% endif %}
+</section>
+<section id="persistence"><h2>Persistence</h2><h3>Persistence findings</h3>{% for finding in persistence_findings %}<p><span class="status {{ finding.severity.value }}">{{ finding.severity.value }}</span> <a href="#finding-{{ finding.finding_id }}">{{ finding.title }}</a> · {{ finding.rule_id }}</p>{% else %}<p>No persistence findings from supported rules and available evidence.</p>{% endfor %}
+{% for name,source,items in [('Persistence entries','persistence',snapshot.persistence),('Services','services',snapshot.services),('Scheduled tasks','scheduled_tasks',snapshot.scheduled_tasks)] %}<details><summary>Complete {{ name|lower }} inventory · {{ items|length }} items</summary>{% for item in items %}<h4>{{ item.entry_name if name == 'Persistence entries' else item.name }}</h4><pre>{{ item.model_dump(mode='json')|evidence_json }}</pre>{% else %}<p>No {{ name|lower }} captured. {{ coverage_hint(source) }}</p>{% endfor %}</details>{% endfor %}
+</section>
+<section id="timeline"><h2>Factual timeline</h2><p>UTC only. Reported times come from artifacts; observed times mark collection boundaries. No event is invented for missing timestamps.</p><div class="table-wrap"><table><thead><tr><th scope="col">Time (UTC)</th><th scope="col">Basis</th><th scope="col">Kind</th><th scope="col">Description / evidence</th></tr></thead><tbody>
+{% for event in analysis.timeline %}<tr><td>{{ event.timestamp|utc }}</td><td>{{ event.basis }}</td><td>{{ event.kind }}</td><td>{{ event.description }}{% for ident in event.artifact_ids %}<br><a href="#artifact-{{ ident }}">{{ ident }}</a>{% endfor %}</td></tr>{% else %}<tr><td colspan="4">Timeline unavailable; no events supplied by analysis.</td></tr>{% endfor %}
+</tbody></table></div><p class="note">A point-in-time snapshot cannot reconstruct exited processes or past connections. Scheduled trigger boundaries remain raw task evidence and are not execution events.</p>
+</section>
+<section id="issues"><h2>Collection and analysis issues</h2><h3>Collection issues</h3>
+{% for run in snapshot.collector_runs %}{% for issue in run.issues %}<article><h4>{{ run.collector.value }} · {{ issue.category }}</h4><p>{{ issue.message }}</p><dl><dt>Observed</dt><dd>{{ issue.observed_at|utc }}</dd><dt>Field / target</dt><dd>{{ issue.field or 'unavailable' }} / {{ issue.target or 'unavailable' }}</dd><dt>Exception type</dt><dd>{{ issue.exception_type or 'none' }}</dd><dt>Artifact</dt><dd>{% if issue.artifact_id %}<a href="#artifact-{{ issue.artifact_id }}">{{ issue.artifact_id }}</a>{% else %}none{% endif %}</dd></dl></article>{% endfor %}{% endfor %}
+{% if not snapshot.collector_runs|selectattr('issues')|list %}<p>No collection issues recorded.</p>{% endif %}<h3>Analysis issues</h3>
+{% for issue in analysis.issues %}<article><h4>{{ issue.component }} · {{ issue.rule_id or 'component' }}</h4><p>{{ issue.message }}</p>{% for ident in issue.artifact_ids %}<a href="#artifact-{{ ident }}">{{ ident }}</a> {% endfor %}</article>{% else %}<p>No analysis issues recorded.</p>{% endfor %}
+</section>
+<section id="raw"><h2>Raw evidence</h2><p class="muted">Literal captured fields. Null means unavailable or inapplicable; inventory is bounded by collection scope. Artifact strings are evidence, never active external links.</p>
+{% for name,items in raw_groups %}<h3>{{ name }} · {{ items|length }} items</h3>{% for artifact in items %}<details id="artifact-{{ artifact.artifact_id }}"><summary>{{ name }} · {{ artifact.artifact_id }}</summary><pre>{{ artifact.model_dump(mode='json')|evidence_json }}</pre></details>{% else %}<p>No {{ name }} evidence available. {{ coverage_hint(name) }}</p>{% endfor %}{% endfor %}
+<details><summary>Path interpretation context</summary><pre>{{ snapshot.path_context.model_dump(mode='json')|evidence_json }}</pre></details>
+<details><summary>Complete analysis relationships and metadata</summary><pre>{{ analysis.model_dump(mode='json')|evidence_json }}</pre></details>
+</section>
+</main><footer class="muted">IRSnapshot · Evidence for analyst review. Location and command heuristics require context; unsupported grammar and collection gaps limit conclusions.</footer>
+</body></html>

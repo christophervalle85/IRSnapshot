@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "irsnapshot"
-version = "0.4.0"
+version = "0.5.0"
 description = "A bounded Windows incident-response snapshot tool"
 readme = "README.md"
 requires-python = ">=3.12"
@@ -31,3 +31,6 @@ namespaces = false
 addopts = ["--import-mode=importlib", "-m", "not windows_live"]
 testpaths = ["tests"]
 markers = ["windows_live: opt-in live Windows collection smoke test"]
+
+[tool.setuptools.package-data]
+"irsnapshot.reporting" = ["templates/*.j2"]

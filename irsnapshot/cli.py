@@ -9,6 +9,8 @@ from rich.console import Console
 
 from irsnapshot.analyzers.engine import analyze_snapshot
 from irsnapshot.pipeline import collect_snapshot
+from irsnapshot.investigation import InvestigationError, InvestigationInterrupted, run_investigation
+from irsnapshot.reporting.html_report import write_html_report
 from irsnapshot.models import CollectionStatus, InvestigationReport
 from irsnapshot.reporting.console import render_console
 from irsnapshot.reporting.json_report import write_json_report
@@ -20,7 +22,7 @@ from irsnapshot import __version__
 
 app = typer.Typer(
     name="irsnapshot",
-    help="IRSnapshot Milestone 4: local Windows collection and offline snapshot analysis.",
+    help="IRSnapshot Milestone 5: local Windows investigation and offline reports.",
     add_completion=False,
     invoke_without_command=True,
     no_args_is_help=False,
@@ -135,3 +137,75 @@ def analyze(
         raise typer.Exit(1)
     partial = not result.complete or any(run.status != CollectionStatus.OK for run in original.collector_runs)
     raise typer.Exit(3 if partial else 0)
+
+
+def _report_partial(report: InvestigationReport) -> bool:
+    return not report.analysis.complete or any(run.status != CollectionStatus.OK for run in report.snapshot.collector_runs)
+
+
+def _report_summary(report: InvestigationReport, output: Path) -> None:
+    partial = _report_partial(report)
+    typer.echo(f'Investigation {report.snapshot.snapshot_id}; output: {safe_text(str(output))}')
+    typer.echo('Outcome: ' + ('partial investigation' if partial else 'complete investigation')
+               + f'; {len(report.analysis.findings)} findings; analysis '
+               + ('complete' if report.analysis.complete else 'incomplete'))
+    typer.echo('Coverage: ' + '; '.join(
+        f'{run.collector.value} {run.status.value} ({run.item_count} items, {len(run.issues)} issues)'
+        for run in report.snapshot.collector_runs))
+    if not report.analysis.findings:
+        typer.echo('No findings from supported rules and available evidence; this is not malware clearance.')
+
+
+@app.command()
+def report(
+    snapshot: Annotated[Path, typer.Argument(help='Existing UTF-8 snapshot JSON to report offline.')],
+    output: Annotated[Path, typer.Option('--output', help='Save a standalone HTML analyst report.')],
+    overwrite: Annotated[bool, typer.Option('--overwrite', help='Replace an existing report; never the input snapshot.')] = False,
+) -> None:
+    """Analyze a saved snapshot and publish standalone HTML without collection."""
+    try:
+        original = load_snapshot(snapshot)
+        _guard_input(snapshot, output)
+        result = InvestigationReport(snapshot=original, analysis=analyze_snapshot(original))
+        _guard_input(snapshot, output)
+        write_html_report(result, output, overwrite=overwrite)
+        _report_summary(result, output)
+    except KeyboardInterrupt:
+        typer.echo('Report interrupted.', err=True)
+        raise typer.Exit(130)
+    except (SnapshotValidationError, _InputAliasError) as exc:
+        typer.echo(safe_text(str(exc)), err=True)
+        raise typer.Exit(2)
+    except Exception as exc:
+        typer.echo(f'Report failed ({type(exc).__name__}). Check the input and output paths and available storage.', err=True)
+        raise typer.Exit(1)
+    raise typer.Exit(3 if _report_partial(result) else 0)
+
+
+@app.command()
+def run(
+    output: Annotated[Path, typer.Option('--output', help='Save snapshot, JSON analysis, HTML report and local log in this directory.')],
+    overwrite: Annotated[bool, typer.Option('--overwrite', help='Replace reserved artifacts while preserving unrelated files.')] = False,
+) -> None:
+    """Collect local Windows evidence, preserve the snapshot and publish reports."""
+    try:
+        result = run_investigation(output, overwrite=overwrite)
+        _report_summary(result, output)
+    except KeyboardInterrupt as exc:
+        typer.echo('Investigation interrupted.', err=True)
+        if isinstance(exc, InvestigationInterrupted) and exc.snapshot_path is not None:
+            typer.echo(f'Snapshot preserved: {safe_text(str(exc.snapshot_path))}', err=True)
+        raise typer.Exit(130)
+    except Exception as exc:
+        from irsnapshot.collectors.windows import UnsupportedPlatformError
+        cause = exc.__cause__ if isinstance(exc, InvestigationError) else exc
+        if isinstance(cause, UnsupportedPlatformError):
+            typer.echo('Live collection requires Windows 10/11 x64 and 64-bit Python. Use analyze or report with a saved snapshot on this host.', err=True)
+        elif isinstance(exc, InvestigationError):
+            typer.echo(f'Investigation failed during {exc.stage}. Check irsnapshot.log and available storage.', err=True)
+        else:
+            typer.echo('Investigation could not start. Use a new or empty output directory, or --overwrite; check reserved artifact names and available storage.', err=True)
+        if isinstance(exc, InvestigationError) and exc.snapshot_path is not None:
+            typer.echo(f'Snapshot preserved: {safe_text(str(exc.snapshot_path))}', err=True)
+        raise typer.Exit(1)
+    raise typer.Exit(3 if _report_partial(result) else 0)

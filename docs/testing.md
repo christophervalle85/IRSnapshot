@@ -6,9 +6,9 @@ Verified on 2026-10-02 on macOS (ARM64). These checks cover offline reporting an
 
 | Check | Result |
 |---|---|
-| Full portable suite, Python 3.12.14 | 540 passed, 1 live test deselected |
-| Full portable suite, Python 3.14.7 | 540 passed, 1 live test deselected |
-| Focused reporting/workflow/collection integration suite | 108 passed |
+| Full portable suite, Python 3.12.14 | 544 passed, 1 live test deselected |
+| Full portable suite, Python 3.14.7 | 544 passed, 1 live test deselected |
+| Focused cleanup and workflow CLI regression suite | 67 passed |
 | Package, test, and example compilation | Passed |
 | Dependency integrity, both development environments and clean install | No broken requirements |
 | Whitespace/error diff check | Passed |
@@ -27,6 +27,8 @@ Verified on 2026-10-02 on macOS (ARM64). These checks cover offline reporting an
 New cases exercise escaped HTML and issue text, safe static anchors, visible partial coverage, severity ordering, missing tree/ownership associations, 1,300-level iterative ancestry, invalid mutable reports, bounded atomic HTML publication, all four CLI commands, and input alias protection. The end-to-end collection test now carries all seven actual collectors through analysis and both report writers with only the typed Windows adapter replaced.
 
 Workflow tests inject failures at analysis, JSON publication, and HTML publication, including keyboard interruption, and then reload the saved snapshot. Overwrite tests preserve unrelated files and earlier evidence until replacement publication succeeds. Logging tests exercise hard-link replacement, opening/write failures, escaped chained diagnostics, handler restoration, and source failures inside the actual collection pipeline.
+
+Independent specification and quality review found a stale-output cleanup failure: an error removing the old JSON report prevented removal of the old HTML report. Cleanup now attempts both files before surfacing the error, and regression tests cover refusal of either removal while preserving the new snapshot and unrelated files. Scoped re-review approved the repair.
 
 One regression exposed a subtle publication boundary: the snapshot writer can finish publishing before its diagnostic log write fails. Logging errors now latch and surface at controlled workflow boundaries, allowing the workflow to record the saved snapshot and clear stale derived outputs before stopping. A separate integration check ensures collector isolation cannot hide a failed log as an ordinary partial success.
 

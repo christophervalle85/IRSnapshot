@@ -283,3 +283,32 @@ def test_collector_isolation_cannot_hide_fatal_log_failure(tmp_path, monkeypatch
     assert not (tmp_path / 'snapshot.json').exists()
     assert not (tmp_path / 'report.html').exists()
     assert capsys.readouterr().err == ''
+
+
+@pytest.mark.parametrize('denied', ['analysis.json', 'report.html'])
+def test_cleanup_failure_attempts_both_stale_reports_and_preserves_new_snapshot(tmp_path, monkeypatch, denied):
+    import irsnapshot.investigation as investigation
+    snapshot = install_collection(monkeypatch)
+    for name in ['snapshot.json', 'analysis.json', 'report.html', 'notes.txt']:
+        (tmp_path / name).write_text('prior evidence')
+    original_unlink = Path.unlink
+    failure = PermissionError('private cleanup path\x1b[2J')
+    def deny_one(path, *args, **kwargs):
+        if path == tmp_path / denied:
+            raise failure
+        return original_unlink(path, *args, **kwargs)
+    monkeypatch.setattr(Path, 'unlink', deny_one)
+    monkeypatch.setattr(investigation, 'analyze_snapshot', lambda *args: pytest.fail('analysis ran after stale cleanup failure'))
+    with pytest.raises(investigation.InvestigationError) as caught:
+        investigation.run_investigation(tmp_path, overwrite=True)
+    assert caught.value.stage == 'stale report cleanup'
+    assert caught.value.snapshot_path == tmp_path / 'snapshot.json'
+    assert caught.value.__cause__ is failure
+    assert load_snapshot(tmp_path / 'snapshot.json') == snapshot
+    assert (tmp_path / denied).read_text() == 'prior evidence'
+    other = 'report.html' if denied == 'analysis.json' else 'analysis.json'
+    assert not (tmp_path / other).exists()
+    assert (tmp_path / 'notes.txt').read_text() == 'prior evidence'
+    log = (tmp_path / 'irsnapshot.log').read_text()
+    assert 'stale report cleanup' in log and 'PermissionError' in log
+    assert 'completed' not in log.lower()

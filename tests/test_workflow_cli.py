@@ -154,3 +154,33 @@ def test_run_incomplete_analysis_publishes_partial_report(tmp_path, monkeypatch)
     assert 'partial investigation' in result.output and 'analysis incomplete' in result.output
     assert 'Incomplete' in (tmp_path / 'report.html').read_text()
     assert (tmp_path / 'snapshot.json').exists()
+
+
+@pytest.mark.parametrize('denied', ['analysis.json', 'report.html'])
+def test_run_cleanup_failure_reports_preserved_snapshot_without_raw_exception(tmp_path, monkeypatch, denied):
+    import irsnapshot.investigation as investigation
+    snapshot = load_snapshot(ROOT / 'samples/benign.snapshot.json')
+    monkeypatch.setattr(investigation, 'collect_snapshot', lambda: snapshot)
+    output = tmp_path / 'capture\x07'
+    output.mkdir()
+    for name in ['snapshot.json', 'analysis.json', 'report.html', 'notes.txt']:
+        (output / name).write_text('prior evidence')
+    original_unlink = Path.unlink
+    def deny_one(path, *args, **kwargs):
+        if path == output / denied:
+            raise PermissionError('private cleanup error\x1b[2J')
+        return original_unlink(path, *args, **kwargs)
+    monkeypatch.setattr(Path, 'unlink', deny_one)
+    monkeypatch.setattr(investigation, 'analyze_snapshot', lambda *args: pytest.fail('analysis ran after cleanup failure'))
+    result = runner.invoke(app, ['run', '--output', str(output), '--overwrite'])
+    assert result.exit_code == 1, result.output
+    assert 'failed during stale report cleanup' in result.output
+    assert 'Snapshot preserved:' in result.output and 'capture\\x07' in result.output
+    assert 'private cleanup error' not in result.output
+    assert '\x07' not in result.output and '\x1b' not in result.output
+    assert 'completed' not in result.output.lower()
+    assert load_snapshot(output / 'snapshot.json') == snapshot
+    assert (output / denied).read_text() == 'prior evidence'
+    other = 'report.html' if denied == 'analysis.json' else 'analysis.json'
+    assert not (output / other).exists()
+    assert (output / 'notes.txt').read_text() == 'prior evidence'

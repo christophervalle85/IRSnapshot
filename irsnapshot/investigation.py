@@ -139,8 +139,17 @@ def run_investigation(output: Path, *, overwrite: bool = False) -> Investigation
                 # that could fail after the new evidence has been published.
                 stage = 'stale report cleanup'
                 if overwrite:
+                    cleanup_error: OSError | None = None
                     for name in ('analysis.json', 'report.html'):
-                        (output / name).unlink(missing_ok=True)
+                        try:
+                            (output / name).unlink(missing_ok=True)
+                        except OSError as exc:
+                            # One inaccessible report must not preserve the other
+                            # stale artifact beside the newly published snapshot.
+                            if cleanup_error is None:
+                                cleanup_error = exc
+                    if cleanup_error is not None:
+                        raise cleanup_error
                 logger.info('Snapshot saved to %s', snapshot_path)
                 diagnostics.check()
                 stage = 'analysis'

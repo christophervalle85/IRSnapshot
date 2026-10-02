@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.5.0 — Milestone 5
+
+- Add a packaged Jinja2 HTML report with escaped evidence, inline styles, print support, and no scripts or external assets.
+- Present collection and analysis completeness, prioritized findings, process ancestry, network ownership, persistence inventory, factual UTC timeline, and raw evidence.
+- Add `report SNAPSHOT --output PATH [--overwrite]` for offline HTML generation with input preservation.
+- Add `run --output DIRECTORY [--overwrite]` for snapshot, JSON analysis, HTML report, and a scoped diagnostic log.
+- Save the snapshot before downstream work; preserve it after analysis/reporting failure and prevent stale reports from representing a new run.
+- Add HTML, CLI, output-safety, recovery, and logging regression tests plus a reporting guide.
+
+Snapshot and analysis schemas remain `1.0`; ruleset remains `1.0.0`. Actual Windows integration remains unverified on the macOS development host.
+
 ## 0.4.0 — Milestone 4
 
 - Add Windows system, process, network, user, service, scheduled-task, and persistence collectors.

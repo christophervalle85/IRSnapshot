@@ -1,6 +1,6 @@
 # Interpretation and operational limits
 
-IRSnapshot 0.4.0 implements local Windows evidence collection and offline analysis. It is a portfolio triage project, not an EDR, antivirus, continuous monitor, remediation tool, or forensic acquisition system. HTML reporting remains a later milestone. Windows collectors have portable fixture tests; live Windows integration remains unverified on the available development host.
+IRSnapshot 0.5.0 implements local Windows evidence collection, offline analysis, standalone HTML reports, and investigation orchestration. It is a portfolio triage project, not an EDR, antivirus, continuous monitor, remediation tool, or forensic acquisition system. Windows collectors have portable fixture tests; live Windows integration remains unverified on the available development host.
 
 ## Snapshot scope
 
@@ -22,11 +22,13 @@ The factual timeline uses captured boot, process-start, and session-logon times,
 
 ## Local files and output
 
-Analysis performs no network requests or endpoint queries and never executes captured commands. Console evidence is rendered as literal text with control characters visible. JSON retains the original evidence, including command lines, usernames, addresses, and collection errors; those fields may contain sensitive information in real snapshots. Review the actual content before sharing a report.
+Analysis and offline reporting perform no network requests or endpoint queries and never execute captured commands. Console evidence is rendered as literal text with control characters visible. HTML escapes source evidence, has no scripts or external assets, and never turns artifact strings into active links. JSON and HTML retain evidence including command lines, usernames, addresses, and collection errors; those fields may contain sensitive information in real snapshots. Review the actual content before sharing a report.
 
 The JSON report is a separate envelope containing `snapshot` and `analysis`; it is not itself a snapshot input to `analyze`. The output destination cannot alias the input snapshot, even when overwrite is requested. Other existing reports are preserved unless `--overwrite` is supplied. Atomic publication requires filesystem support: new-file no-clobber publication uses a hard link, and replacement uses an atomic rename. This is not chain-of-custody tooling or a power-loss durability guarantee.
 
-Snapshot input is bounded at 64 MiB. JSON investigation-report output is bounded at 128 MiB; oversized reports fail before publication. This limit accommodates derived evidence while keeping output behavior explicit. Very large trees or findings can still produce substantial terminal output and use memory. There is no streaming analysis or performance guarantee for every endpoint size.
+The investigation folder is not a transactional database. Each evidence/report file is published atomically, but the complete set is not a single atomic operation. A failed downstream stage can leave a saved snapshot and log without a complete report. Under explicit overwrite, old derived reports are removed after the new snapshot is published and before analysis. If that cleanup itself fails, the run stops; earlier reports may remain, so check snapshot IDs before using outputs from a failed folder. The local log is written incrementally after its initial publication. Use a separate folder per investigation when retaining prior output matters; see [recovery behavior](reporting.md).
+
+Snapshot input is bounded at 64 MiB. JSON and HTML investigation-report output are bounded at 128 MiB each; oversized reports fail before publication. This limit accommodates derived evidence while keeping output behavior explicit. Very large trees or findings can still produce substantial output and use memory before the output-size check. There is no streaming analysis or performance guarantee for every endpoint size.
 
 ## Verification scope
 

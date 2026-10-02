@@ -1,6 +1,6 @@
 # IRSnapshot v1.0 — proposed architecture and milestone contract
 
-Status: accepted design. Milestones 1–4 are implemented; live Windows validation remains pending. Later milestones remain planned. See README and testing.md for current capabilities and verification.
+Status: accepted design. Milestones 1–5 are implemented; Milestone 6 release validation and live Windows execution remain pending. See README and testing.md for current capabilities and verification.
 
 ## 1. Scope and recommended approach
 
@@ -40,6 +40,7 @@ IRSnapshot/
 │   ├── models.py
 │   ├── severity.py
 │   ├── pipeline.py
+│   ├── investigation.py
 │   ├── storage.py
 │   ├── collectors/
 │   │   ├── __init__.py
@@ -105,12 +106,13 @@ IRSnapshot/
     ├── architecture.md
     ├── data-model.md
     ├── collection.md
+    ├── reporting.md
     ├── rules.md
     ├── testing.md
     └── limitations.md
 ```
 
-`pipeline.py` coordinates work; it contains no detection expressions or presentation logic. `storage.py` validates input and handles snapshot file output. `collectors/windows.py` owns the narrow platform adapters, PowerShell transport, and explicit response models. `analyzers/commands.py` and `paths.py` are pure parsing/classification helpers. `correlation/relationships.py` joins findings to already-built tree/network relationships.
+`pipeline.py` coordinates collection; `investigation.py` coordinates snapshot-first analysis/report publication and scoped logging. Neither contains detection expressions or presentation logic. `storage.py` validates input and handles snapshot file output. `collectors/windows.py` owns the narrow platform adapters, PowerShell transport, and explicit response models. `analyzers/commands.py` and `paths.py` are pure parsing/classification helpers. `correlation/relationships.py` joins findings to already-built tree/network relationships.
 
 Runtime dependencies are exactly the five requested libraries: Typer, Rich, Pydantic, psutil, Jinja2. Test/build dependencies include pytest and a standard packaging backend; there is no general plugin system, database, ORM, queue, or rules language.
 
@@ -181,7 +183,7 @@ Findings require at least one evidence item and referenced artifact. Finding IDs
 
 ## 4. Component interfaces and data flow
 
-These signatures are design contracts. Milestones 1–4 implement storage, interpretation, analysis, console/JSON reporting, and Windows collection. HTML contracts remain planned. Collection uses injected adapter boundaries in portable tests; actual Windows integration requires separate verification.
+These signatures are design contracts. Milestones 1–5 implement storage, interpretation, analysis, console/JSON/HTML reporting, Windows collection, and investigation orchestration. Collection uses injected adapter boundaries in portable tests; actual Windows integration requires separate verification.
 
 | Component | Contract | Responsibility |
 |---|---|---|
@@ -203,6 +205,7 @@ These signatures are design contracts. Milestones 1–4 implement storage, inter
 | Console | `render_console(report: InvestigationReport, console: Console) -> None` | Rich summary and evidence; Console can be captured in tests. |
 | JSON report | `write_json_report(report: InvestigationReport, output: Path) -> None` | Separate derived report retaining the original snapshot. |
 | HTML report | `render_html(report: InvestigationReport) -> str`; `write_html_report(report, output: Path) -> None` | Jinja2 with escaping, packaged template, inline CSS, no remote assets. |
+| Investigation | `run_investigation(output: Path, *, overwrite=False) -> InvestigationReport` | Scoped logging, collection, snapshot publication before analysis, then JSON and HTML publication. |
 
 Data flow: Windows sources → collectors → validated SystemSnapshot → pure analysis/correlation → AnalysisResult → InvestigationReport → presentation. Reporting does not recollect or reinterpret evidence. Analyze and report never change the input snapshot.
 
@@ -287,7 +290,7 @@ irsnapshot run --output investigation/
 - `report`: analyzes the supplied snapshot using the current bundled ruleset and writes the standalone HTML report.
 - `run`: creates an output directory and writes `snapshot.json`, `analysis.json`, `report.html`, and `irsnapshot.log`. Save the snapshot before running analysis so evidence survives downstream failure.
 - `--version` and `--help` are available from the first implementation milestone. Other commands appear only when their implementation exists; no placeholder success commands.
-- Existing output files are refused by default; an explicit `--overwrite` permits replacement. `run` requires an empty/new directory unless overwrite was requested. Each file is written through a temporary sibling and published atomically; safe no-clobber publication is tested on Windows.
+- Existing output files are refused by default; an explicit `--overwrite` permits replacement. `run` requires an empty/new directory unless overwrite was requested. Evidence/report files are written through temporary siblings and published atomically; the log is initially published safely and then written incrementally. Safe no-clobber publication still requires Windows validation. Explicit run overwrite preserves unrelated files and removes old derived reports only after saving the new snapshot; see [recovery behavior](reporting.md).
 - Exit codes: `0` requested operation completed with no collection/analysis failures; `1` fatal I/O/platform/runtime failure; `2` usage, input-validation, or schema-version failure; `3` outputs produced with partial/failed collection or incomplete analysis. Findings alone do not cause a nonzero exit. Keyboard interruption uses `130`.
 
 The HTML report includes summary counts and coverage, system information, findings ordered by severity, a labelled process tree, processes referenced by findings, network activity with ownership status, persistence findings plus expandable inventory, factual timeline, collection and analysis issues, and expandable evidence details.
@@ -334,7 +337,7 @@ Exact checks introduced by milestone:
 .\.venv\Scripts\irsnapshot.exe collect --output snapshot.json
 
 # Milestone 5
-.\.venv\Scripts\python.exe -m pytest tests/test_reporting.py tests/test_cli.py -q
+.\.venv\Scripts\python.exe -m pytest tests/test_html_report.py tests/test_investigation.py tests/test_workflow_cli.py tests/test_cli.py -q
 .\.venv\Scripts\irsnapshot.exe report samples/review.snapshot.json --output report.html
 .\.venv\Scripts\irsnapshot.exe run --output investigation/
 
@@ -351,4 +354,4 @@ Current environment limitation: this project starts in an empty, non-Git workspa
 
 All four commands are implemented and verified; all seven collector categories have honest coverage results; 13 documented rules have positive and negative fixtures; required tree/correlation/serialization tests pass; the wheel includes its template; reports escape untrusted text and work offline; samples are synthetic and labelled; and Windows smoke evidence is recorded with OS, Python version, privilege context, and limitations. The documentation describes partial coverage, heuristics, privacy of local evidence, and collection side effects without calling the tool an EDR or malware scanner.
 
-This document retains the accepted v1 target. The implementation status is tracked in README.md; Milestones 1–4 are included in release 0.4.0, with actual Windows collection still awaiting live verification.
+This document retains the accepted v1 target. The implementation status is tracked in README.md; Milestones 1–5 are included in release 0.5.0, with actual Windows collection still awaiting live verification.

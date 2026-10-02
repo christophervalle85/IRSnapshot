@@ -1,8 +1,8 @@
 # IRSnapshot
 
-A Windows endpoint incident-response and triage CLI in Python. The planned v1 collects a point-in-time snapshot, applies transparent deterministic rules, and produces analyst-friendly reports. It is not an EDR, antivirus, or background agent.
+A Windows endpoint incident-response and triage CLI in Python. It collects a point-in-time snapshot, applies transparent deterministic rules, and produces analyst-friendly reports. It is not an EDR, antivirus, or background agent.
 
-**Current release: 0.4.0 — Milestone 4, Windows evidence collection.**
+**Current release: 0.5.0 — Milestone 5, full investigation and standalone HTML reporting.**
 
 Implemented:
 
@@ -21,8 +21,11 @@ Implemented:
 - Windows collectors for system, processes, network, users, services, scheduled tasks, and persistence.
 - Typed Windows adapters, fixed PowerShell queries, and a collection pipeline that records source failures.
 - A working `collect` command with explicit coverage and overwrite protection.
+- A standalone HTML report with prioritized findings, evidence, coverage, process ancestry, network ownership, persistence, and a UTC timeline.
+- A working `report` command for saved snapshots and `run` for a complete investigation folder.
+- Snapshot-first orchestration and a local diagnostic log that preserve evidence when a downstream stage fails.
 
-HTML reporting and the `report`/`run` commands remain later milestones. Collection requires Windows; saved snapshots and the synthetic samples can be analyzed offline. Live Windows collection has not yet been verified on a Windows host; see the [verification record](docs/testing.md).
+Collection requires Windows; saved snapshots and the synthetic samples can be analyzed and rendered offline. HTML reports contain their own styles and use no JavaScript or external assets. Live Windows collection has not yet been verified on a Windows host; see the [verification record](docs/testing.md).
 
 ## Install and verify on Windows
 
@@ -38,7 +41,7 @@ py -3.12 -m venv .venv
 .\.venv\Scripts\irsnapshot.exe analyze --help
 ```
 
-Use your installed Python version in place of `-3.12` if needed. Activation is unnecessary. Version output is `IRSnapshot 0.4.0`. Bare `irsnapshot` displays help and succeeds. Unknown commands exit with status 2.
+Use your installed Python version in place of `-3.12` if needed. Activation is unnecessary. Version output is `IRSnapshot 0.5.0`. Bare `irsnapshot` displays help and succeeds. Unknown commands exit with status 2.
 
 The current code is portable for development and offline fixture interpretation. Endpoint collection targets Windows 10/11 x64, 64-bit Python, and Windows PowerShell 5.1. No Windows integration behavior has been validated by a macOS test run; see [testing evidence](docs/testing.md).
 
@@ -55,6 +58,25 @@ $LASTEXITCODE
 Collection runs once and saves a validated snapshot before any separate analysis. Access-denied fields and failed sources are recorded alongside available evidence. Exit **3** means the snapshot was saved with incomplete collection; review the coverage and issues. Elevation is optional and is never requested automatically. Running under another identity changes the current-user registry and Startup scope.
 
 An existing destination is refused; use `--overwrite` only when you intend to replace it. Snapshot contents may include usernames, paths, command-line arguments, addresses, and configured startup commands. Collection is read-only, but the saved evidence can be sensitive. [Collection details](docs/collection.md) describe source scope and limitations.
+
+## Generate a report or complete investigation
+
+Create an offline HTML report from the included synthetic sample:
+
+```powershell
+.\.venv\Scripts\irsnapshot.exe report samples/review.snapshot.json --output review.html
+```
+
+Open `review.html` in a browser. The report analyzes the saved snapshot using the bundled ruleset; it does not collect new evidence. All thirteen sample findings retain their original evidence. For a partial-coverage example, use `samples/partial.snapshot.json`; the report is still written and the command exits **3**.
+
+On a Windows endpoint, collect and report in one command:
+
+```powershell
+.\.venv\Scripts\irsnapshot.exe run --output investigation/
+$LASTEXITCODE
+```
+
+The folder contains `snapshot.json`, `analysis.json`, `report.html`, and `irsnapshot.log`. Use a new or empty folder. The snapshot is saved before analysis so later failures leave collected evidence available for retry. Explicit `--overwrite` replaces the known output files, preserves unrelated files, and removes stale derived reports only after the new snapshot is saved. See the [reporting and recovery guide](docs/reporting.md) for output safety, log behavior, and exact recovery commands.
 
 ## Analyze the included samples
 
@@ -75,10 +97,10 @@ Existing output files are refused by default. To replace a previously generated 
 
 | Exit | Meaning |
 |---|---|
-| `0` | Analysis finished and collection has no partial/failed/skipped runs; findings alone do not fail the command |
-| `1` | I/O or fatal runtime failure |
+| `0` | Requested operation finished with complete collection/analysis; findings alone do not fail the command |
+| `1` | I/O, unsupported live platform, or fatal runtime failure |
 | `2` | Invalid arguments, unsupported schema, or invalid snapshot |
-| `3` | Report produced with incomplete analysis or partial/failed/skipped collection |
+| `3` | Output produced with incomplete analysis or partial/failed/skipped collection |
 | `130` | Interrupted |
 
 [Rule reference](docs/rules.md) documents exact matching boundaries and benign explanations. [Limitations](docs/limitations.md) explains what the snapshot and rules cannot establish.
@@ -122,6 +144,7 @@ All seven collectors require a `CollectorRun` record describing scope, count, st
 - [Thirteen-rule reference](docs/rules.md)
 - [Operational and interpretation limits](docs/limitations.md)
 - [Windows collection sources and verification](docs/collection.md)
+- [Standalone reports, investigation folders, and recovery](docs/reporting.md)
 - [Machine-readable snapshot JSON Schema](docs/snapshot.schema.json)
 - [Accepted v1 design and milestone sequence](docs/architecture.md)
 - [Verification evidence and limitations](docs/testing.md)
@@ -129,11 +152,12 @@ All seven collectors require a `CollectorRun` record describing scope, count, st
 
 ## Development
 
-Runtime dependencies are Typer, Rich, Pydantic, psutil, and Jinja2. pytest is the development test dependency. Offline interpretation does not access endpoint APIs, the network, or the analyst machine's environment. `collect` explicitly reads the local Windows endpoint through its adapters.
+Runtime dependencies are Typer, Rich, Pydantic, psutil, and Jinja2. pytest is the development test dependency. Offline interpretation and reporting do not access endpoint APIs, the network, or the analyst machine's environment. `collect` and `run` explicitly read the local Windows endpoint through its adapters.
 
 ```powershell
 .\.venv\Scripts\python.exe -m pytest tests/test_process_rules.py tests/test_persistence_rules.py tests/test_engine.py tests/test_reporting.py tests/test_cli.py tests/test_sample_analysis.py -q
 .\.venv\Scripts\python.exe -m pytest tests/test_windows_adapters.py tests/test_collectors.py tests/test_collection_pipeline.py tests/test_collect_cli.py -q
+.\.venv\Scripts\python.exe -m pytest tests/test_html_report.py tests/test_investigation.py tests/test_workflow_cli.py -q
 .\.venv\Scripts\python.exe -m pip wheel --no-deps --wheel-dir dist .
 ```
 

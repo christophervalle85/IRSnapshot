@@ -1,5 +1,48 @@
 # Verification evidence
 
+## Milestone 5 — release 0.5.0
+
+Verified on 2026-10-02 on macOS (ARM64). These checks cover offline reporting and orchestration with injected Windows boundaries. **Actual Windows collection and live `run` remain unverified.**
+
+| Check | Result |
+|---|---|
+| Full portable suite, Python 3.12.14 | 540 passed, 1 live test deselected |
+| Full portable suite, Python 3.14.7 | 540 passed, 1 live test deselected |
+| Focused reporting/workflow/collection integration suite | 108 passed |
+| Package, test, and example compilation | Passed |
+| Dependency integrity, both development environments and clean install | No broken requirements |
+| Whitespace/error diff check | Passed |
+| Wheel build | `irsnapshot-0.5.0-py3-none-any.whl` built successfully |
+| Clean offline wheel installation | Imported from a fresh environment's `site-packages`, outside the source tree |
+| Installed version/help and all four command help pages | Passed |
+| Installed sample analysis and HTML | Benign/review/partial: 0/13/11 findings; exit 0/0/3 |
+| Installed workflow with injected collection | Snapshot, JSON, HTML and log produced for all three samples; outputs match standalone reporting |
+| Packaged template | Read and rendered from the installed wheel |
+| Output safety | Refused writes preserve bytes; explicit overwrites deterministic; input same-path/symlink/hardlink aliases rejected |
+| Non-Windows collect/run | Actionable exit 1; existing evidence/reports preserved, including explicit overwrite |
+| Browser inspection | Review/partial reports checked; coverage, navigation, expandable evidence and IPv6 presentation inspected |
+| Responsive report | 1280px and 390px checked; compact columns readable, tables scroll internally, no page overflow |
+| Live Windows investigation | Not run; Windows x64 host required |
+
+New cases exercise escaped HTML and issue text, safe static anchors, visible partial coverage, severity ordering, missing tree/ownership associations, 1,300-level iterative ancestry, invalid mutable reports, bounded atomic HTML publication, all four CLI commands, and input alias protection. The end-to-end collection test now carries all seven actual collectors through analysis and both report writers with only the typed Windows adapter replaced.
+
+Workflow tests inject failures at analysis, JSON publication, and HTML publication, including keyboard interruption, and then reload the saved snapshot. Overwrite tests preserve unrelated files and earlier evidence until replacement publication succeeds. Logging tests exercise hard-link replacement, opening/write failures, escaped chained diagnostics, handler restoration, and source failures inside the actual collection pipeline.
+
+One regression exposed a subtle publication boundary: the snapshot writer can finish publishing before its diagnostic log write fails. Logging errors now latch and surface at controlled workflow boundaries, allowing the workflow to record the saved snapshot and clear stale derived outputs before stopping. A separate integration check ensures collector isolation cannot hide a failed log as an ordinary partial success.
+
+The HTML is self-contained, with inline CSS and no scripts or external resources. Parser checks verify safe tags, local anchor targets and unique IDs; browser inspection verified navigation and expandable raw evidence. Print styles are included, but printed output was not manually validated. Dependency versions remain those recorded for Milestone 3 below. Historical sample capture versions are unchanged.
+
+Reproduce the new focused checks from the repository root:
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest tests/test_investigation.py tests/test_workflow_cli.py tests/test_collection_pipeline.py tests/test_html_report.py tests/test_cli.py tests/test_collect_cli.py -q
+.\.venv\Scripts\irsnapshot.exe report samples/review.snapshot.json --output review.html
+.\.venv\Scripts\irsnapshot.exe report samples/partial.snapshot.json --output partial.html
+$LASTEXITCODE
+# Windows only; choose a new or empty directory:
+.\.venv\Scripts\irsnapshot.exe run --output investigation/
+```
+
 ## Milestone 4 — release 0.4.0
 
 Verified on 2026-09-30, on macOS 26.5.2 (ARM64). These are portable tests with injected Windows boundaries and installed-package checks. **Actual Windows collection remains unverified.**
@@ -125,6 +168,9 @@ py -3.12 -m venv .venv
 .\.venv\Scripts\irsnapshot.exe analyze samples/review.snapshot.json --output analysis.json
 .\.venv\Scripts\irsnapshot.exe analyze samples/partial.snapshot.json
 $LASTEXITCODE
+.\.venv\Scripts\irsnapshot.exe report samples/review.snapshot.json --output review.html
+.\.venv\Scripts\irsnapshot.exe report samples/partial.snapshot.json --output partial.html
+$LASTEXITCODE
 .\.venv\Scripts\python.exe examples/interpret_snapshot.py samples/benign.snapshot.json
 .\.venv\Scripts\python.exe -m pip wheel --no-deps --wheel-dir dist .
 ```
@@ -133,6 +179,6 @@ The review sample should produce thirteen findings and exit 0; the partial sampl
 
 ## Remaining validation limits
 
-No Windows host was available for this milestone. Windows installation, NTFS publication semantics, path permissions, native API behavior, and actual PowerShell queries still require Windows execution. Hard-link publication is intentionally unsupported on filesystems that do not provide it. Endpoint collectors and an opt-in live test are now implemented but have only portable fixture coverage here. HTML reports remain unimplemented.
+No Windows host was available for this milestone. Windows installation, NTFS publication semantics, path permissions, native API behavior, and actual PowerShell queries still require Windows execution. Hard-link publication is intentionally unsupported on filesystems that do not provide it. Endpoint collectors and an opt-in live test are implemented but have only portable fixture coverage here. HTML reporting and investigation orchestration are implemented; live `run` verification requires a Windows host.
 
 Tests use synthetic inputs; no suspicious fixture is executed. JSON Schema documents types and field constraints, but Python validators also enforce semantic and cross-record constraints. Validating a file with a generic JSON Schema checker alone is not equivalent to `load_snapshot`.

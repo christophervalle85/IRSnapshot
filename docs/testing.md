@@ -12,12 +12,14 @@ Verified on 2026-10-02 on macOS (ARM64). These checks cover offline reporting an
 | Package, test, and example compilation | Passed |
 | Dependency integrity, both development environments and clean install | No broken requirements |
 | Whitespace/error diff check | Passed |
+| Independent final Milestone 5 review | Approved; no remaining actionable findings |
 | Wheel build | `irsnapshot-0.5.0-py3-none-any.whl` built successfully |
 | Clean offline wheel installation | Imported from a fresh environment's `site-packages`, outside the source tree |
 | Installed version/help and all four command help pages | Passed |
 | Installed sample analysis and HTML | Benign/review/partial: 0/13/11 findings; exit 0/0/3 |
 | Installed workflow with injected collection | Snapshot, JSON, HTML and log produced for all three samples; outputs match standalone reporting |
 | Packaged template | Read and rendered from the installed wheel |
+| Release archive/source comparison | All 83 tracked source files and 41 wheel Python/template files match the checkout |
 | Output safety | Refused writes preserve bytes; explicit overwrites deterministic; input same-path/symlink/hardlink aliases rejected |
 | Non-Windows collect/run | Actionable exit 1; existing evidence/reports preserved, including explicit overwrite |
 | Browser inspection | Review/partial reports checked; coverage, navigation, expandable evidence and IPv6 presentation inspected |

@@ -27,7 +27,8 @@ if ($LASTEXITCODE -ne 0) { throw "Environment creation failed" }
 $python = Join-Path $stage "venv\Scripts\python.exe"
 $wheels = @(Get-ChildItem "$stage\wheels\irsnapshot-*.whl")
 if ($wheels.Count -ne 1) { throw "Expected exactly one IRSnapshot wheel" }
-& $python -m pip install $wheels[0].FullName
+$wheelPath = $wheels[0].FullName
+& $python -m pip install $wheelPath
 if ($LASTEXITCODE -ne 0) { throw "Wheel installation failed" }
 & $python -m pip check
 if ($LASTEXITCODE -ne 0) { throw "Dependency check failed" }

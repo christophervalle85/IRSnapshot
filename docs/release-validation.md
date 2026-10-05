@@ -63,16 +63,16 @@ For each privilege context, set `$python` to the fresh wheel interpreter and cho
 ```powershell
 $case = Join-Path $env:LOCALAPPDATA ("IRSnapshot-validation-" + [guid]::NewGuid())
 New-Item -ItemType Directory -Path $case | Out-Null
-& $python -m irsnapshot collect --output "$case\snapshot.json"
+& $python -I -m irsnapshot collect --output "$case\snapshot.json"
 $collectExit = $LASTEXITCODE
 if ($collectExit -notin @(0, 3)) { throw "Collection failed: $collectExit" }
-& $python -m irsnapshot analyze "$case\snapshot.json" --output "$case\analysis.json"
+& $python -I -m irsnapshot analyze "$case\snapshot.json" --output "$case\analysis.json"
 $analyzeExit = $LASTEXITCODE
 if ($analyzeExit -notin @(0, 3)) { throw "Analysis failed: $analyzeExit" }
-& $python -m irsnapshot report "$case\snapshot.json" --output "$case\report.html"
+& $python -I -m irsnapshot report "$case\snapshot.json" --output "$case\report.html"
 $reportExit = $LASTEXITCODE
 if ($reportExit -notin @(0, 3)) { throw "Reporting failed: $reportExit" }
-& $python -m irsnapshot run --output "$case\investigation"
+& $python -I -m irsnapshot run --output "$case\investigation"
 $runExit = $LASTEXITCODE
 if ($runExit -notin @(0, 3)) { throw "Investigation failed: $runExit" }
 @{ collect = $collectExit; analyze = $analyzeExit; report = $reportExit; run = $runExit }

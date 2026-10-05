@@ -1,0 +1,76 @@
+name: Windows release validation
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  release-validation:
+    # Hosted administrator Windows Server coverage; desktop privilege checks remain manual.
+    runs-on: windows-2025
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ['3.12', '3.x']
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python }}
+          architecture: x64
+          check-latest: true
+      - name: Print platform and elevation context
+        run: |
+          python -c "import ctypes, platform, struct; print('OS:', platform.platform()); print('Python:', platform.python_version()); print('Architecture:', struct.calcsize('P') * 8, 'bit'); print('Elevated:', bool(ctypes.windll.shell32.IsUserAnAdmin()))"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Install development environment
+        run: |
+          python -m pip install --upgrade pip
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python -m pip install -e ".[dev]"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Run portable tests
+        run: |
+          python -m pytest
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Build release wheel
+        run: |
+          python -m pip wheel --no-deps --wheel-dir "$env:RUNNER_TEMP\irsnapshot-wheel" .
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Install exactly one wheel into a fresh environment
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $wheels = @(Get-ChildItem -Path "$env:RUNNER_TEMP\irsnapshot-wheel" -Filter '*.whl' -File)
+          if ($wheels.Count -ne 1) { throw 'Expected exactly one release wheel.' }
+          $releaseWheel = $wheels[0].FullName
+          if (Test-Path "$env:RUNNER_TEMP\irsnapshot-installed") { throw 'Installed-wheel environment must be fresh.' }
+          python -m venv "$env:RUNNER_TEMP\irsnapshot-installed"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $installedPython = Join-Path $env:RUNNER_TEMP 'irsnapshot-installed\Scripts\python.exe'
+          & $installedPython -I -m pip install $releaseWheel
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Check installed dependencies
+        run: |
+          $installedPython = Join-Path $env:RUNNER_TEMP 'irsnapshot-installed\Scripts\python.exe'
+          & $installedPython -I -m pip check
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Validate installed wheel with synthetic samples
+        run: |
+          $installedPython = Join-Path $env:RUNNER_TEMP 'irsnapshot-installed\Scripts\python.exe'
+          & $installedPython -I scripts/verify_install.py --samples samples
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Explicit read-only live Windows smoke test
+        # Keep endpoint data local: no traceback, captured output, logging plugin or uploads.
+        run: |
+          python -m pytest -m windows_live tests/test_windows_smoke.py --tb=no --show-capture=no -p no:logging
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }

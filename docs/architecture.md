@@ -1,6 +1,6 @@
 # IRSnapshot v1.0 — proposed architecture and milestone contract
 
-Status: accepted design. Milestones 1–5 are implemented; Milestone 6 release validation and live Windows execution remain pending. See README and testing.md for current capabilities and verification.
+Status: accepted design. Milestones 1–5 are implemented; Milestone 6 validation tooling is in progress and live Windows execution remains pending. See README and testing.md for current capabilities and verification.
 
 ## 1. Scope and recommended approach
 
@@ -346,7 +346,7 @@ Exact checks introduced by milestone:
 .\.venv\Scripts\python.exe -m pip wheel --no-deps --wheel-dir dist .
 ```
 
-Live smoke tests are opt-in via `-m windows_live`; the normal suite excludes them. They collect benign endpoint data only and never execute suspicious fixture strings. Windows CI covers unprivileged smoke collection. Elevation and Windows 11 desktop behavior require a separately recorded manual run. Assertions target data contracts and coverage rather than fixed counts of ambient processes.
+Live smoke tests are opt-in via `-m windows_live`; the normal suite excludes them. They collect benign endpoint data only and never execute suspicious fixture strings. The Windows CI workflow selects live smoke collection on a hosted Windows Server runner. GitHub's Windows runners use administrator accounts with UAC disabled, so this does not establish unelevated coverage ([runner documentation](https://docs.github.com/en/actions/reference/runners/github-hosted-runners#administrative-privileges)). Windows 10/11 desktop behavior and both ordinary and elevated collection require separately recorded manual runs. Assertions target data contracts and coverage rather than fixed counts of ambient processes. See the [release checklist](release-validation.md).
 
 Current environment limitation: this project starts in an empty, non-Git workspace on macOS. Pure model/rule/serialization/reporting tests can be run here after implementation. Windows collector integration and a Windows-ready release claim require Windows execution evidence. If no Windows runtime is available, the final status must say those checks remain unverified.
 

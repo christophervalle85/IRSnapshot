@@ -1,5 +1,29 @@
 # Verification evidence
 
+## Milestone 6 — validation tooling in progress
+
+Work resumed on 2026-10-05 on macOS ARM64. The completed Milestone 5 ZIP and wheel were checked against their release source before starting this branch; all 83 tracked files and all 41 wheel Python/template files matched. The unchanged baseline passed 544 tests on Python 3.12.14, with the live Windows test deselected.
+
+Milestone 6 adds a Windows CI matrix, a reusable installed-wheel validator, and a [release checklist](release-validation.md). These are validation tools, not a new application release: the version remains `0.5.0`, and the original Milestone 5 artifacts are preserved.
+
+| Check | Result |
+|---|---|
+| Validator regression cases | 18 passed |
+| Full portable suite, Python 3.12.14 | 562 passed, 1 live test deselected |
+| Full portable suite, Python 3.14.7 | 562 passed, 1 live test deselected |
+| Package, tests, scripts, and examples compile | Passed |
+| Dependency checks, Python 3.12/3.14 and new clean installation | No broken requirements |
+| New wheel built and installed offline into fresh Python 3.12 environment | Passed |
+| Installed validation from outside the checkout with isolated Python | Passed; console/module help and version, template, all three samples, JSON/HTML and orchestration |
+| Synthetic expected findings/exits | Benign 0/0, review 13/0, partial 11/3 |
+| Refused writes and deterministic explicit overwrites | Passed for reports and synthetic investigation output |
+| Wheel content | All 41 package/template files and updated README metadata verified |
+| Workflow YAML syntax | Parsed successfully; workflow execution and PowerShell commands not run on this host |
+
+New tests demonstrate rejection of source/editable imports, including editable metadata outside the named checkout; unexpected subprocess exits; UTF-8 output and import-environment isolation; expected partial exits; and rejection of active HTML, external resources, duplicate IDs, or broken anchors. Validation remains active with Python optimization. Sample verification preserves input bytes and compares saved snapshot/JSON/HTML outputs with the installed orchestration path. The collection boundary alone is substituted with synthetic evidence.
+
+Windows workflow execution, Windows 10/11 ordinary and elevated live `collect`/`run`, and manual print inspection remain pending. No Windows host or configured Git remote is available in this session. Hosted Windows runners use administrator context, which is recorded separately from desktop privilege validation.
+
 ## Milestone 5 — release 0.5.0
 
 Verified on 2026-10-02 on macOS (ARM64). These checks cover offline reporting and orchestration with injected Windows boundaries. **Actual Windows collection and live `run` remain unverified.**

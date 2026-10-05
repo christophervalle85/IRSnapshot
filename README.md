@@ -4,6 +4,8 @@ A Windows endpoint incident-response and triage CLI in Python. It collects a poi
 
 **Current release: 0.5.0 — Milestone 5, full investigation and standalone HTML reporting.**
 
+Milestone 6 is in progress, with Windows CI and repeatable installed-wheel validation tools. The [release checklist](docs/release-validation.md) separates local verification from the Windows execution still required before a final release.
+
 Implemented:
 
 - Pydantic evidence, collection-coverage, findings, and report models.
@@ -148,6 +150,7 @@ All seven collectors require a `CollectorRun` record describing scope, count, st
 - [Machine-readable snapshot JSON Schema](docs/snapshot.schema.json)
 - [Accepted v1 design and milestone sequence](docs/architecture.md)
 - [Verification evidence and limitations](docs/testing.md)
+- [Release validation and Windows desktop checklist](docs/release-validation.md)
 - [Synthetic sample provenance](samples/README.md)
 
 ## Development

@@ -33,3 +33,5 @@ Snapshot input is bounded at 64 MiB. JSON and HTML investigation-report output a
 ## Verification scope
 
 Portable tests and clean-install checks run on the available macOS development host. They do not establish Windows installation, NTFS behavior, live collector permissions, or actual PowerShell execution behavior. No fixture command is run on any platform. The [verification record](testing.md) reports the Python versions, actual test results, and remaining Windows validation work.
+
+The Milestone 6 Windows workflow is prepared automation, not recorded Windows execution evidence. Hosted Windows Server administrator coverage also cannot substitute for ordinary-user or elevated Windows 10/11 desktop checks. The [release checklist](release-validation.md) tracks those separately. Print styles exist, but printed output still requires visual inspection.

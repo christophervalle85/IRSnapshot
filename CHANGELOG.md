@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased — Milestone 6 validation
+
+- Add a Windows CI matrix for Python 3.12 and the latest stable Python, with portable tests, wheel building, clean installation, and explicit live smoke selection.
+- Add a reusable synthetic installed-package check for command entry points, packaged HTML, analysis results, output protection, and investigation orchestration.
+- Add a Windows desktop release checklist and distinguish hosted administrator-runner checks from unelevated desktop coverage.
+
+The released version remains `0.5.0`. Windows CI execution, desktop live evidence, and manual print inspection remain pending; this is not a completed Milestone 6 release.
+
 ## 0.5.0 — Milestone 5
 
 - Add a packaged Jinja2 HTML report with escaped evidence, inline styles, print support, and no scripts or external assets.

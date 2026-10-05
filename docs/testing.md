@@ -22,6 +22,10 @@ Milestone 6 adds a Windows CI matrix, a reusable installed-wheel validator, and 
 
 New tests demonstrate rejection of source/editable imports, including editable metadata outside the named checkout; unexpected subprocess exits; UTF-8 output and import-environment isolation; expected partial exits; and rejection of active HTML, external resources, duplicate IDs, or broken anchors. Validation remains active with Python optimization. Sample verification preserves input bytes and compares saved snapshot/JSON/HTML outputs with the installed orchestration path. The collection boundary alone is substituted with synthetic evidence.
 
+Independent task review approved the validation tools without findings. Final integration review found that the documented desktop module commands could import the source checkout instead of the fresh wheel. All four commands now use `-I`. A targeted check from the checkout reproduced the original source import, then confirmed the corrected invocation imports the clean environment's `site-packages`. This documentation correction does not constitute native Windows execution.
+
+Scoped final re-review approved the correction with no remaining findings in this validation-tooling slice. Milestone 6 itself remains in progress until its Windows and print gates are completed.
+
 Windows workflow execution, Windows 10/11 ordinary and elevated live `collect`/`run`, and manual print inspection remain pending. No Windows host or configured Git remote is available in this session. Hosted Windows runners use administrator context, which is recorded separately from desktop privilege validation.
 
 ## Milestone 5 — release 0.5.0

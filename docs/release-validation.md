@@ -96,4 +96,6 @@ Open the synthetic review and partial reports in a browser with networking disab
 
 Inspect print preview or export to PDF on both review and partial reports. Check long tables, page breaks, evidence visibility, and coverage labels; record browser/version and result. Manual print appearance remains unverified.
 
+Pay particular attention to evidence inside initially closed disclosure sections. Confirm the intended evidence appears in the printed output, and explicitly expand required sections before printing if the browser does not include closed content. Do not infer printed evidence visibility from its presence in the HTML source.
+
 Only close Milestone 6 after recording the Windows results, reviewing remaining limitations, completing print review, rerunning checks on the chosen release commit, and updating the changelog/version and release artifacts together. Keep the completed `0.5.0` artifacts as historical releases.

@@ -1,5 +1,19 @@
 # Verification evidence
 
+## Milestone 6 follow-up — 2026-10-06
+
+The unchanged application and validation tools were checked again on macOS ARM64: Python 3.12.14 passed all 562 portable cases, with one live Windows test deselected. The clean installed-wheel validator again passed the benign/review/partial walkthroughs with expected findings 0/13/11 and exits 0/0/3. No live endpoint collection was performed.
+
+After the documentation updates, a new local verification wheel was built and installed offline into another fresh Python 3.12 environment. Its isolated validation ran from outside the checkout and passed all three samples; dependency integrity passed. All 41 Python/template files and the updated README metadata matched the source. This was a verification build, not a new published release.
+
+An independent targeted portfolio/readiness assessment found no new source-code blocker in the examined analysis, collection boundary, publication/recovery, report-safety, and packaging paths. It judged the project suitable for a candid résumé entry and synthetic demonstration, while retaining the Windows and print gates as release blockers. See the [assessment and demonstration](portfolio.md).
+
+Environment inspection found an ARM64 Windows 11 VM, outside the project's declared native x64 contract. GitHub authentication was verified after allowing the normal network connection, but the project has no configured remote or observed workflow run. Creating/uploading a private repository is awaiting the user's decision; no source was uploaded.
+
+Browser print inspection could not be completed in this session: native browser capture failed and the in-app browser rejected local-file navigation. Those failures are not print-test results. Evidence inside initially closed disclosure sections remains a specific visual-review target; no print defect or print pass is inferred from static source inspection.
+
+**Milestone 6 remains incomplete.** Required evidence still includes the Windows CI matrix, ordinary/elevated Windows 10/11 x64 walkthroughs with reviewed source coverage, actual print/PDF inspection, and final release verification/versioning after any resulting fixes. The version remains `0.5.0`; the historical Milestone 5 release is unchanged.
+
 ## Milestone 6 — validation tooling in progress
 
 Work resumed on 2026-10-05 on macOS ARM64. The completed Milestone 5 ZIP and wheel were checked against their release source before starting this branch; all 83 tracked files and all 41 wheel Python/template files matched. The unchanged baseline passed 544 tests on Python 3.12.14, with the live Windows test deselected.

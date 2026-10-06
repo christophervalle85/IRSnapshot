@@ -151,6 +151,7 @@ All seven collectors require a `CollectorRun` record describing scope, count, st
 - [Accepted v1 design and milestone sequence](docs/architecture.md)
 - [Verification evidence and limitations](docs/testing.md)
 - [Release validation and Windows desktop checklist](docs/release-validation.md)
+- [Portfolio value, résumé wording, and completion assessment](docs/portfolio.md)
 - [Synthetic sample provenance](samples/README.md)
 
 ## Development

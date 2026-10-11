@@ -1,0 +1,25 @@
+name: Temporary Windows source diagnostics
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  diagnostics:
+    runs-on: windows-2025
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+          architecture: x64
+      - name: Install project
+        run: |
+          python -m pip install -e .
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Probe fixed read-only sources without publishing endpoint strings
+        run: |
+          python -I scripts/diagnose_windows_sources.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }

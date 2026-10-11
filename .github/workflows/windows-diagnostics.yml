@@ -17,9 +17,13 @@ jobs:
           architecture: x64
       - name: Install project
         run: |
-          python -m pip install -e .
+          python -m pip install -e '.[dev]'
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Probe fixed read-only sources without publishing endpoint strings
         run: |
           python -I scripts/diagnose_windows_sources.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Verify local account regression before the production fix
+        run: |
+          python -m pytest -m windows_live tests/test_windows_smoke.py::test_live_local_accounts_import_from_trusted_system_module --tb=no --show-capture=no -rN --disable-warnings -p no:logging
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }

@@ -16,6 +16,24 @@ from irsnapshot.storage import load_snapshot, write_snapshot
 @pytest.mark.windows_live
 @pytest.mark.skipif(sys.platform != "win32" or struct.calcsize("P") != 8,
                     reason="live collection requires 64-bit Windows")
+def test_live_local_accounts_import_from_trusted_system_module():
+    """The bundled, versioned LocalAccounts module must actually enumerate accounts."""
+    import ctypes
+    from irsnapshot.collectors.contracts import WindowsQuery
+    from irsnapshot.collectors.windows import WindowsAdapter
+
+    if not ctypes.windll.shell32.IsUserAnAdmin():
+        pytest.skip('Local-account availability regression requires an elevated test endpoint')
+    response = WindowsAdapter().run_query(WindowsQuery.USERS, timeout_seconds=120)
+    sources = {item.source for item in response.items}
+    assert 'current_token' in sources
+    assert 'local_account' in sources
+    assert 'local_admin_member' in sources
+
+
+@pytest.mark.windows_live
+@pytest.mark.skipif(sys.platform != "win32" or struct.calcsize("P") != 8,
+                    reason="live collection requires 64-bit Windows")
 def test_live_read_only_snapshot_round_trip(tmp_path):
     snapshot = collect_snapshot()
     validated = SystemSnapshot.model_validate(snapshot)

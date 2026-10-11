@@ -75,8 +75,8 @@ jobs:
           & $installedPython -I -m pip install 'pytest>=8.3,<10'
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Explicit read-only live Windows tests against the installed wheel
-        # Keep endpoint data local: no traceback, captured output, logging plugin or uploads.
+        # Keep endpoint data local: suppress failure text and warnings as well as captures.
         run: |
           $installedPython = Join-Path $env:RUNNER_TEMP 'irsnapshot-installed\Scripts\python.exe'
-          & $installedPython -I -m pytest -m windows_live tests/test_windows_smoke.py --tb=no --show-capture=no -p no:logging
+          & $installedPython -I -m pytest -m windows_live tests/test_windows_smoke.py --tb=no --show-capture=no -rN --disable-warnings -p no:logging
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }

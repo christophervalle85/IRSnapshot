@@ -1,6 +1,7 @@
 """Offline report and full workflow command contracts at collection boundaries."""
 from pathlib import Path
 import pytest
+from rich.text import Text
 from typer.testing import CliRunner
 from irsnapshot.cli import app
 from irsnapshot.storage import load_snapshot
@@ -13,19 +14,21 @@ runner = CliRunner()
 def test_each_command_has_help(command):
     result = runner.invoke(app, [command, '--help'])
     assert result.exit_code == 0, result.output
-    assert '--overwrite' in result.output
+    assert '--overwrite' in Text.from_ansi(result.output).plain
 
 
 @pytest.mark.parametrize('sample,code', [('benign', 0), ('review', 0), ('partial', 3)])
 def test_report_analyzes_offline_and_protects_existing_output(tmp_path, monkeypatch, sample, code):
     import irsnapshot.cli as cli
     monkeypatch.setattr(cli, 'collect_snapshot', lambda: pytest.fail('offline report collected endpoint'))
-    output = tmp_path / '[red]report\x1b[2J.html'
+    # DEL is nonprintable but legal in Windows filenames; C0 controls are not.
+    output = tmp_path / '[red]report\x7f.html'
     args = ['report', str(ROOT / f'samples/{sample}.snapshot.json'), '--output', str(output)]
     result = runner.invoke(app, args)
     assert result.exit_code == code, result.output
     assert 'Coverage:' in result.output and 'Outcome:' in result.output
-    assert '[red]report\\x1b[2J.html' in result.output and '\x1b' not in result.output
+    assert '[red]report\\x7f.html' in result.output
+    assert '\x7f' not in result.output and '\x1b' not in result.output
     before = output.read_bytes()
     assert 'IRSnapshot analyst report' in before.decode()
     assert runner.invoke(app, args).exit_code == 1
@@ -104,11 +107,11 @@ def test_run_failure_reports_preserved_snapshot_safely(tmp_path, monkeypatch, in
             raise KeyboardInterrupt()
         raise RuntimeError('raw secret\x1b[2J')
     monkeypatch.setattr(investigation, 'write_html_report', fail)
-    output = tmp_path / 'capture\x07'
+    output = tmp_path / 'capture\x7f'
     result = runner.invoke(app, ['run', '--output', str(output)])
     assert result.exit_code == (130 if interrupt else 1), result.output
-    assert 'Snapshot preserved:' in result.output and 'capture\\x07' in result.output
-    assert 'raw secret' not in result.output and '\x07' not in result.output
+    assert 'Snapshot preserved:' in result.output and 'capture\\x7f' in result.output
+    assert 'raw secret' not in result.output and '\x7f' not in result.output
     assert (output / 'snapshot.json').exists()
     assert 'completed' not in result.output.lower()
 
@@ -161,7 +164,7 @@ def test_run_cleanup_failure_reports_preserved_snapshot_without_raw_exception(tm
     import irsnapshot.investigation as investigation
     snapshot = load_snapshot(ROOT / 'samples/benign.snapshot.json')
     monkeypatch.setattr(investigation, 'collect_snapshot', lambda: snapshot)
-    output = tmp_path / 'capture\x07'
+    output = tmp_path / 'capture\x7f'
     output.mkdir()
     for name in ['snapshot.json', 'analysis.json', 'report.html', 'notes.txt']:
         (output / name).write_text('prior evidence')
@@ -175,9 +178,9 @@ def test_run_cleanup_failure_reports_preserved_snapshot_without_raw_exception(tm
     result = runner.invoke(app, ['run', '--output', str(output), '--overwrite'])
     assert result.exit_code == 1, result.output
     assert 'failed during stale report cleanup' in result.output
-    assert 'Snapshot preserved:' in result.output and 'capture\\x07' in result.output
+    assert 'Snapshot preserved:' in result.output and 'capture\\x7f' in result.output
     assert 'private cleanup error' not in result.output
-    assert '\x07' not in result.output and '\x1b' not in result.output
+    assert '\x7f' not in result.output and '\x1b' not in result.output
     assert 'completed' not in result.output.lower()
     assert load_snapshot(output / 'snapshot.json') == snapshot
     assert (output / denied).read_text() == 'prior evidence'

@@ -7,6 +7,7 @@ import subprocess
 import sys
 
 import pytest
+from rich.text import Text
 from typer.testing import CliRunner
 
 from irsnapshot import __version__
@@ -18,6 +19,8 @@ runner = CliRunner()
 
 
 def assert_milestone_help(output: str) -> None:
+    # Rich can force ANSI styles in CI even when CliRunner requests no color.
+    output = Text.from_ansi(output).plain
     assert "IRSnapshot Milestone 5" in output
     assert "--version" in output
     assert "--help" in output

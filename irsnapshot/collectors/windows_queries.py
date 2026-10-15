@@ -26,14 +26,16 @@ try {
     } finally { $identity.Dispose() }
 } catch { Issue $_ 'current_token' '' }
 try {
-    Import-Module ($PSHOME + '\Modules\Microsoft.PowerShell.LocalAccounts\Microsoft.PowerShell.LocalAccounts.psd1') -ErrorAction Stop
+    # The bundled module may store its manifest in a version subdirectory.
+    # Resolve it under this trusted absolute directory, never a user module path.
+    Import-Module ($PSHOME + '\Modules\Microsoft.PowerShell.LocalAccounts') -ErrorAction Stop
     Get-LocalUser -ErrorAction Stop | ForEach-Object {
         try { $items.Add(@{name=$_.Name; sid=$_.SID.Value; source='local_account'; enabled=$_.Enabled}) }
         catch { Issue $_ 'local_accounts' '' }
     }
 } catch { Issue $_ 'local_accounts' '' }
 try {
-    Import-Module ($PSHOME + '\Modules\Microsoft.PowerShell.LocalAccounts\Microsoft.PowerShell.LocalAccounts.psd1') -ErrorAction Stop
+    Import-Module ($PSHOME + '\Modules\Microsoft.PowerShell.LocalAccounts') -ErrorAction Stop
     Get-LocalGroupMember -SID 'S-1-5-32-544' -ErrorAction Stop | ForEach-Object {
         try {
             $qualified = $_.Name -split '\\', 2

@@ -1,5 +1,64 @@
 # Verification evidence
 
+## Milestone 6 — LocalAccounts correction, 2026-10-15
+
+The repository remains private. The owner confirmed that no native x64 Windows desktop is available; the only local Windows VM is ARM64. Desktop privilege checks remain unverified rather than being inferred from hosted Server results.
+
+The [module-discovery diagnostic and regression](https://github.com/christophervalle85/IRSnapshot/actions/runs/38108022999) established the account-collection defect before the production change. Both baseline runs returned only the current token and two `System.IO.FileNotFoundException` issues. Replacing the manifest path with its trusted absolute module directory returned one current token, four local accounts and one administrator membership, with no issues. Repeating the baseline still failed, ruling out cache warming as the explanation. The new native regression failed against the original application code.
+
+Commit `51e635b665f6053f578d1e8f5d614b91b15baf5c` applies that directory-based import to both LocalAccounts queries. It accommodates version subdirectories while preserving the fixed system executable, sanitized environment, absolute trusted module root and `-NoProfile` behavior. Temporary diagnostic files were removed. Independent review found no actionable issues.
+
+Fresh macOS checks after the fix: Python 3.12.14 and 3.14.7 each passed **562 portable cases**, with **3 live tests deselected**. A new wheel was built with the already-installed setuptools 84.0.0, installed offline into a fresh Python 3.12 environment, and passed dependency and isolated installed-package validation for all three samples. The first offline isolated build attempt could not find a cached setuptools wheel; the successful build used the existing build backend without build isolation. No network fetch was needed for the local build or installation. This is an unreleased verification build, not a replacement for the historical Milestone 5 wheel.
+
+The [full corrected-source Windows run](https://github.com/christophervalle85/IRSnapshot/actions/runs/38686690894) passed on both matrix entries for commit `51e635b665f6053f578d1e8f5d614b91b15baf5c`:
+
+| Check | Python 3.12.10 | Python 3.15.0 |
+|---|---|---|
+| Platform | Windows Server 2025 x64, build 26100, elevated | Same |
+| Runner image | `windows-2025-vs2026`, `20261007.264.1` | `windows-2025-vs2026`, `20260925.250.1` |
+| Portable suite | 562 passed, 3 live tests deselected | 562 passed, 3 live tests deselected |
+| Fresh wheel, dependency and synthetic installation checks | Passed | Passed |
+| Installed-wheel live tests | 3 passed | 3 passed |
+| Real `collect` and `run` exits | 3 (partial) | 3 (partial) |
+| System, network, users, services, tasks, persistence | All six sources `ok`, no issues | All six sources `ok`, no issues |
+| Processes | Partial: 4 access-denied issues | Partial: 4 access-denied issues |
+
+Both real captures on both runners recorded 7 user/session records, 259 services, 209 scheduled tasks and 475 persistence entries. Ambient process/network counts varied, as expected. The native LocalAccounts regression now passes against the actual fixed application, completing the observed red/green cycle. The live CLI checks confirm JSON snapshot equality, HTML snapshot identifiers, overwrite protection, deterministic report replacement and the complete investigation artifact set; they do not constitute visual inspection of every rendered field.
+
+The dedicated LocalAccounts regression allows 120 seconds to test discovery independently of the production query timeout. The full CLI retains its 30-second PowerShell limit. No query timed out in these final reported CLI captures; earlier runner timeouts remain a documented operational limit, not a condition guaranteed to be eliminated. Process-access denials correctly kept the investigation exit at 3.
+
+The seven documentation updates received an independent accuracy review. Final code, tests and workflow match the tested commit; subsequent documentation-only changes do not claim additional platform coverage. Milestone 6's hosted Windows work is complete, but the full milestone and v1.0 release remain open for the desktop privilege checks, visual print review and final release/version decision.
+
+## Milestone 6 — first hosted Windows execution, 2026-10-10
+
+With the owner's explicit approval, the project was uploaded to the private `christophervalle85/IRSnapshot` repository. Visibility was checked before uploading. The timestamps in GitHub are 2026-10-11 UTC; the local verification date is 2026-10-10 (America/Chicago).
+
+The [first run](https://github.com/christophervalle85/IRSnapshot/actions/runs/38105351348) at `e3f34cb` failed 13 test cases on both Python versions. Six help assertions assumed ANSI styling was absent; seven workflow cases used C0 control characters in filenames that Windows rejects. No application-code change was needed. Commit `bd93193` normalizes only help assertion text and uses DEL in filename fixtures, preserving tests of literal markup, control escaping, evidence recovery and overwrite protection. ESC/BEL evidence tests remain elsewhere. Forced-color help failures were reproduced locally before the fix; the full 562-case suite then passed under forced-color settings.
+
+The [successful rerun](https://github.com/christophervalle85/IRSnapshot/actions/runs/38105710915) verified `bd93193685c642be26a575873ec8fe81f13f4726`:
+
+| Check | Python 3.12.10 | Python 3.15.0 |
+|---|---|---|
+| Runner | Windows Server 2025 x64, build 26100 | Same |
+| Image | `windows-2025-vs2026`, `20260925.250.1` | Same |
+| Elevation | True | True |
+| Portable suite | 562 passed, 1 live test deselected | 562 passed, 1 live test deselected |
+| Wheel build, fresh installation and dependency check | Passed | Passed |
+| Isolated installed validator, all three synthetic samples | Passed (0/13/11 findings; exits 0/0/3) | Passed (same expectations) |
+| Original live snapshot/serialization smoke | 1 passed | 1 passed |
+
+The original smoke requires system/process evidence and seven collector records but permits partial/failed sources. A passing result alone does not establish complete collection coverage.
+
+Follow-up changes add a second live test covering all four commands from the installed wheel, matching snapshot/report evidence, exact partial exit behavior, refused writes, deterministic explicit report replacement, and all four investigation files. CI uses isolated Python with pytest's importlib mode to prevent checkout imports. Endpoint output remains captured; only typed enum/count coverage summaries are printed. Independent review found that pytest's short failure summary could expose evidence even with traceback/capture disabled; `-rN --disable-warnings` now suppresses it. A synthetic CI-mode failure confirmed the secret sentinel and warning text remain absent while pytest still exits nonzero. These changes passed independent review.
+
+The [expanded live run](https://github.com/christophervalle85/IRSnapshot/actions/runs/38107279643) at `d338cbc` and [privacy-corrected repeat](https://github.com/christophervalle85/IRSnapshot/actions/runs/38107394086) at `904361f` each passed 562 portable cases and 2 installed-wheel live tests on both Python versions. Both `collect` and `run` returned the expected partial exit 3. The collection summaries revealed important limits: four process-access denials, two unavailable account sources, and scheduled-task timeouts on some runners with corresponding partial persistence coverage. System, network and services succeeded throughout these reported captures. Passing workflow/serialization assertions did not imply complete source coverage.
+
+A [targeted read-only diagnostic](https://github.com/christophervalle85/IRSnapshot/actions/runs/38107827268) retained only counts, runtime exception types and durations. The account failures were `System.IO.FileNotFoundException` for both LocalAccounts imports, unchanged by the tested environment additions. The task query completed with 209 items and no issues in 15.3 seconds in its warmed diagnostic session; this does not erase earlier 30-second timeouts. A module-discovery regression and correction are being validated separately.
+
+After those test changes, macOS Python 3.12.14 and 3.14.7 each passed 562 portable cases with 2 live tests deselected. Both dependency checks passed. This is test-tooling validation, not another native platform result.
+
+Windows 10/11 x64 ordinary/elevated desktop sessions and visual print inspection remain open. The available local Windows VM is ARM64, outside the declared contract. Milestone 6 and v1.0 are not yet complete; the historical 0.5.0 release artifacts remain preserved. Earlier dated sections below describe their historical state and are superseded by this execution record where applicable.
+
 ## Milestone 6 follow-up — 2026-10-06
 
 The unchanged application and validation tools were checked again on macOS ARM64: Python 3.12.14 passed all 562 portable cases, with one live Windows test deselected. The clean installed-wheel validator again passed the benign/review/partial walkthroughs with expected findings 0/13/11 and exits 0/0/3. No live endpoint collection was performed.
@@ -225,6 +284,6 @@ The review sample should produce thirteen findings and exit 0; the partial sampl
 
 ## Remaining validation limits
 
-No Windows host was available for this milestone. Windows installation, NTFS publication semantics, path permissions, native API behavior, and actual PowerShell queries still require Windows execution. Hard-link publication is intentionally unsupported on filesystems that do not provide it. Endpoint collectors and an opt-in live test are implemented but have only portable fixture coverage here. HTML reporting and investigation orchestration are implemented; live `run` verification requires a Windows host.
+Hosted Windows execution is now recorded above, including native publication, installation and live collection. Windows 10/11 desktop privilege contexts remain unverified. Hard-link publication is intentionally unsupported on filesystems that do not provide it. A hosted Server smoke result is not evidence that every source or field is available on a desktop endpoint.
 
 Tests use synthetic inputs; no suspicious fixture is executed. JSON Schema documents types and field constraints, but Python validators also enforce semantic and cross-record constraints. Validating a file with a generic JSON Schema checker alone is not equivalent to `load_snapshot`.

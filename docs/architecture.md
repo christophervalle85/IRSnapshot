@@ -1,6 +1,6 @@
 # IRSnapshot v1.0 — proposed architecture and milestone contract
 
-Status: accepted design. Milestones 1–5 are implemented; Milestone 6 validation tooling is in progress and live Windows execution remains pending. See README and testing.md for current capabilities and verification.
+Status: accepted design. Milestones 1–5 are implemented; Milestone 6 has passing hosted Windows checks, with desktop and print validation still pending. See README and testing.md for current capabilities and verification.
 
 ## 1. Scope and recommended approach
 
@@ -348,10 +348,10 @@ Exact checks introduced by milestone:
 
 Live smoke tests are opt-in via `-m windows_live`; the normal suite excludes them. They collect benign endpoint data only and never execute suspicious fixture strings. The Windows CI workflow selects live smoke collection on a hosted Windows Server runner. GitHub's Windows runners use administrator accounts with UAC disabled, so this does not establish unelevated coverage ([runner documentation](https://docs.github.com/en/actions/reference/runners/github-hosted-runners#administrative-privileges)). Windows 10/11 desktop behavior and both ordinary and elevated collection require separately recorded manual runs. Assertions target data contracts and coverage rather than fixed counts of ambient processes. See the [release checklist](release-validation.md).
 
-Current environment limitation: this project starts in an empty, non-Git workspace on macOS. Pure model/rule/serialization/reporting tests can be run here after implementation. Windows collector integration and a Windows-ready release claim require Windows execution evidence. If no Windows runtime is available, the final status must say those checks remain unverified.
+The primary development host is macOS. Portable tests run locally, and the private repository's hosted Windows Server matrix now provides native collection and installed-command evidence. The owner has no supported x64 Windows desktop available; desktop privilege checks remain unverified. A release claim must retain this distinction.
 
 ## 10. Definition of v1.0 completion
 
 All four commands are implemented and verified; all seven collector categories have honest coverage results; 13 documented rules have positive and negative fixtures; required tree/correlation/serialization tests pass; the wheel includes its template; reports escape untrusted text and work offline; samples are synthetic and labelled; and Windows smoke evidence is recorded with OS, Python version, privilege context, and limitations. The documentation describes partial coverage, heuristics, privacy of local evidence, and collection side effects without calling the tool an EDR or malware scanner.
 
-This document retains the accepted v1 target. The implementation status is tracked in README.md; Milestones 1–5 are included in release 0.5.0, with actual Windows collection still awaiting live verification.
+This document retains the accepted v1 target. The implementation status is tracked in README.md; Milestones 1–5 are included in release 0.5.0. Hosted Windows Server live collection is verified; Windows 10/11 desktop and print checks remain open.

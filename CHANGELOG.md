@@ -5,8 +5,11 @@
 - Add a Windows CI matrix for Python 3.12 and the latest stable Python, with portable tests, wheel building, clean installation, and explicit live smoke selection.
 - Add a reusable synthetic installed-package check for command entry points, packaged HTML, analysis results, output protection, and investigation orchestration.
 - Add a Windows desktop release checklist and distinguish hosted administrator-runner checks from unelevated desktop coverage.
+- Execute the private Windows CI matrix successfully on Python 3.12.10 and 3.15.0; fix ANSI-sensitive help assertions and Windows-invalid fixture filenames.
+- Extend installed-wheel live validation to all four commands, report replacement, snapshot preservation, and privacy-safe collection summaries.
+- Fix local-user and administrator-member collection when Windows installs the LocalAccounts manifest in a version subdirectory; retain trusted absolute module discovery and add a native Windows regression.
 
-The released version remains `0.5.0`. Windows CI execution, desktop live evidence, and manual print inspection remain pending; this is not a completed Milestone 6 release.
+The released version remains `0.5.0`. The corrected source passed 562 portable and 3 installed-wheel live tests on both Windows Python versions, including all four commands. Desktop live evidence and manual print inspection remain open. This is not a completed Milestone 6 release.
 
 ## 0.5.0 — Milestone 5
 

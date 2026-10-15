@@ -4,7 +4,7 @@ A Windows endpoint incident-response and triage CLI in Python. It collects a poi
 
 **Current release: 0.5.0 — Milestone 5, full investigation and standalone HTML reporting.**
 
-Milestone 6 is in progress, with Windows CI and repeatable installed-wheel validation tools. The [release checklist](docs/release-validation.md) separates local verification from the Windows execution still required before a final release.
+Milestone 6 has passing Windows Server CI on Python 3.12 and 3.15, including clean installation and live collection. Windows 10/11 desktop sessions and printed report appearance remain release gates. See the [release checklist](docs/release-validation.md) and [résumé assessment](docs/portfolio.md).
 
 Implemented:
 
@@ -27,7 +27,7 @@ Implemented:
 - A working `report` command for saved snapshots and `run` for a complete investigation folder.
 - Snapshot-first orchestration and a local diagnostic log that preserve evidence when a downstream stage fails.
 
-Collection requires Windows; saved snapshots and the synthetic samples can be analyzed and rendered offline. HTML reports contain their own styles and use no JavaScript or external assets. Live Windows collection has not yet been verified on a Windows host; see the [verification record](docs/testing.md).
+Collection requires Windows; saved snapshots and the synthetic samples can be analyzed and rendered offline. HTML reports contain their own styles and use no JavaScript or external assets. Hosted Windows Server administrator collection has passed; Windows 10/11 desktop coverage is still pending. See the [verification record](docs/testing.md).
 
 ## Install and verify on Windows
 

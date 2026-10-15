@@ -1,6 +1,6 @@
 # Interpretation and operational limits
 
-IRSnapshot 0.5.0 implements local Windows evidence collection, offline analysis, standalone HTML reports, and investigation orchestration. It is a portfolio triage project, not an EDR, antivirus, continuous monitor, remediation tool, or forensic acquisition system. Windows collectors have portable fixture tests; live Windows integration remains unverified on the available development host.
+IRSnapshot 0.5.0 implements local Windows evidence collection, offline analysis, standalone HTML reports, and investigation orchestration. It is a portfolio triage project, not an EDR, antivirus, continuous monitor, remediation tool, or forensic acquisition system. Windows collectors have fixture tests and passing hosted Windows Server live validation; Windows 10/11 desktop validation remains open.
 
 ## Snapshot scope
 
@@ -32,6 +32,8 @@ Snapshot input is bounded at 64 MiB. JSON and HTML investigation-report output a
 
 ## Verification scope
 
-Portable tests and clean-install checks run on the available macOS development host. They do not establish Windows installation, NTFS behavior, live collector permissions, or actual PowerShell execution behavior. No fixture command is run on any platform. The [verification record](testing.md) reports the Python versions, actual test results, and remaining Windows validation work.
+Portable tests and clean-install checks passed on macOS and hosted Windows Server 2025 x64. The Windows runs exercise native file publication, installed command entry points and real collection in an administrator context. They do not establish every desktop permission, filesystem or endpoint configuration. No captured fixture command is executed on any platform. The [verification record](testing.md) reports actual versions, results and collection limitations.
 
-The Milestone 6 Windows workflow is prepared automation, not recorded Windows execution evidence. Hosted Windows Server administrator coverage also cannot substitute for ordinary-user or elevated Windows 10/11 desktop checks. The [release checklist](release-validation.md) tracks those separately. Print styles exist, but printed output still requires visual inspection.
+The Milestone 6 Windows workflow has executed successfully. Hosted Windows Server administrator coverage cannot substitute for ordinary-user or elevated Windows 10/11 desktop checks. The [release checklist](release-validation.md) tracks those separately. Print styles exist, but printed output still requires visual inspection.
+
+Hosted captures encountered process-access denials and occasional 30-second PowerShell query timeouts, including scheduled-task enumeration. Such sources remain partial or failed with explicit issues; dependent persistence coverage is also reduced. A successful investigation means the available evidence was preserved and analyzed, not that every source was readable. Native regression work also identified and corrected LocalAccounts module discovery for versioned Windows installations.

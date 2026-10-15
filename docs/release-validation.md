@@ -1,16 +1,18 @@
 # Release validation
 
-Milestone 5 is released as `0.5.0`. Milestone 6 adds repeatable release checks; its final Windows execution and print review gates remain open. The [testing record](testing.md) contains observed results. A workflow file or a checklist alone is not evidence that a platform passed.
+Milestone 5 is released as `0.5.0`. Milestone 6 has passing hosted Windows execution; its Windows 10/11 desktop and print review gates remain open. The [testing record](testing.md) contains observed results. A workflow file or a checklist alone is not evidence that a platform passed.
 
 ## Automated Windows checks
 
-`.github/workflows/windows.yml` runs on push, pull request, or manual dispatch after this repository is hosted on GitHub. It uses Windows Server 2025 x64 and Python `3.12` plus `3.x`, which selects the latest stable Python 3. Each job records its resolved Python and runner context. [setup-python documents version ranges](https://github.com/actions/setup-python/blob/v6/docs/advanced-usage.md#specifying-a-python-version).
+`.github/workflows/windows.yml` runs on push, pull request, or manual dispatch in the private repository. It uses Windows Server 2025 x64 and Python `3.12` plus `3.x`, which selects the latest stable Python 3. Each job records its resolved Python and runner context. [setup-python documents version ranges](https://github.com/actions/setup-python/blob/v6/docs/advanced-usage.md#specifying-a-python-version).
 
-The workflow runs the portable suite, builds a wheel, installs it into a fresh environment, checks dependencies, exercises the installed command entry points and template, and explicitly selects the live Windows smoke test. That live test requires basic system/process evidence and all seven collector records, while allowing partial sources. It is a smoke gate; failures and source-level limitations still need review before a release.
+The workflow runs the portable suite, builds a wheel, installs it into a fresh environment, checks dependencies, and exercises the installed command entry points and template with synthetic samples. It then adds pytest to that environment and explicitly selects three live Windows tests using isolated Python. These cover trusted LocalAccounts discovery, snapshot round trips and all four CLI commands, JSON snapshot equality and matching HTML snapshot identifiers, partial exit codes, overwrite refusal, deterministic report replacement and investigation artifacts. The account-discovery regression requires elevation and allows 120 seconds to isolate module loading from timeouts; the real CLI uses the production 30-second query limit. The workflow tests require basic system/process evidence and all seven collector records, while allowing partial sources. Source-level limitations still need review before a release.
 
-GitHub's Windows runners use administrator accounts with UAC disabled. Successful CI therefore provides hosted Server integration evidence, not ordinary-user or Windows 10/11 desktop evidence. [GitHub documents the privilege context](https://docs.github.com/en/actions/reference/runners/github-hosted-runners#administrative-privileges). Live test tracebacks and captured logs are suppressed in CI, and the workflow uploads no endpoint snapshots, reports, or logs.
+GitHub's Windows runners use administrator accounts with UAC disabled. Successful CI therefore provides hosted Server integration evidence, not ordinary-user or Windows 10/11 desktop evidence. [GitHub documents the privilege context](https://docs.github.com/en/actions/reference/runners/github-hosted-runners#administrative-privileges). Live test tracebacks, failure summaries, warnings and captured logs are suppressed in CI. Only typed collector names, statuses, counts, issue categories, elevation and exit codes are printed; the workflow uploads no endpoint snapshots, reports, or logs.
 
-This local repository has no configured Git remote. The workflow has not been dispatched or observed here. Record the actual workflow URL, commit, resolved Python versions, runner image, and result when it runs.
+The repository was created privately with the owner's approval. The [first successful Windows run](https://github.com/christophervalle85/IRSnapshot/actions/runs/38105710915) verified commit `bd93193685c642be26a575873ec8fe81f13f4726` on Python 3.12.10 and 3.15.0, Windows Server 2025 build 26100, x64, elevated. Each job passed 562 portable cases, clean-wheel checks and the original live snapshot test. Expanded live-command results are recorded in [testing.md](testing.md).
+
+The [final corrected-source run](https://github.com/christophervalle85/IRSnapshot/actions/runs/38686690894) verified `51e635b665f6053f578d1e8f5d614b91b15baf5c`: each Python version passed 562 portable cases, clean-wheel validation and all 3 live tests. LocalAccounts discovery and all four installed CLI commands passed. Six collection sources were fully available in the reported captures; process-access denials correctly produced partial process coverage and exit 3. Desktop and visual print gates below remain separate.
 
 ## Reproduce a clean wheel check
 
@@ -84,11 +86,11 @@ Record locally for every run: date, source commit, wheel version/hash, Windows e
 
 | Required evidence | Result |
 |---|---|
-| Hosted Windows matrix, Python 3.12 and latest stable | Pending |
-| Windows 10 x64, ordinary session | Pending |
-| Windows 10 x64, elevated session | Pending |
-| Windows 11 x64, ordinary session | Pending |
-| Windows 11 x64, elevated session | Pending |
+| Hosted Windows matrix, Python 3.12 and latest stable | Passed on Python 3.12.10 / 3.15.0; see execution record |
+| Windows 10 x64, ordinary session | Unverified; no compatible desktop available |
+| Windows 10 x64, elevated session | Unverified; no compatible desktop available |
+| Windows 11 x64, ordinary session | Unverified; no compatible desktop available |
+| Windows 11 x64, elevated session | Unverified; no compatible desktop available |
 
 ## HTML and final release review
 

@@ -1,6 +1,6 @@
 # Portfolio value and completion assessment
 
-Assessed on 2026-10-06 against the implemented project, accepted architecture, recorded tests, and an independent targeted review.
+Assessed on 2026-10-06 and updated on 2026-10-15 against the implemented project, accepted architecture, recorded tests, Windows CI and independent review.
 
 **IRSnapshot is a solid résumé project now. Its implementation has meaningful security-engineering depth and a working synthetic offline demonstration. Milestone 6 and the final Windows release are not complete yet.**
 
@@ -12,21 +12,23 @@ Assessed on 2026-10-06 against the implemented project, accepted architecture, r
 - **Careful input boundaries:** fixed Windows queries, conservative command interpretation, escaped report content, and literal captured strings keep evidence from becoming executable instructions.
 - **Distributable output:** four CLI commands, validated JSON, standalone HTML, packaged templates, and clean-install checks demonstrate more than a source-only prototype.
 
-The recorded suite has 562 passing portable cases on Python 3.12 and 3.14, with the live Windows test explicitly excluded. These include failure injection, real publication contention, partial coverage, reproducibility, and installed-package behavior. They do not substitute for native Windows tests. See [verification evidence](testing.md).
+The recorded suite has 562 passing portable cases on macOS (Python 3.12/3.14) and Windows Server 2025 x64 (Python 3.12/3.15). Windows CI also passed clean-wheel installation, synthetic demonstrations and live collection in an administrator session. Portable cases include failure injection, real publication contention, partial coverage, reproducibility and installed-package behavior. See [verification evidence](testing.md) for precise scope and remaining desktop checks.
 
 ## Completion status
 
 | Area | Assessment |
 |---|---|
 | Accepted application feature set | Implemented: four commands, seven collection categories, thirteen rules, correlation, JSON/HTML reports, and recovery |
-| Portable behavior and installation | Verified on the documented macOS/Python environments |
+| Portable behavior and installation | Verified on documented macOS and Windows Server environments |
 | Synthetic offline demonstration | Ready; benign/review/partial samples produce 0/13/11 findings |
-| Native Windows CI | Workflow prepared; no observed run yet |
+| Native Windows CI | Passing matrix: 562 portable + 3 live tests per Python version, including all four installed commands; Python 3.12.10 / 3.15.0, elevated Windows Server 2025 x64 |
 | Windows 10/11 x64 ordinary and elevated sessions | Pending; an ARM64 VM cannot substitute for the declared x64 target |
 | Printed report appearance and evidence visibility | Pending; inspect closed disclosure sections as well as tables and page breaks |
 | Milestone 6 / final v1 release | Incomplete until those execution gates and final release checks are recorded |
 
-No new source-code blocker was identified by the targeted assessment. That is not a comprehensive security certification or proof of Windows correctness. A green hosted smoke test would establish basic hosted Windows evidence and a round trip; it intentionally permits partial sources and would not by itself establish complete desktop coverage.
+The original targeted assessment identified no application-code blocker, but subsequent native Windows execution found a real account-collection defect: a versioned Windows module was being imported through a nonexistent unversioned manifest path. A failing native regression and a repeated path comparison established the cause; module discovery now stays within the trusted absolute system directory. Windows CI also exposed and corrected platform assumptions in test fixtures and help assertions. This is not a comprehensive security certification. Hosted live checks permit partial sources and do not establish complete desktop coverage; recorded collector limitations still matter.
+
+The final Windows matrix passed after the account fix. In its reported CLI captures, system, network, users, services, scheduled tasks and persistence succeeded; four process-access denials remained explicitly partial. That demonstrates useful live collection and honest reporting of unavailable evidence, without treating an administrator session as unrestricted access.
 
 The necessary remaining work is validation, followed by repairs to any observed defects and coherent release finalization. More rules, a web dashboard, cloud storage, malware execution, or a background service are not required to finish the accepted scope. The [release checklist](release-validation.md) gives the exact commands and evidence to record.
 
@@ -36,8 +38,9 @@ Use wording that matches the implementation and technical decisions you can expl
 
 - Developed IRSnapshot, a Python incident-response triage CLI with 13 evidence-linked heuristic rules, deterministic JSON/HTML reporting, and 562 automated test cases covering validation, partial collection, and failure recovery.
 - Designed a typed evidence pipeline that isolates collection and rule failures and preserves snapshots when downstream analysis or reporting fails.
+- Validated clean package installation and live collection through private Windows CI on Python 3.12 and 3.15, with explicit coverage reporting and evidence-safe test diagnostics.
 
-An optional project subtitle is **“Python incident-response triage project — native Windows validation in progress.”**
+An optional project subtitle is **“Python incident-response triage CLI — tested on Windows Server; desktop validation pending.”**
 
 Do not describe the current release as a production-ready EDR, a validated Windows 10/11 deployment, or a malware detector with measured accuracy. Detection accuracy, time saved, adoption, and real-incident outcomes have not been measured. Synthetic expected findings are functional checks, not detection-performance metrics.
 

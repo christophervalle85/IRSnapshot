@@ -1,0 +1,358 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IRSnapshot analyst report · 00000000-0000-0000-0000-000000000064</title>
+<style>
+:root { color-scheme: light; --ink:#172b3a; --muted:#435b6e; --line:#c9d5de; --paper:#fff; --wash:#edf3f6; --accent:#005a70; }
+* { box-sizing:border-box; } body { margin:0; background:var(--wash); color:var(--ink); font:16px/1.55 system-ui,sans-serif; }
+a { color:var(--accent); text-underline-offset:.18em; } a:focus-visible,summary:focus-visible { outline:3px solid #b14b00; outline-offset:3px; }
+header,main,footer { max-width:1180px; margin:auto; padding:2rem; } header { padding-top:3rem; }
+.eyebrow { font-size:.78rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); }
+h1 { font-size:clamp(2rem,4vw,3.3rem); line-height:1.1; letter-spacing:-.04em; margin:.6rem 0 1rem; }
+h2 { font-size:1.45rem; margin:0 0 1.2rem; } h3 { font-size:1.1rem; } p { margin:.65rem 0; } .muted { color:var(--muted); }
+nav { display:flex; flex-wrap:wrap; gap:.6rem 1.2rem; margin-top:1.5rem; } main { padding-top:0; }
+section { background:var(--paper); border-top:3px solid var(--accent); padding:1.7rem; margin-bottom:1.5rem; scroll-margin-top:1rem; }
+.counts { display:flex; flex-wrap:wrap; gap:1rem 2rem; margin:1rem 0; } .counts strong { display:block; font-size:1.65rem; }
+.status { display:inline-block; padding:.18rem .55rem; border:1px solid var(--line); border-radius:.2rem; font-weight:700; }
+.partial,.incomplete { color:#7c3100; background:#fff0df; } .complete { color:#174c32; background:#eaf6ed; }
+.critical,.high { color:#8a1720; background:#ffedf0; } .medium { color:#754100; background:#fff1d9; } .low,.informational { color:#174b68; background:#eaf3ff; }
+.table-wrap { overflow-x:auto; } table { width:100%; border-collapse:collapse; font-size:.92rem; } caption { text-align:left; font-weight:700; margin-bottom:.7rem; }
+.coverage-table { min-width:650px; table-layout:fixed; } .coverage-table col:nth-child(1) { width:11rem; } .coverage-table col:nth-child(2) { width:6rem; } .coverage-table col:nth-child(3),.coverage-table col:nth-child(5) { width:4rem; }
+.coverage-table th,.coverage-table td:nth-child(2),.coverage-table td:nth-child(3),.coverage-table td:nth-child(5) { white-space:nowrap; }
+.network-table { min-width:800px; table-layout:fixed; } .network-table col:nth-child(1) { width:8rem; } .network-table col:nth-child(2) { width:32%; } .network-table col:nth-child(3) { width:10rem; } .network-table th,.compact { white-space:nowrap; }
+th,td { text-align:left; vertical-align:top; border-bottom:1px solid var(--line); padding:.7rem .55rem; overflow-wrap:anywhere; } th { background:var(--wash); }
+code,pre { font: .86rem/1.5 ui-monospace,monospace; white-space:pre-wrap; overflow-wrap:anywhere; word-break:break-word; } pre { padding:1rem; background:#f2f5f7; border:1px solid var(--line); }
+dl { display:grid; grid-template-columns:minmax(9rem,1fr) 3fr; gap:.35rem 1rem; } dt { font-weight:600; } dd { margin:0; overflow-wrap:anywhere; }
+article { border:1px solid var(--line); border-left:4px solid var(--accent); padding:1.15rem; margin:1rem 0; overflow-wrap:anywhere; }
+article h3 { margin:.6rem 0; } details { border-bottom:1px solid var(--line); padding:.7rem 0; } summary { cursor:pointer; font-weight:600; overflow-wrap:anywhere; }
+.note { border-left:3px solid #7892a3; padding:.6rem 1rem; background:#f2f6f8; } .depth { color:var(--muted); display:block; font-size:.8rem; }
+@media(max-width:640px) { header,main,footer { padding:1rem; } section { padding:1rem; } dl { grid-template-columns:1fr; } dd { margin-bottom:.5rem; } }
+@media print { .table-wrap { overflow:visible; } .coverage-table,.network-table { min-width:0; table-layout:auto; } .coverage-table th,.coverage-table td,.network-table th,.compact { white-space:normal; } body { background:white; font-size:10pt; } header,main,footer { padding:.4rem; max-width:none; } nav { display:none; } section { border-top:1px solid #435b6e; padding:.6rem 0; } article { break-inside:avoid; } th { background:white; } a { color:inherit; } details { break-inside:auto; } }
+</style>
+</head>
+<body>
+<header>
+<div class="eyebrow">IRSnapshot · Local incident response</div>
+<h1>Analyst investigation report</h1>
+<p>EXAMPLE-LAB · <code>00000000-0000-0000-0000-000000000064</code></p>
+<p class="muted">Captured 2026-09-17T14:05:00Z (UTC) — 2026-09-17T14:05:10Z (UTC)<br>Capture tool 0.1.0 · Snapshot schema 1.0 · Analysis schema 1.0 · Ruleset 1.0.0</p>
+<nav aria-label="Report sections">
+<a href="#summary">Summary</a><a href="#system">System</a><a href="#findings">Findings</a><a href="#ancestry">Process ancestry</a><a href="#processes">Referenced processes</a><a href="#network">Network</a><a href="#persistence">Persistence</a><a href="#timeline">Timeline</a><a href="#issues">Issues</a><a href="#raw">Raw evidence</a>
+</nav>
+</header>
+<main>
+<section id="summary">
+<h2>Summary and collection coverage</h2>
+<p><span class="status complete">Investigation complete</span> · Analysis: <strong>Complete</strong></p>
+<p>Findings are review priorities from supported rules, not verdicts. Associations do not inherit severity.</p>
+<div class="counts"><div><strong>0</strong>critical findings</div><div><strong>0</strong>high findings</div><div><strong>0</strong>medium findings</div><div><strong>0</strong>low findings</div><div><strong>0</strong>informational findings</div></div>
+<p class="note">No findings. This is not malware clearance: only supported rules and available evidence were evaluated. A clean result does not prove a clean host.</p>
+<div class="table-wrap"><table class="coverage-table"><colgroup><col><col><col><col><col></colgroup><caption>Collection coverage</caption><thead><tr><th scope="col">Source</th><th scope="col">Status</th><th scope="col">Items</th><th scope="col">Scope and limits</th><th scope="col">Issues</th></tr></thead><tbody>
+<tr id="coverage-system"><th scope="row">system</th><td>ok</td><td>1</td><td><p>Synthetic demonstration records only; not a live collection.</p></td><td>0</td></tr><tr id="coverage-processes"><th scope="row">processes</th><td>ok</td><td>1</td><td><p>Synthetic demonstration records only; not a live collection.</p></td><td>0</td></tr><tr id="coverage-network"><th scope="row">network</th><td>ok</td><td>1</td><td><p>Synthetic demonstration records only; not a live collection.</p></td><td>0</td></tr><tr id="coverage-users"><th scope="row">users</th><td>ok</td><td>1</td><td><p>Synthetic demonstration records only; not a live collection.</p></td><td>0</td></tr><tr id="coverage-services"><th scope="row">services</th><td>ok</td><td>1</td><td><p>Synthetic demonstration records only; not a live collection.</p></td><td>0</td></tr><tr id="coverage-scheduled_tasks"><th scope="row">scheduled_tasks</th><td>ok</td><td>1</td><td><p>Synthetic demonstration records only; not a live collection.</p></td><td>0</td></tr><tr id="coverage-persistence"><th scope="row">persistence</th><td>ok</td><td>1</td><td><p>Synthetic demonstration records only; not a live collection.</p></td><td>0</td></tr>
+</tbody></table></div>
+<p class="muted">Zero items means none captured within the recorded scope. Partial, failed, and skipped sources cannot establish absence.</p>
+</section>
+<section id="system"><h2>System and identity</h2>
+<dl>
+<dt>Hostname</dt><dd>EXAMPLE-LAB</dd><dt>Windows version</dt><dd>Windows 11 (synthetic)</dd><dt>Architecture</dt><dd>AMD64</dd><dt>Collector username</dt><dd>EXAMPLE-LAB\ExampleUser</dd><dt>Collector SID</dt><dd>S-1-5-21-100-200-300-1001</dd>
+<dt>Elevated</dt><dd>no</dd><dt>Reported system time</dt><dd>2026-09-17T14:05:00Z (UTC)</dd><dt>Reported boot time</dt><dd>2026-09-17T12:00:00Z (UTC)</dd><dt>Observed</dt><dd>2026-09-17T14:05:00Z (UTC)</dd>
+</dl>
+<details><summary>User and session inventory · 1 items</summary><pre>{
+  &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000004&#34;,
+  &#34;observed_at&#34;: &#34;2026-09-17T14:05:00Z&#34;,
+  &#34;collector&#34;: &#34;users&#34;,
+  &#34;name&#34;: &#34;ExampleUser&#34;,
+  &#34;domain&#34;: &#34;EXAMPLE-LAB&#34;,
+  &#34;sid&#34;: &#34;S-1-5-21-100-200-300-1001&#34;,
+  &#34;source&#34;: &#34;current_token&#34;,
+  &#34;enabled&#34;: true,
+  &#34;session_name&#34;: null,
+  &#34;logged_in_at&#34;: null,
+  &#34;member_of_sid&#34;: null
+}</pre></details>
+</section>
+<section id="findings"><h2>Findings · 0</h2>
+<p>No findings. Review coverage and limitations before concluding an investigation.</p>
+</section>
+<section id="ancestry"><h2>Process ancestry</h2><p>Reported PPIDs and creation times inform parent links. Unverified, missing, newer-parent and cycle-broken links retain uncertainty. The flat traversal is labelled by depth; associations do not transfer suspicion.</p>
+<div class="table-wrap"><table><thead><tr><th scope="col">Process / depth</th><th scope="col">Reported PPID</th><th scope="col">Parent status</th><th scope="col">Associated parent</th></tr></thead><tbody>
+<tr><td><span class="depth">Depth 0</span><a href="#artifact-00000000-0000-0000-0000-000000000002">explorer.exe (PID 400)</a></td><td>100</td><td>missing</td><td>none</td></tr>
+
+</tbody></table></div>
+</section>
+<section id="processes"><h2>Referenced processes</h2><p class="muted">Finding artifacts and supplied correlation context, including ancestors and children.</p>
+<p>No processes referenced by findings or correlation context.</p>
+</section>
+<section id="network"><h2>Network ownership</h2><p>Snapshot PID associations are not historical ownership proof. Missing owners and temporal conflicts remain explicit.</p>
+<div class="table-wrap"><table class="network-table"><colgroup><col><col><col><col></colgroup><thead><tr><th scope="col">Connection</th><th scope="col">Local → remote</th><th scope="col">State / owning PID</th><th scope="col">Association status / process</th></tr></thead><tbody>
+<tr><td><a href="#artifact-00000000-0000-0000-0000-000000000003">tcp / ipv4</a></td><td><code>127.0.0.1:50000 → none</code></td><td>LISTEN / 400</td><td><span class="compact">pid_match</span><br><a href="#artifact-00000000-0000-0000-0000-000000000002">explorer.exe (PID 400)</a></td></tr>
+</tbody></table></div>
+</section>
+<section id="persistence"><h2>Persistence</h2><h3>Persistence findings</h3><p>No persistence findings from supported rules and available evidence.</p>
+<details><summary>Complete persistence entries inventory · 1 items</summary><h4>ExampleService</h4><pre>{
+  &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000007&#34;,
+  &#34;observed_at&#34;: &#34;2026-09-17T14:05:00Z&#34;,
+  &#34;collector&#34;: &#34;persistence&#34;,
+  &#34;kind&#34;: &#34;service&#34;,
+  &#34;location&#34;: &#34;Services/ExampleService&#34;,
+  &#34;entry_name&#34;: &#34;ExampleService&#34;,
+  &#34;command&#34;: &#34;\&#34;C:\\Windows\\System32\\svchost.exe\&#34; -k Example&#34;,
+  &#34;target_path&#34;: null,
+  &#34;owner_sid&#34;: null,
+  &#34;registry_view&#34;: null,
+  &#34;registry_value_type&#34;: null,
+  &#34;enabled&#34;: true,
+  &#34;source_artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000005&#34;,
+  &#34;action_index&#34;: null
+}</pre></details><details><summary>Complete services inventory · 1 items</summary><h4>ExampleService</h4><pre>{
+  &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000005&#34;,
+  &#34;observed_at&#34;: &#34;2026-09-17T14:05:00Z&#34;,
+  &#34;collector&#34;: &#34;services&#34;,
+  &#34;name&#34;: &#34;ExampleService&#34;,
+  &#34;display_name&#34;: &#34;Synthetic example service&#34;,
+  &#34;status&#34;: &#34;stopped&#34;,
+  &#34;command&#34;: &#34;\&#34;C:\\Windows\\System32\\svchost.exe\&#34; -k Example&#34;,
+  &#34;startup_type&#34;: &#34;manual&#34;,
+  &#34;username&#34;: &#34;LocalSystem&#34;,
+  &#34;pid&#34;: null
+}</pre></details><details><summary>Complete scheduled tasks inventory · 1 items</summary><h4>ExampleTask</h4><pre>{
+  &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000006&#34;,
+  &#34;observed_at&#34;: &#34;2026-09-17T14:05:00Z&#34;,
+  &#34;collector&#34;: &#34;scheduled_tasks&#34;,
+  &#34;name&#34;: &#34;ExampleTask&#34;,
+  &#34;task_path&#34;: &#34;\\Examples\\&#34;,
+  &#34;state&#34;: &#34;Disabled&#34;,
+  &#34;enabled&#34;: false,
+  &#34;principal&#34;: &#34;ExampleUser&#34;,
+  &#34;actions&#34;: [
+    {
+      &#34;kind&#34;: &#34;exec&#34;,
+      &#34;executable&#34;: &#34;C:\\Windows\\System32\\notepad.exe&#34;,
+      &#34;arguments&#34;: null,
+      &#34;working_directory&#34;: null,
+      &#34;class_id&#34;: null
+    }
+  ],
+  &#34;triggers&#34;: [
+    {
+      &#34;kind&#34;: &#34;time&#34;,
+      &#34;enabled&#34;: false,
+      &#34;start_boundary_raw&#34;: &#34;2026-09-18T12:00:00&#34;,
+      &#34;end_boundary_raw&#34;: null,
+      &#34;start_at&#34;: null,
+      &#34;end_at&#34;: null,
+      &#34;user_id&#34;: null,
+      &#34;repetition_interval&#34;: null
+    }
+  ]
+}</pre></details>
+</section>
+<section id="timeline"><h2>Factual timeline</h2><p>UTC only. Reported times come from artifacts; observed times mark collection boundaries. No event is invented for missing timestamps.</p><div class="table-wrap"><table><thead><tr><th scope="col">Time (UTC)</th><th scope="col">Basis</th><th scope="col">Kind</th><th scope="col">Description / evidence</th></tr></thead><tbody>
+<tr><td>2026-09-17T12:00:00Z (UTC)</td><td>reported</td><td>boot</td><td>System boot time<br><a href="#artifact-00000000-0000-0000-0000-000000000001">00000000-0000-0000-0000-000000000001</a></td></tr><tr><td>2026-09-17T14:00:00Z (UTC)</td><td>reported</td><td>process_start</td><td>Process started: explorer.exe (PID 400)<br><a href="#artifact-00000000-0000-0000-0000-000000000002">00000000-0000-0000-0000-000000000002</a></td></tr><tr><td>2026-09-17T14:05:00Z (UTC)</td><td>observed</td><td>collection_start</td><td>Collection started</td></tr><tr><td>2026-09-17T14:05:10Z (UTC)</td><td>observed</td><td>collection_end</td><td>Collection finished</td></tr>
+</tbody></table></div><p class="note">A point-in-time snapshot cannot reconstruct exited processes or past connections. Scheduled trigger boundaries remain raw task evidence and are not execution events.</p>
+</section>
+<section id="issues"><h2>Collection and analysis issues</h2><h3>Collection issues</h3>
+
+<p>No collection issues recorded.</p><h3>Analysis issues</h3>
+<p>No analysis issues recorded.</p>
+</section>
+<section id="raw"><h2>Raw evidence</h2><p class="muted">Literal captured fields. Null means unavailable or inapplicable; inventory is bounded by collection scope. Artifact strings are evidence, never active external links.</p>
+<h3>system · 1 items</h3><details id="artifact-00000000-0000-0000-0000-000000000001"><summary>system · 00000000-0000-0000-0000-000000000001</summary><pre>{
+  &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000001&#34;,
+  &#34;observed_at&#34;: &#34;2026-09-17T14:05:00Z&#34;,
+  &#34;collector&#34;: &#34;system&#34;,
+  &#34;hostname&#34;: &#34;EXAMPLE-LAB&#34;,
+  &#34;windows_version&#34;: &#34;Windows 11 (synthetic)&#34;,
+  &#34;architecture&#34;: &#34;AMD64&#34;,
+  &#34;current_time&#34;: &#34;2026-09-17T14:05:00Z&#34;,
+  &#34;boot_time&#34;: &#34;2026-09-17T12:00:00Z&#34;,
+  &#34;collector_username&#34;: &#34;EXAMPLE-LAB\\ExampleUser&#34;,
+  &#34;collector_sid&#34;: &#34;S-1-5-21-100-200-300-1001&#34;,
+  &#34;elevated&#34;: false
+}</pre></details><h3>processes · 1 items</h3><details id="artifact-00000000-0000-0000-0000-000000000002"><summary>processes · 00000000-0000-0000-0000-000000000002</summary><pre>{
+  &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000002&#34;,
+  &#34;observed_at&#34;: &#34;2026-09-17T14:05:00Z&#34;,
+  &#34;collector&#34;: &#34;processes&#34;,
+  &#34;pid&#34;: 400,
+  &#34;ppid&#34;: 100,
+  &#34;name&#34;: &#34;explorer.exe&#34;,
+  &#34;executable&#34;: &#34;C:\\Windows\\explorer.exe&#34;,
+  &#34;command_line&#34;: [
+    &#34;C:\\Windows\\explorer.exe&#34;
+  ],
+  &#34;username&#34;: &#34;EXAMPLE-LAB\\ExampleUser&#34;,
+  &#34;created_at&#34;: &#34;2026-09-17T14:00:00Z&#34;
+}</pre></details><h3>network · 1 items</h3><details id="artifact-00000000-0000-0000-0000-000000000003"><summary>network · 00000000-0000-0000-0000-000000000003</summary><pre>{
+  &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000003&#34;,
+  &#34;observed_at&#34;: &#34;2026-09-17T14:05:00Z&#34;,
+  &#34;collector&#34;: &#34;network&#34;,
+  &#34;family&#34;: &#34;ipv4&#34;,
+  &#34;protocol&#34;: &#34;tcp&#34;,
+  &#34;local&#34;: {
+    &#34;address&#34;: &#34;127.0.0.1&#34;,
+    &#34;port&#34;: 50000
+  },
+  &#34;remote&#34;: null,
+  &#34;state&#34;: &#34;LISTEN&#34;,
+  &#34;owning_pid&#34;: 400
+}</pre></details><h3>users · 1 items</h3><details id="artifact-00000000-0000-0000-0000-000000000004"><summary>users · 00000000-0000-0000-0000-000000000004</summary><pre>{
+  &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000004&#34;,
+  &#34;observed_at&#34;: &#34;2026-09-17T14:05:00Z&#34;,
+  &#34;collector&#34;: &#34;users&#34;,
+  &#34;name&#34;: &#34;ExampleUser&#34;,
+  &#34;domain&#34;: &#34;EXAMPLE-LAB&#34;,
+  &#34;sid&#34;: &#34;S-1-5-21-100-200-300-1001&#34;,
+  &#34;source&#34;: &#34;current_token&#34;,
+  &#34;enabled&#34;: true,
+  &#34;session_name&#34;: null,
+  &#34;logged_in_at&#34;: null,
+  &#34;member_of_sid&#34;: null
+}</pre></details><h3>services · 1 items</h3><details id="artifact-00000000-0000-0000-0000-000000000005"><summary>services · 00000000-0000-0000-0000-000000000005</summary><pre>{
+  &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000005&#34;,
+  &#34;observed_at&#34;: &#34;2026-09-17T14:05:00Z&#34;,
+  &#34;collector&#34;: &#34;services&#34;,
+  &#34;name&#34;: &#34;ExampleService&#34;,
+  &#34;display_name&#34;: &#34;Synthetic example service&#34;,
+  &#34;status&#34;: &#34;stopped&#34;,
+  &#34;command&#34;: &#34;\&#34;C:\\Windows\\System32\\svchost.exe\&#34; -k Example&#34;,
+  &#34;startup_type&#34;: &#34;manual&#34;,
+  &#34;username&#34;: &#34;LocalSystem&#34;,
+  &#34;pid&#34;: null
+}</pre></details><h3>scheduled_tasks · 1 items</h3><details id="artifact-00000000-0000-0000-0000-000000000006"><summary>scheduled_tasks · 00000000-0000-0000-0000-000000000006</summary><pre>{
+  &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000006&#34;,
+  &#34;observed_at&#34;: &#34;2026-09-17T14:05:00Z&#34;,
+  &#34;collector&#34;: &#34;scheduled_tasks&#34;,
+  &#34;name&#34;: &#34;ExampleTask&#34;,
+  &#34;task_path&#34;: &#34;\\Examples\\&#34;,
+  &#34;state&#34;: &#34;Disabled&#34;,
+  &#34;enabled&#34;: false,
+  &#34;principal&#34;: &#34;ExampleUser&#34;,
+  &#34;actions&#34;: [
+    {
+      &#34;kind&#34;: &#34;exec&#34;,
+      &#34;executable&#34;: &#34;C:\\Windows\\System32\\notepad.exe&#34;,
+      &#34;arguments&#34;: null,
+      &#34;working_directory&#34;: null,
+      &#34;class_id&#34;: null
+    }
+  ],
+  &#34;triggers&#34;: [
+    {
+      &#34;kind&#34;: &#34;time&#34;,
+      &#34;enabled&#34;: false,
+      &#34;start_boundary_raw&#34;: &#34;2026-09-18T12:00:00&#34;,
+      &#34;end_boundary_raw&#34;: null,
+      &#34;start_at&#34;: null,
+      &#34;end_at&#34;: null,
+      &#34;user_id&#34;: null,
+      &#34;repetition_interval&#34;: null
+    }
+  ]
+}</pre></details><h3>persistence · 1 items</h3><details id="artifact-00000000-0000-0000-0000-000000000007"><summary>persistence · 00000000-0000-0000-0000-000000000007</summary><pre>{
+  &#34;artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000007&#34;,
+  &#34;observed_at&#34;: &#34;2026-09-17T14:05:00Z&#34;,
+  &#34;collector&#34;: &#34;persistence&#34;,
+  &#34;kind&#34;: &#34;service&#34;,
+  &#34;location&#34;: &#34;Services/ExampleService&#34;,
+  &#34;entry_name&#34;: &#34;ExampleService&#34;,
+  &#34;command&#34;: &#34;\&#34;C:\\Windows\\System32\\svchost.exe\&#34; -k Example&#34;,
+  &#34;target_path&#34;: null,
+  &#34;owner_sid&#34;: null,
+  &#34;registry_view&#34;: null,
+  &#34;registry_value_type&#34;: null,
+  &#34;enabled&#34;: true,
+  &#34;source_artifact_id&#34;: &#34;00000000-0000-0000-0000-000000000005&#34;,
+  &#34;action_index&#34;: null
+}</pre></details>
+<details><summary>Path interpretation context</summary><pre>{
+  &#34;known_paths&#34;: [
+    {
+      &#34;kind&#34;: &#34;windows&#34;,
+      &#34;path&#34;: &#34;C:\\Windows&#34;,
+      &#34;owner_sid&#34;: null,
+      &#34;source&#34;: &#34;synthetic fixture&#34;
+    },
+    {
+      &#34;kind&#34;: &#34;profile&#34;,
+      &#34;path&#34;: &#34;C:\\Users\\ExampleUser&#34;,
+      &#34;owner_sid&#34;: &#34;S-1-5-21-100-200-300-1001&#34;,
+      &#34;source&#34;: &#34;synthetic fixture&#34;
+    }
+  ],
+  &#34;environment&#34;: [
+    {
+      &#34;name&#34;: &#34;SystemRoot&#34;,
+      &#34;value&#34;: &#34;C:\\Windows&#34;,
+      &#34;owner_sid&#34;: null
+    }
+  ]
+}</pre></details>
+<details><summary>Complete analysis relationships and metadata</summary><pre>{
+  &#34;schema_version&#34;: &#34;1.0&#34;,
+  &#34;snapshot_id&#34;: &#34;00000000-0000-0000-0000-000000000064&#34;,
+  &#34;ruleset_version&#34;: &#34;1.0.0&#34;,
+  &#34;complete&#34;: true,
+  &#34;findings&#34;: [],
+  &#34;process_tree&#34;: {
+    &#34;nodes&#34;: [
+      {
+        &#34;process_id&#34;: &#34;00000000-0000-0000-0000-000000000002&#34;,
+        &#34;parent_id&#34;: null,
+        &#34;child_ids&#34;: [],
+        &#34;parent_status&#34;: &#34;missing&#34;
+      }
+    ],
+    &#34;root_ids&#34;: [
+      &#34;00000000-0000-0000-0000-000000000002&#34;
+    ]
+  },
+  &#34;network_links&#34;: [
+    {
+      &#34;connection_id&#34;: &#34;00000000-0000-0000-0000-000000000003&#34;,
+      &#34;process_id&#34;: &#34;00000000-0000-0000-0000-000000000002&#34;,
+      &#34;status&#34;: &#34;pid_match&#34;
+    }
+  ],
+  &#34;finding_context&#34;: [],
+  &#34;timeline&#34;: [
+    {
+      &#34;timestamp&#34;: &#34;2026-09-17T12:00:00Z&#34;,
+      &#34;kind&#34;: &#34;boot&#34;,
+      &#34;basis&#34;: &#34;reported&#34;,
+      &#34;description&#34;: &#34;System boot time&#34;,
+      &#34;artifact_ids&#34;: [
+        &#34;00000000-0000-0000-0000-000000000001&#34;
+      ]
+    },
+    {
+      &#34;timestamp&#34;: &#34;2026-09-17T14:00:00Z&#34;,
+      &#34;kind&#34;: &#34;process_start&#34;,
+      &#34;basis&#34;: &#34;reported&#34;,
+      &#34;description&#34;: &#34;Process started: explorer.exe (PID 400)&#34;,
+      &#34;artifact_ids&#34;: [
+        &#34;00000000-0000-0000-0000-000000000002&#34;
+      ]
+    },
+    {
+      &#34;timestamp&#34;: &#34;2026-09-17T14:05:00Z&#34;,
+      &#34;kind&#34;: &#34;collection_start&#34;,
+      &#34;basis&#34;: &#34;observed&#34;,
+      &#34;description&#34;: &#34;Collection started&#34;,
+      &#34;artifact_ids&#34;: []
+    },
+    {
+      &#34;timestamp&#34;: &#34;2026-09-17T14:05:10Z&#34;,
+      &#34;kind&#34;: &#34;collection_end&#34;,
+      &#34;basis&#34;: &#34;observed&#34;,
+      &#34;description&#34;: &#34;Collection finished&#34;,
+      &#34;artifact_ids&#34;: []
+    }
+  ],
+  &#34;issues&#34;: []
+}</pre></details>
+</section>
+</main><footer class="muted">IRSnapshot · Evidence for analyst review. Location and command heuristics require context; unsupported grammar and collection gaps limit conclusions.</footer>
+</body></html>

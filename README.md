@@ -6,6 +6,8 @@ A Windows endpoint incident-response and triage CLI in Python. It collects a poi
 
 Milestone 6 has passing Windows Server CI on Python 3.12 and 3.15, including clean installation and live collection. Windows 10/11 desktop sessions and printed report appearance remain release gates. See the [release checklist](docs/release-validation.md) and [résumé assessment](docs/portfolio.md).
 
+I included a [portfolio demonstration](portfolio-demo/README.md) with ready-to-open synthetic HTML reports, original snapshots, and my project walkthrough. I also included a [downloadable demo ZIP](portfolio-demo.zip). I can present it on a Mac or Windows computer without installing Python.
+
 Implemented:
 
 - Pydantic evidence, collection-coverage, findings, and report models.

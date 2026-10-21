@@ -1,4 +1,4 @@
-# Milestone 2 interpretation contracts
+# Evidence interpretation APIs
 
 These APIs interpret already captured, validated evidence. They do not collect endpoint data, execute commands, resolve a live filesystem, assign findings, or change severity. Input models are revalidated; original evidence remains unchanged. Snapshot schema `1.0` is unchanged.
 
@@ -15,9 +15,9 @@ These APIs interpret already captured, validated evidence. They do not collect e
 | `correlation.relationships` | `correlate_findings(findings, tree, links)` | List of `FindingContext` |
 | `correlation.timeline` | `build_timeline(snapshot)` | List of `TimelineEvent` |
 
-Imports begin with `irsnapshot.`. Command/path facts are intermediate dataclasses; existing Pydantic contracts represent trees, links, contexts, and timeline events. These APIs remain usable independently of detection rules. The [offline example](../examples/interpret_snapshot.py) demonstrates interpretation without detections; Milestone 3's `analyze` command evaluates rules and applies finding correlation.
+Imports begin with `irsnapshot.`. Command/path facts are intermediate dataclasses; existing Pydantic contracts represent trees, links, contexts, and timeline events. These APIs remain usable independently of detection rules. The [offline example](../examples/interpret_snapshot.py) demonstrates interpretation without detections; the `analyze` command evaluates rules and applies finding correlation.
 
-## Milestone 3 investigation API
+## Investigation analysis API
 
 ```python
 from pathlib import Path

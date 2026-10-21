@@ -1,6 +1,6 @@
 # Interpretation and operational limits
 
-IRSnapshot 0.5.0 implements local Windows evidence collection, offline analysis, standalone HTML reports, and investigation orchestration. It is a portfolio triage project, not an EDR, antivirus, continuous monitor, remediation tool, or forensic acquisition system. Windows collectors have fixture tests and passing hosted Windows Server live validation; Windows 10/11 desktop validation remains open.
+IRSnapshot 0.5.0 implements local Windows evidence collection, offline analysis, standalone HTML reports, and investigation orchestration. It is a point-in-time triage tool, not an EDR, antivirus, continuous monitor, remediation tool, or forensic acquisition system. Windows collectors have fixture tests and passing hosted Windows Server live validation; Windows 10/11 desktop validation remains open.
 
 ## Snapshot scope
 
@@ -8,7 +8,7 @@ A snapshot covers a collection interval rather than one atomic instant. It canno
 
 All seven collector records describe declared scope and failures. Successful collection means that scope was queried; it cannot promise visibility into every endpoint behavior. Failed/skipped sources are distinct from successfully empty sources. A denied field stays null and carries its collection issue. An analysis can finish successfully using incomplete evidence; the CLI still returns 3 when collection was partial, failed, or skipped.
 
-Live collection targets Windows 10/11 x64 with 64-bit Python and Windows PowerShell 5.1. Current-user registry and Startup scope follow the collecting identity. Other users' offline hives, recursive domain membership, historical events, and packet capture are outside this milestone. [Collection details](collection.md) describe the individual sources and their limitations.
+Live collection targets Windows 10/11 x64 with 64-bit Python and Windows PowerShell 5.1. Current-user registry and Startup scope follow the collecting identity. Other users' offline hives, recursive domain membership, historical events, and packet capture are outside the collection scope. [Collection details](collection.md) describe the individual sources and their limitations.
 
 ## Matching limits
 

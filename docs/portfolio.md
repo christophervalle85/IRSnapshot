@@ -1,62 +1,53 @@
-# Portfolio value and completion assessment
+# Project walkthrough and design decisions
 
-Assessed on 2026-10-06 and updated on 2026-10-15 against the implemented project, accepted architecture, recorded tests, Windows CI and independent review.
+IRSnapshot collects a point-in-time Windows triage snapshot and turns it into explainable findings, related evidence, and standalone reports. The implementation includes four CLI commands, seven collection categories, thirteen behavioral rules, process and network correlation, and JSON/HTML reporting.
 
-**IRSnapshot is a solid résumé project now. Its implementation has meaningful security-engineering depth and a working synthetic offline demonstration. Milestone 6 and the final Windows release are not complete yet.**
+## Design decisions
 
-## What makes the project worth showing
-
-- **Honest evidence coverage:** seven collector categories record successful, partial, failed, and skipped sources. Missing evidence is not treated as a clean result. Collection completeness is distinct from analysis success and finding count.
-- **Explainable analysis:** thirteen deterministic heuristic rules retain source evidence and benign explanations. Rule failures are isolated, and identical evidence produces reproducible IDs and output ordering.
-- **Recoverable investigations:** the snapshot is saved before analysis and reporting. Downstream failures preserve evidence, while explicit overwrite and no-clobber behavior protect existing outputs.
-- **Careful input boundaries:** fixed Windows queries, conservative command interpretation, escaped report content, and literal captured strings keep evidence from becoming executable instructions.
-- **Distributable output:** four CLI commands, validated JSON, standalone HTML, packaged templates, and clean-install checks demonstrate more than a source-only prototype.
-
-The recorded suite has 562 passing portable cases on macOS (Python 3.12/3.14) and Windows Server 2025 x64 (Python 3.12/3.15). Windows CI also passed clean-wheel installation, synthetic demonstrations and live collection in an administrator session. Portable cases include failure injection, real publication contention, partial coverage, reproducibility and installed-package behavior. See [verification evidence](testing.md) for precise scope and remaining desktop checks.
-
-## Completion status
-
-| Area | Assessment |
+| Decision | Purpose |
 |---|---|
-| Accepted application feature set | Implemented: four commands, seven collection categories, thirteen rules, correlation, JSON/HTML reports, and recovery |
-| Portable behavior and installation | Verified on documented macOS and Windows Server environments |
-| Synthetic offline demonstration | Ready; benign/review/partial samples produce 0/13/11 findings |
-| Native Windows CI | Passing matrix: 562 portable + 3 live tests per Python version, including all four installed commands; Python 3.12.10 / 3.15.0, elevated Windows Server 2025 x64 |
-| Windows 10/11 x64 ordinary and elevated sessions | Pending; an ARM64 VM cannot substitute for the declared x64 target |
-| Printed report appearance and evidence visibility | Pending; inspect closed disclosure sections as well as tables and page breaks |
-| Milestone 6 / final v1 release | Incomplete until those execution gates and final release checks are recorded |
+| Typed evidence and explicit collection coverage | Preserve the distinction between unavailable evidence and a successful empty result. |
+| Deterministic rules and finding identifiers | Make findings reproducible and traceable to their source artifacts. |
+| Separate collection, analysis, correlation, and reporting | Allow saved snapshots to be analyzed offline and components to be tested independently. |
+| Save the snapshot before generating reports | Retain collected evidence when a downstream operation fails. |
+| Fixed Windows queries and escaped report content | Keep captured evidence separate from executable code and presentation markup. |
+| Atomic publication and explicit overwrite protection | Preserve existing files when publication fails or a destination is already occupied. |
 
-The original targeted assessment identified no application-code blocker, but subsequent native Windows execution found a real account-collection defect: a versioned Windows module was being imported through a nonexistent unversioned manifest path. A failing native regression and a repeated path comparison established the cause; module discovery now stays within the trusted absolute system directory. Windows CI also exposed and corrected platform assumptions in test fixtures and help assertions. This is not a comprehensive security certification. Hosted live checks permit partial sources and do not establish complete desktop coverage; recorded collector limitations still matter.
+## Example investigation
 
-The final Windows matrix passed after the account fix. In its reported CLI captures, system, network, users, services, scheduled tasks and persistence succeeded; four process-access denials remained explicitly partial. That demonstrates useful live collection and honest reporting of unavailable evidence, without treating an administrator session as unrestricted access.
+The [demo directory](../portfolio-demo/README.md) contains ready-to-open reports and their original synthetic snapshots. After downloading or cloning the repository:
 
-The necessary remaining work is validation, followed by repairs to any observed defects and coherent release finalization. More rules, a web dashboard, cloud storage, malware execution, or a background service are not required to finish the accepted scope. The [release checklist](release-validation.md) gives the exact commands and evidence to record.
+1. Open `portfolio-demo/review.html`. Inspect a finding's rule, evidence, explanation, and process context. This sample produces 13 findings, one per rule.
+2. Open `portfolio-demo/partial.html`. Review the 11 retained findings alongside failed collection sources. Partial coverage remains visible throughout the report.
+3. Open `portfolio-demo/benign.html`. It produces no findings; that result applies only to the available evidence and implemented rules.
 
-## Suggested résumé wording
+Each HTML report has a matching analysis JSON file. The JSON retains the original snapshot, derived findings, relationships, available timeline events, and collection issues. No captured command is executed. See the [rule reference](rules.md) for matching boundaries and benign explanations.
 
-Use wording that matches the implementation and technical decisions you can explain. Keep the repository's Windows-validation status visible when linking the project.
-
-- Developed IRSnapshot, a Python incident-response triage CLI with 13 evidence-linked heuristic rules, deterministic JSON/HTML reporting, and 562 automated test cases covering validation, partial collection, and failure recovery.
-- Designed a typed evidence pipeline that isolates collection and rule failures and preserves snapshots when downstream analysis or reporting fails.
-- Validated clean package installation and live collection through private Windows CI on Python 3.12 and 3.15, with explicit coverage reporting and evidence-safe test diagnostics.
-
-An optional project subtitle is **“Python incident-response triage CLI — tested on Windows Server; desktop validation pending.”**
-
-Do not describe the current release as a production-ready EDR, a validated Windows 10/11 deployment, or a malware detector with measured accuracy. Detection accuracy, time saved, adoption, and real-incident outcomes have not been measured. Synthetic expected findings are functional checks, not detection-performance metrics.
-
-## A short interview demonstration
-
-After installing the project as described in the README, use these PowerShell commands from the checkout. Choose a new demo directory each time:
+To regenerate a report from the checkout after installation:
 
 ```powershell
-$demo = Join-Path ([IO.Path]::GetTempPath()) ("irsnapshot-demo-" + [guid]::NewGuid())
-New-Item -ItemType Directory -Path $demo | Out-Null
-.\.venv\Scripts\irsnapshot.exe analyze samples/benign.snapshot.json
-.\.venv\Scripts\irsnapshot.exe report samples/review.snapshot.json --output "$demo\review.html"
-.\.venv\Scripts\irsnapshot.exe report samples/partial.snapshot.json --output "$demo\partial.html"
-$LASTEXITCODE # Expected: 3, because collection is incomplete in this synthetic sample.
+.\.venv\Scripts\irsnapshot.exe report samples/review.snapshot.json --output review.html
+.\.venv\Scripts\irsnapshot.exe report samples/partial.snapshot.json --output partial.html
+$LASTEXITCODE # Expected: 3 for the partial-coverage sample.
 ```
 
-Open the HTML files locally. Explain one finding's evidence and benign explanation, then show the partial report retaining useful findings while clearly identifying unavailable sources. Explain why a zero-finding report is not proof of a clean host, why a PID match is not historical identity, and why the snapshot is published before derived reports. This demonstration executes no captured command and makes no claim of live endpoint validation.
+Use a new output path, or explicitly pass `--overwrite` to replace an existing report.
 
-Before an interview, be able to trace one record from collector to model to rule to report, explain one failure-injection test, and modify a small behavior with its test. Those explanations make the project credible; a large test count alone does not.
+## Validation status
+
+| Area | Recorded result |
+|---|---|
+| Portable behavior | 562 tests passed on the documented macOS and Windows Server environments. |
+| Installed Windows commands | Clean-wheel installation and 3 live tests passed per Python version, including all four commands. |
+| Native Windows environment | Elevated Windows Server 2025 x64; Python 3.12.10 and 3.15.0. |
+| Synthetic reports | Benign/review/partial samples produce 0/13/11 findings. |
+| Windows 10/11 x64 desktop sessions | Ordinary and elevated sessions remain unverified. |
+| Printed reports | Visual print/PDF inspection remains pending. |
+
+Native execution exposed a LocalAccounts module-import defect. A failing regression established the cause before correction; the final Windows matrix passed after the query switched to the trusted absolute module directory. In those reported CLI captures, system, network, users, services, scheduled tasks, and persistence succeeded. Four process-access denials remained explicitly partial.
+
+The [verification record](testing.md) contains exact environments, source revisions, test results, and execution links. The [release checklist](release-validation.md) tracks the remaining desktop, print, and release checks. The application feature set is implemented; M6 and the final v1 release remain open.
+
+## Interpretation limits
+
+Findings identify behaviors that warrant review, with possible benign explanations. Synthetic expected results verify functionality rather than detection accuracy. A PID association does not prove historical ownership, a path category does not establish filesystem permissions, and a zero-finding report does not establish that an endpoint is clean. See [limitations](limitations.md) for collection and analysis boundaries.

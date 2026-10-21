@@ -1,6 +1,6 @@
 # Reports and investigation folders
 
-Milestone 5 supplies all four commands: `collect`, `analyze`, `report`, and `run`. Collection uses the local Windows endpoint. Analysis and reporting can use a saved snapshot offline on any supported Python host. None of these commands executes captured evidence.
+The CLI provides four commands: `collect`, `analyze`, `report`, and `run`. Collection uses the local Windows endpoint. Analysis and reporting can use a saved snapshot offline on any supported Python host. None of these commands executes captured evidence.
 
 ## Render saved evidence
 

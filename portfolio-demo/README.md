@@ -1,33 +1,25 @@
-# My IRSnapshot portfolio demonstration
+# IRSnapshot sample reports
 
-I built IRSnapshot to collect a point-in-time Windows evidence snapshot, apply 13 explainable behavioral rules, correlate related records, and generate standalone JSON and HTML reports.
+Three synthetic investigations demonstrate evidence collection coverage, explainable findings, and standalone reporting. These files contain invented evidence rather than live endpoint captures. The reports open locally on macOS or Windows without Python or external services.
 
-I prepared these synthetic reports on October 17, 2026, and added this walkthrough to the private repository on October 20, 2026. I included no live endpoint captures. I can demonstrate the reports on a Mac or Windows computer without installing Python.
+## View the reports
 
-## How I demonstrate the project
+Download or clone the repository, or extract [portfolio-demo.zip](https://github.com/christophervalle85/IRSnapshot/blob/milestone-6/portfolio-demo.zip), then open the HTML files locally. GitHub displays HTML source rather than rendering these reports.
 
-1. I open [review.html](review.html) locally and explain one of its 13 findings: the original evidence, the reason for review, and a possible benign explanation.
-2. I open [partial.html](partial.html) and show how 11 findings remain useful while missing collection sources stay visible. I do not equate zero findings with a clean host.
-3. I open [benign.html](benign.html), which has zero findings. I compare each report with its matching analysis JSON and original input in [samples/](samples/).
+| Report | Findings | Demonstrates |
+|---|---:|---|
+| [review.html](review.html) | 13 | One finding per behavioral rule, with evidence and process context. |
+| [partial.html](partial.html) | 11 | Useful findings retained alongside incomplete collection coverage. |
+| [benign.html](benign.html) | 0 | A snapshot without matches to the implemented rules. |
 
-I download or clone the private repository, then open these HTML files from the `portfolio-demo` folder. GitHub displays HTML source rather than running the report. I need no external services to read the local reports.
+Expand a finding to inspect the source evidence, reason for review, and possible benign explanation. Compare the report with its matching `.analysis.json` file and original snapshot in [samples/](samples/). No captured command is executed.
 
-## The engineering decisions I explain
+## Provenance and verification
 
-I keep collection, models, analysis, correlation, and presentation separate. I retain original evidence alongside deterministic findings and available timeline events. I use fixed Windows queries and render captured strings literally. I save the snapshot before derived analysis and reports so a later failure preserves the evidence. I never execute commands captured in a snapshot.
+The reports were generated on October 17, 2026, from the source revision recorded in [manifest.json](manifest.json). The manifest includes file hashes, expected findings and exit codes, snapshot identifiers, and the producing package version. Structural checks covered JSON validation, matching snapshot identifiers, internal HTML anchors, and absence of active content or external resources.
 
-## What I verified
+The [recorded Windows run](https://github.com/christophervalle85/IRSnapshot/actions/runs/38686690894) passed 562 portable tests and three live installed-wheel tests per Python version on elevated Windows Server 2025 x64. Windows 10/11 x64 ordinary/elevated desktop checks and visual print/PDF inspection remain pending. This is an unreleased demonstration bundle; the package version remains 0.5.0.
 
-I verified expected results of 0, 13, and 11 findings for the benign, review, and partial samples, respectively. I checked JSON models, matching snapshot identifiers, internal HTML links, and the absence of active content and external HTML resources. I recorded file hashes and the producing source commit in [manifest.json](manifest.json).
+Synthetic examples establish expected behavior, not detection accuracy. Zero findings do not establish that a host is clean. The Mac supports offline sample analysis rather than live endpoint collection.
 
-I also validated clean installation and all four commands through private CI on elevated Windows Server 2025 x64. I recorded 562 portable tests and three live tests passing on each of Python 3.12.10 and 3.15.0 in the [Windows run](https://github.com/christophervalle85/IRSnapshot/actions/runs/38686690894).
-
-I still need Windows 10/11 x64 ordinary and elevated desktop checks, visual print/PDF inspection, and final release packaging before I close M6 and release v1. I use this bundle as an unreleased portfolio demonstration; the package version remains 0.5.0. I use my Mac for offline sample analysis rather than live Windows collection. I have not measured detection accuracy with these synthetic examples.
-
-## How I describe it
-
-I developed IRSnapshot, a Python Windows incident-response triage CLI with 13 explainable behavioral rules, typed evidence collection, deterministic JSON/HTML reporting, and snapshot-preserving failure recovery. I validated clean installation and live collection through private Windows CI.
-
-I keep the subtitle precise: “Windows incident-response triage CLI — tested on Windows Server; desktop validation pending.” I keep the repository private.
-
-I can regenerate the reports from the included snapshots using the repository's `analyze` and `report` commands. I describe the remaining checks in the [release checklist](../docs/release-validation.md) and the project's strengths in my [portfolio assessment](../docs/portfolio.md).
+See the [project walkthrough](https://github.com/christophervalle85/IRSnapshot/blob/milestone-6/docs/portfolio.md), [rule reference](https://github.com/christophervalle85/IRSnapshot/blob/milestone-6/docs/rules.md), and [release checklist](https://github.com/christophervalle85/IRSnapshot/blob/milestone-6/docs/release-validation.md). Regenerate the reports with the repository's `analyze` and `report` commands using the included snapshots.

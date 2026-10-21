@@ -1,14 +1,14 @@
-# IRSnapshot v1.0 — proposed architecture and milestone contract
+# Architecture and implementation
 
 Status: accepted design. Milestones 1–5 are implemented; Milestone 6 has passing hosted Windows checks, with desktop and print validation still pending. See README and testing.md for current capabilities and verification.
 
-## 1. Scope and recommended approach
+## 1. Scope and approach
 
 IRSnapshot collects a bounded, point-in-time Windows triage snapshot, applies explainable deterministic rules, correlates evidence, and produces terminal, JSON, and standalone HTML reports. Collection spans an interval; it is not an atomic image of the endpoint. Observed behavior warrants review and is not a malware verdict.
 
 Use Python 3.12+, Typer, Rich, Pydantic v2, psutil, Jinja2, and pytest. Standard-library modules cover registry access, subprocesses, Windows path syntax, identifiers, timestamps, logging, and file output. There is no runtime web access, service, remote agent, remediation, payload execution, or monitoring loop. No Linux or macOS collectors will be implemented. Pure analysis tests can run on the development host without implying support for those operating systems.
 
-Recommended implementation: psutil for process/network/service data; winreg for Run keys and profile-path discovery; small standard-library Windows API adapters where needed; fixed, read-only PowerShell queries for users, scheduled tasks, and shortcut metadata. This balances readable portfolio code with native data sources.
+The collection layer uses psutil for process/network/service data; winreg for Run keys and profile-path discovery; small standard-library Windows API adapters where needed; fixed, read-only PowerShell queries for users, scheduled tasks, and shortcut metadata. The adapter boundaries keep native sources independently testable.
 
 Alternatives considered:
 
@@ -16,13 +16,13 @@ Alternatives considered:
 |---|---|---|---|
 | psutil + standard library + narrow PowerShell adapters | Small dependency set and independently testable collectors | Several transport formats to normalize | Recommended |
 | PowerShell for nearly all collection | Consistent inventory transport | Larger JSON/process boundary and more subprocess dependence | Keep only where it improves reliability |
-| Direct Win32/COM throughout | Detailed control | Much more interop code and testing than this v1 budget supports | Reserve for specific gaps |
+| Direct Win32/COM throughout | Detailed control | Much more interop code and testing than the current collection scope requires | Reserve for specific gaps |
 
-Proposed release baseline: Windows 10/11 x64 with 64-bit Python and Windows PowerShell 5.1. Windows Server compatibility is best effort until exercised. Unsupported Python architecture fails with an actionable message. Collection works without elevation where permissions permit; elevation is optional, recorded, and never requested automatically.
+Target endpoint environment: Windows 10/11 x64 with 64-bit Python and Windows PowerShell 5.1. Live collection and installed commands have passed on elevated Windows Server 2025 x64; Windows 10/11 desktop sessions remain unverified. Unsupported Python architecture fails with an actionable message. Collection works without elevation where permissions permit; elevation is optional, recorded, and never requested automatically.
 
-## 2. Exact proposed repository structure
+## 2. Repository structure
 
-Every Python package directory shown includes an `__init__.py`. Templates live inside the installed package so wheel installations retain HTML reporting. This is a deliberate adjustment to the proposed root-level templates directory.
+Every Python package directory shown includes an `__init__.py`. The HTML template ships inside the reporting package so wheel installations retain standalone reporting.
 
 ```text
 IRSnapshot/
@@ -114,11 +114,11 @@ IRSnapshot/
 
 `pipeline.py` coordinates collection; `investigation.py` coordinates snapshot-first analysis/report publication and scoped logging. Neither contains detection expressions or presentation logic. `storage.py` validates input and handles snapshot file output. `collectors/windows.py` owns the narrow platform adapters, PowerShell transport, and explicit response models. `analyzers/commands.py` and `paths.py` are pure parsing/classification helpers. `correlation/relationships.py` joins findings to already-built tree/network relationships.
 
-Runtime dependencies are exactly the five requested libraries: Typer, Rich, Pydantic, psutil, Jinja2. Test/build dependencies include pytest and a standard packaging backend; there is no general plugin system, database, ORM, queue, or rules language.
+Runtime dependencies are: Typer, Rich, Pydantic, psutil, Jinja2. Test/build dependencies include pytest and a standard packaging backend; there is no general plugin system, database, ORM, queue, or rules language.
 
 ## 3. Pydantic model contract
 
-The tables below specify the data model to implement in the first milestone. `T?` means `T | None`, with a default of `None`. Collections use `list[T]` with independent empty defaults. Other fields are required unless a default is stated. No arbitrary `dict[str, Any]` crosses component boundaries. Dictionaries from external APIs are validated immediately into typed adapter responses.
+The tables below specify the serialized data model. `T?` means `T | None`, with a default of `None`. Collections use `list[T]` with independent empty defaults. Other fields are required unless a default is stated. No arbitrary `dict[str, Any]` crosses component boundaries. Dictionaries from external APIs are validated immediately into typed adapter responses.
 
 ### Shared types and invariants
 
@@ -299,23 +299,23 @@ Use inline CSS and semantic HTML with accessible contrast, print styling, anchor
 
 ## 9. Incremental implementation and verification
 
-Estimated human implementation budget: 26 hours. Each milestone includes complete file implementations, added/updated tests, a concise explanation of decisions, exact verification commands, and actual results. A failed check is fixed or reported; it is never presumed to pass.
+The implementation progressed from typed storage and offline interpretation to rules, collection, reporting, and release validation. The table summarizes each stage and its verification scope.
 
-The following are planned Windows PowerShell verification commands, not claims that they have already run. Development setup in the future repository:
+Development setup and verification commands follow. Recorded execution results are in [testing.md](testing.md); a command listed here is not itself evidence of a passing run.
 
 ```powershell
 py -3.12 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -e ".[dev]"
 ```
 
-| Milestone | Deliverable / files | Meaningful verification | Budget |
-|---|---|---|---|
-| 1. Typed foundation | Packaging; models.py; severity.py; storage.py; working version/help entry points; benign sample; model/storage tests; data-model documentation | Reject naive times, negative PIDs, invalid ports, unknown versions/fields, duplicate IDs; accept PID 0, Unicode and nulls; JSON round-trip; overwrite protection; import without Windows APIs | 3 h |
-| 2. Evidence interpretation | paths.py; commands.py; process_tree.py; analyzers/network.py; correlation modules; tree/path/command/correlation/timeline tests | Orphans, time-conflicting parents, cycles, missing times, scoped IPv6, unknown owners, path prefix traps, profile/environment context, host-vs-script options, deterministic timeline | 4 h |
-| 3. Rule engine | rules modules; analyzers/engine.py and persistence.py; console/JSON reporting; real analyze command; review/partial samples; rule docs/tests | Each of 13 rules has positive and near-miss fixtures; deterministic IDs and ordering; evidence references valid; no severity inflation; incomplete analysis visibly fails | 5 h |
-| 4. Windows collection | All collectors and typed Windows adapters; collection pipeline; real collect command; collector and adapter tests | Denied fields, process disappearance, malformed PowerShell responses, singleton/empty arrays, Unicode, registry views, shortcut resolution failures, multiple actions, one failed collector preserving others; actual Windows read-only smoke | 7 h |
-| 5. Full investigation/report | HTML renderer/template; report/run commands; CLI orchestration; HTML/CLI tests | Four commands work; snapshot preserved if reporting fails; literal HTML/Rich attack strings escaped; reports work offline; wheel contains template; visible partial-coverage states | 4 h |
-| 6. Release validation | README, limitations/testing docs, changelog, samples, Windows CI workflow, packaging checks | Full suite; clean-install wheel; Windows 3.12 and latest supported Python checks; live elevated/unelevated collection; manual HTML review and sample CLI walkthrough | 3 h |
+| Milestone | Deliverable / files | Meaningful verification |
+|---|---|---|
+| 1. Typed foundation | Packaging; models.py; severity.py; storage.py; working version/help entry points; benign sample; model/storage tests; data-model documentation | Reject naive times, negative PIDs, invalid ports, unknown versions/fields, duplicate IDs; accept PID 0, Unicode and nulls; JSON round-trip; overwrite protection; import without Windows APIs |
+| 2. Evidence interpretation | paths.py; commands.py; process_tree.py; analyzers/network.py; correlation modules; tree/path/command/correlation/timeline tests | Orphans, time-conflicting parents, cycles, missing times, scoped IPv6, unknown owners, path prefix traps, profile/environment context, host-vs-script options, deterministic timeline |
+| 3. Rule engine | rules modules; analyzers/engine.py and persistence.py; console/JSON reporting; real analyze command; review/partial samples; rule docs/tests | Each of 13 rules has positive and near-miss fixtures; deterministic IDs and ordering; evidence references valid; no severity inflation; incomplete analysis visibly fails |
+| 4. Windows collection | All collectors and typed Windows adapters; collection pipeline; real collect command; collector and adapter tests | Denied fields, process disappearance, malformed PowerShell responses, singleton/empty arrays, Unicode, registry views, shortcut resolution failures, multiple actions, one failed collector preserving others; actual Windows read-only smoke |
+| 5. Full investigation/report | HTML renderer/template; report/run commands; CLI orchestration; HTML/CLI tests | Four commands work; snapshot preserved if reporting fails; literal HTML/Rich attack strings escaped; reports work offline; wheel contains template; visible partial-coverage states |
+| 6. Release validation | README, limitations/testing docs, changelog, samples, Windows CI workflow, packaging checks | Full suite; clean-install wheel; Windows 3.12 and latest supported Python checks; live elevated/unelevated collection; manual HTML review and sample CLI walkthrough |
 
 Exact checks introduced by milestone:
 
@@ -348,7 +348,7 @@ Exact checks introduced by milestone:
 
 Live smoke tests are opt-in via `-m windows_live`; the normal suite excludes them. They collect benign endpoint data only and never execute suspicious fixture strings. The Windows CI workflow selects live smoke collection on a hosted Windows Server runner. GitHub's Windows runners use administrator accounts with UAC disabled, so this does not establish unelevated coverage ([runner documentation](https://docs.github.com/en/actions/reference/runners/github-hosted-runners#administrative-privileges)). Windows 10/11 desktop behavior and both ordinary and elevated collection require separately recorded manual runs. Assertions target data contracts and coverage rather than fixed counts of ambient processes. See the [release checklist](release-validation.md).
 
-The primary development host is macOS. Portable tests run locally, and the private repository's hosted Windows Server matrix now provides native collection and installed-command evidence. The owner has no supported x64 Windows desktop available; desktop privilege checks remain unverified. A release claim must retain this distinction.
+The primary development host is macOS. Portable tests run locally, and the private repository's hosted Windows Server matrix now provides native collection and installed-command evidence. Windows 10/11 x64 desktop privilege checks remain unverified. A release claim must retain this distinction.
 
 ## 10. Definition of v1.0 completion
 

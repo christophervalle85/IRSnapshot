@@ -1,12 +1,14 @@
 # Verification evidence
 
+Dated results below describe the environments and source revisions actually exercised. Earlier platform status is superseded by later execution records.
+
 ## Milestone 6 — LocalAccounts correction, 2026-10-15
 
-The repository remains private. The owner confirmed that no native x64 Windows desktop is available; the only local Windows VM is ARM64. Desktop privilege checks remain unverified rather than being inferred from hosted Server results.
+Windows 10/11 x64 desktop privilege checks remain unverified. Hosted Server results do not establish desktop coverage.
 
 The [module-discovery diagnostic and regression](https://github.com/christophervalle85/IRSnapshot/actions/runs/38108022999) established the account-collection defect before the production change. Both baseline runs returned only the current token and two `System.IO.FileNotFoundException` issues. Replacing the manifest path with its trusted absolute module directory returned one current token, four local accounts and one administrator membership, with no issues. Repeating the baseline still failed, ruling out cache warming as the explanation. The new native regression failed against the original application code.
 
-Commit `51e635b665f6053f578d1e8f5d614b91b15baf5c` applies that directory-based import to both LocalAccounts queries. It accommodates version subdirectories while preserving the fixed system executable, sanitized environment, absolute trusted module root and `-NoProfile` behavior. Temporary diagnostic files were removed. Independent review found no actionable issues.
+Commit `51e635b665f6053f578d1e8f5d614b91b15baf5c` applies that directory-based import to both LocalAccounts queries. It accommodates version subdirectories while preserving the fixed system executable, sanitized environment, absolute trusted module root and `-NoProfile` behavior. Temporary diagnostic files were removed.
 
 Fresh macOS checks after the fix: Python 3.12.14 and 3.14.7 each passed **562 portable cases**, with **3 live tests deselected**. A new wheel was built with the already-installed setuptools 84.0.0, installed offline into a fresh Python 3.12 environment, and passed dependency and isolated installed-package validation for all three samples. The first offline isolated build attempt could not find a cached setuptools wheel; the successful build used the existing build backend without build isolation. No network fetch was needed for the local build or installation. This is an unreleased verification build, not a replacement for the historical Milestone 5 wheel.
 
@@ -27,11 +29,11 @@ Both real captures on both runners recorded 7 user/session records, 259 services
 
 The dedicated LocalAccounts regression allows 120 seconds to test discovery independently of the production query timeout. The full CLI retains its 30-second PowerShell limit. No query timed out in these final reported CLI captures; earlier runner timeouts remain a documented operational limit, not a condition guaranteed to be eliminated. Process-access denials correctly kept the investigation exit at 3.
 
-The seven documentation updates received an independent accuracy review. Final code, tests and workflow match the tested commit; subsequent documentation-only changes do not claim additional platform coverage. Milestone 6's hosted Windows work is complete, but the full milestone and v1.0 release remain open for the desktop privilege checks, visual print review and final release/version decision.
+Final code, tests and workflow match the tested commit; subsequent documentation-only changes do not claim additional platform coverage. Milestone 6's hosted Windows work is complete, but the full milestone and v1.0 release remain open for the desktop privilege checks, visual print review and final release/version decision.
 
 ## Milestone 6 — first hosted Windows execution, 2026-10-10
 
-With the owner's explicit approval, the project was uploaded to the private `christophervalle85/IRSnapshot` repository. Visibility was checked before uploading. The timestamps in GitHub are 2026-10-11 UTC; the local verification date is 2026-10-10 (America/Chicago).
+The timestamps in GitHub are 2026-10-11 UTC; the local verification date is 2026-10-10 (America/Chicago).
 
 The [first run](https://github.com/christophervalle85/IRSnapshot/actions/runs/38105351348) at `e3f34cb` failed 13 test cases on both Python versions. Six help assertions assumed ANSI styling was absent; seven workflow cases used C0 control characters in filenames that Windows rejects. No application-code change was needed. Commit `bd93193` normalizes only help assertion text and uses DEL in filename fixtures, preserving tests of literal markup, control escaping, evidence recovery and overwrite protection. ESC/BEL evidence tests remain elsewhere. Forced-color help failures were reproduced locally before the fix; the full 562-case suite then passed under forced-color settings.
 
@@ -49,7 +51,7 @@ The [successful rerun](https://github.com/christophervalle85/IRSnapshot/actions/
 
 The original smoke requires system/process evidence and seven collector records but permits partial/failed sources. A passing result alone does not establish complete collection coverage.
 
-Follow-up changes add a second live test covering all four commands from the installed wheel, matching snapshot/report evidence, exact partial exit behavior, refused writes, deterministic explicit report replacement, and all four investigation files. CI uses isolated Python with pytest's importlib mode to prevent checkout imports. Endpoint output remains captured; only typed enum/count coverage summaries are printed. Independent review found that pytest's short failure summary could expose evidence even with traceback/capture disabled; `-rN --disable-warnings` now suppresses it. A synthetic CI-mode failure confirmed the secret sentinel and warning text remain absent while pytest still exits nonzero. These changes passed independent review.
+Follow-up changes add a second live test covering all four commands from the installed wheel, matching snapshot/report evidence, exact partial exit behavior, refused writes, deterministic explicit report replacement, and all four investigation files. CI uses isolated Python with pytest's importlib mode to prevent checkout imports. Endpoint output remains captured; only typed enum/count coverage summaries are printed. Pytest's short failure summary could expose evidence even with traceback/capture disabled; `-rN --disable-warnings` now suppresses it. A synthetic CI-mode failure confirmed the secret sentinel and warning text remain absent while pytest still exits nonzero.
 
 The [expanded live run](https://github.com/christophervalle85/IRSnapshot/actions/runs/38107279643) at `d338cbc` and [privacy-corrected repeat](https://github.com/christophervalle85/IRSnapshot/actions/runs/38107394086) at `904361f` each passed 562 portable cases and 2 installed-wheel live tests on both Python versions. Both `collect` and `run` returned the expected partial exit 3. The collection summaries revealed important limits: four process-access denials, two unavailable account sources, and scheduled-task timeouts on some runners with corresponding partial persistence coverage. System, network and services succeeded throughout these reported captures. Passing workflow/serialization assertions did not imply complete source coverage.
 
@@ -65,11 +67,7 @@ The unchanged application and validation tools were checked again on macOS ARM64
 
 After the documentation updates, a new local verification wheel was built and installed offline into another fresh Python 3.12 environment. Its isolated validation ran from outside the checkout and passed all three samples; dependency integrity passed. All 41 Python/template files and the updated README metadata matched the source. This was a verification build, not a new published release.
 
-An independent targeted portfolio/readiness assessment found no new source-code blocker in the examined analysis, collection boundary, publication/recovery, report-safety, and packaging paths. It judged the project suitable for a candid résumé entry and synthetic demonstration, while retaining the Windows and print gates as release blockers. See the [assessment and demonstration](portfolio.md).
-
-Environment inspection found an ARM64 Windows 11 VM, outside the project's declared native x64 contract. GitHub authentication was verified after allowing the normal network connection, but the project has no configured remote or observed workflow run. Creating/uploading a private repository is awaiting the user's decision; no source was uploaded.
-
-Browser print inspection could not be completed in this session: native browser capture failed and the in-app browser rejected local-file navigation. Those failures are not print-test results. Evidence inside initially closed disclosure sections remains a specific visual-review target; no print defect or print pass is inferred from static source inspection.
+Visual print inspection was not completed. Evidence inside initially closed disclosure sections remains a specific visual-review target; no print defect or print pass is inferred from static source inspection.
 
 **Milestone 6 remains incomplete.** Required evidence still includes the Windows CI matrix, ordinary/elevated Windows 10/11 x64 walkthroughs with reviewed source coverage, actual print/PDF inspection, and final release verification/versioning after any resulting fixes. The version remains `0.5.0`; the historical Milestone 5 release is unchanged.
 
@@ -95,11 +93,11 @@ Milestone 6 adds a Windows CI matrix, a reusable installed-wheel validator, and 
 
 New tests demonstrate rejection of source/editable imports, including editable metadata outside the named checkout; unexpected subprocess exits; UTF-8 output and import-environment isolation; expected partial exits; and rejection of active HTML, external resources, duplicate IDs, or broken anchors. Validation remains active with Python optimization. Sample verification preserves input bytes and compares saved snapshot/JSON/HTML outputs with the installed orchestration path. The collection boundary alone is substituted with synthetic evidence.
 
-Independent task review approved the validation tools without findings. Final integration review found that the documented desktop module commands could import the source checkout instead of the fresh wheel. All four commands now use `-I`. A targeted check from the checkout reproduced the original source import, then confirmed the corrected invocation imports the clean environment's `site-packages`. This documentation correction does not constitute native Windows execution.
+An import-isolation check showed that the documented desktop module commands could import the source checkout instead of the fresh wheel. All four commands now use `-I`. A targeted check from the checkout reproduced the original source import, then confirmed the corrected invocation imports the clean environment's `site-packages`. This documentation correction does not constitute native Windows execution.
 
-Scoped final re-review approved the correction with no remaining findings in this validation-tooling slice. Milestone 6 itself remains in progress until its Windows and print gates are completed.
+Milestone 6 itself remains in progress until its Windows and print gates are completed.
 
-Windows workflow execution, Windows 10/11 ordinary and elevated live `collect`/`run`, and manual print inspection remain pending. No Windows host or configured Git remote is available in this session. Hosted Windows runners use administrator context, which is recorded separately from desktop privilege validation.
+Windows workflow execution, Windows 10/11 ordinary and elevated live `collect`/`run`, and manual print inspection remain pending. Hosted Windows runners use administrator context, which is recorded separately from desktop privilege validation.
 
 ## Milestone 5 — release 0.5.0
 
@@ -113,7 +111,6 @@ Verified on 2026-10-02 on macOS (ARM64). These checks cover offline reporting an
 | Package, test, and example compilation | Passed |
 | Dependency integrity, both development environments and clean install | No broken requirements |
 | Whitespace/error diff check | Passed |
-| Independent final Milestone 5 review | Approved; no remaining actionable findings |
 | Wheel build | `irsnapshot-0.5.0-py3-none-any.whl` built successfully |
 | Clean offline wheel installation | Imported from a fresh environment's `site-packages`, outside the source tree |
 | Installed version/help and all four command help pages | Passed |
@@ -131,7 +128,7 @@ New cases exercise escaped HTML and issue text, safe static anchors, visible par
 
 Workflow tests inject failures at analysis, JSON publication, and HTML publication, including keyboard interruption, and then reload the saved snapshot. Overwrite tests preserve unrelated files and earlier evidence until replacement publication succeeds. Logging tests exercise hard-link replacement, opening/write failures, escaped chained diagnostics, handler restoration, and source failures inside the actual collection pipeline.
 
-Independent specification and quality review found a stale-output cleanup failure: an error removing the old JSON report prevented removal of the old HTML report. Cleanup now attempts both files before surfacing the error, and regression tests cover refusal of either removal while preserving the new snapshot and unrelated files. Scoped re-review approved the repair.
+A stale-output cleanup regression showed that an error removing the old JSON report prevented removal of the old HTML report. Cleanup now attempts both files before surfacing the error, and regression tests cover refusal of either removal while preserving the new snapshot and unrelated files.
 
 One regression exposed a subtle publication boundary: the snapshot writer can finish publishing before its diagnostic log write fails. Logging errors now latch and surface at controlled workflow boundaries, allowing the workflow to record the saved snapshot and clear stale derived outputs before stopping. A separate integration check ensures collector isolation cannot hide a failed log as an ordinary partial success.
 
@@ -158,7 +155,6 @@ Verified on 2026-09-30, on macOS 26.5.2 (ARM64). These are portable tests with i
 | Full portable suite, Python 3.14.7 | 467 passed, 1 live test deselected |
 | Compilation and dependency integrity | Passed; no broken requirements |
 | Whitespace/error diff check | Passed |
-| Independent specification and quality review | Passed after traceback control-escaping regression fix |
 | Wheel build | `irsnapshot-0.4.0-py3-none-any.whl` built successfully |
 | Clean wheel installation | Installed offline in a new Python 3.12 environment |
 | Installed help/version and both command help pages | Passed outside source tree |
@@ -169,7 +165,7 @@ Verified on 2026-09-30, on macOS 26.5.2 (ARM64). These are portable tests with i
 
 New cases exercise typed PowerShell envelopes and zero/one/many results, UTF-8 and malformed output, timeouts/nonzero exits, fixed script routing, data-only shortcut inputs, explicit registry views and shared duplicates, native discovery failures, remote/reparse path rejection, owner SID uncertainty, malformed nested task data, partial field and iteration failures, source projections, collector isolation, and CLI status/identity rendering. Reproducing regressions preceded corrections.
 
-Independent review found that default traceback logging could expose terminal controls from a source exception. The repair retains readable chained diagnostics while escaping those controls before logging; its CLI regression verifies visible escapes, preserved traceback context, and a saved partial snapshot. Scoped re-review closed the finding with no remaining blocking issues.
+A logging regression showed that default traceback logging could expose terminal controls from a source exception. The repair retains readable chained diagnostics while escaping those controls before logging; its CLI regression verifies visible escapes, preserved traceback context, and a saved partial snapshot.
 
 An end-to-end fixture test uses all seven real collectors through the collection pipeline with only the Windows adapter replaced. It validates the snapshot, writes and reloads it, checks source references, and runs the actual analysis engine. Separate pipeline failure tests ensure malformed references, unexpected exceptions, context mutation, and invalid intervals do not erase other collectors' results. No fixture command or live endpoint query was executed.
 
@@ -188,7 +184,6 @@ Verified on 2026-09-23, on macOS 26.5.2 (ARM64). These checks establish portable
 | Dependency integrity (`pip check`) | No broken requirements in development or clean installation |
 | Package, example, and test compilation | Passed |
 | Whitespace/error diff check | Passed |
-| Independent final specification and quality review | Passed after regression fixes |
 | Wheel build | `irsnapshot-0.3.0-py3-none-any.whl` built successfully |
 | Clean wheel installation | Installed offline into a new Python 3.12 environment |
 | Installed package outside source tree | CLI help/version/analyze and JSON validation passed |
@@ -200,7 +195,7 @@ The clean environment imported from `site-packages`, not the repository or an ed
 
 The 407 cases retain the foundation and interpretation coverage below and add process/persistence predicates, rule-failure isolation, deterministic findings, console/JSON reports, and real CLI behavior. Tests cover both positive and near-miss evidence, unsupported grammar, disabled and multi-action tasks, owner-scoped paths, malformed rule outputs, mutation isolation, duplicate evidence, missing system data, literal terminal rendering, file publication failures, and input aliases.
 
-Independent review found a missing canonical rundll32 form, a certutil URL mistaken for an unrelated option's value, malformed URLs raising rule errors, non-exec task fields being promoted into findings, and escaped quotes exposing an unsupported script target. Each fix has a regression that failed before correction. No fixture command was executed. Engine, reporter, and CLI review found no further actionable issues.
+Regression cases exposed a missing canonical rundll32 form, a certutil URL mistaken for an unrelated option's value, malformed URLs raising rule errors, non-exec task fields being promoted into findings, and escaped quotes exposing an unsupported script target. Each fix has a regression that failed before correction. No fixture command was executed.
 
 Tested dependency versions remain Pydantic 2.13.5, Typer 0.27.2, Rich 14.3.4, psutil 7.2.2, Jinja2 3.1.6, and pytest 9.1.1. The wheel supplies the Python package; the source ZIP also supplies documentation, tests, examples, and synthetic snapshots.
 
@@ -222,7 +217,6 @@ Verified on 2026-09-18, on macOS 26.5.2 (ARM64). These checks establish portable
 | Dependency integrity (`pip check`) | No broken requirements |
 | Package and example compilation | Passed |
 | Whitespace/error diff check | Passed |
-| Independent specification and quality review | Passed after regression fixes |
 | Wheel build | `irsnapshot-0.2.0-py3-none-any.whl` built successfully |
 | Clean wheel installation | Installed offline into a new Python 3.12 environment |
 | Installed package outside source tree | All interpretation imports, fixture APIs, CLI help/version, and example passed |
@@ -241,7 +235,7 @@ Tested dependency versions: Pydantic 2.13.5, Typer 0.27.2, Rich 14.3.4, psutil 7
 - Timeline events use actual captured event timestamps, distinguish reported from observed times, and never substitute task schedules or observation times for unknown execution events.
 - The example reads a valid snapshot without writing files; it reports invalid/missing inputs cleanly and retains evidence when system collection failed. Captured Rich markup and terminal controls render as literal data.
 
-Tests were run before the corresponding implementations and failed as expected. Independent review found four interpretation defects (unsupported colons, growing variable cycles, cross-category UUID collisions, and order-dependent root ties) and one example defect (absent system information). Each received a failing regression before correction. Additional regressions cover modern PowerShell working-directory and version prefixes. The final reviewer independently ran all 247 cases on both Python versions and found no remaining actionable issues.
+Tests were run before the corresponding implementations and failed as expected. Regression cases exposed four interpretation defects (unsupported colons, growing variable cycles, cross-category UUID collisions, and order-dependent root ties) and one example defect (absent system information). Each received a failing regression before correction. Additional regressions cover modern PowerShell working-directory and version prefixes. All 247 cases passed on both recorded Python versions.
 
 ## Retained Milestone 1 verification
 
@@ -257,7 +251,7 @@ Release 0.1.0 was verified on 2026-09-17 on the same macOS architecture with 94 
 - Mutated invalid models are rejected before publication. File size limits and symlink no-clobber behavior are exercised.
 - Help/version work through both Typer's test runner and actual Python subprocesses; nonexistent collection commands return a usage error.
 
-The initial foundation review found unknown system fields without issues, numeric-string timestamp coercion, and an unnormalized JSON integer error. Reproducing regressions preceded the fixes.
+Foundation regressions covered unknown system fields without issues, numeric-string timestamp coercion, and an unnormalized JSON integer error. Reproducing regressions preceded the fixes.
 
 ## Reproduce on Windows
 

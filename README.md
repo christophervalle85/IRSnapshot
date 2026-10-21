@@ -2,11 +2,11 @@
 
 A Windows endpoint incident-response and triage CLI in Python. It collects a point-in-time snapshot, applies transparent deterministic rules, and produces analyst-friendly reports. It is not an EDR, antivirus, or background agent.
 
-**Current release: 0.5.0 — Milestone 5, full investigation and standalone HTML reporting.**
+**Current release: 0.5.0 — Windows triage collection, analysis, and standalone reporting.**
 
-Milestone 6 has passing Windows Server CI on Python 3.12 and 3.15, including clean installation and live collection. Windows 10/11 desktop sessions and printed report appearance remain release gates. See the [release checklist](docs/release-validation.md) and [résumé assessment](docs/portfolio.md).
+Milestone 6 has passing Windows Server CI on Python 3.12 and 3.15, including clean installation and live collection. Windows 10/11 desktop sessions and printed report appearance remain release gates. See the [release checklist](docs/release-validation.md) and [project walkthrough](docs/portfolio.md).
 
-I included a [portfolio demonstration](portfolio-demo/README.md) with ready-to-open synthetic HTML reports, original snapshots, and my project walkthrough. I also included a [downloadable demo ZIP](portfolio-demo.zip). I can present it on a Mac or Windows computer without installing Python.
+Explore the [sample reports](portfolio-demo/README.md) or download the [demo ZIP](portfolio-demo.zip). The synthetic HTML reports open locally on macOS or Windows without installing Python.
 
 Implemented:
 
@@ -150,10 +150,10 @@ All seven collectors require a `CollectorRun` record describing scope, count, st
 - [Windows collection sources and verification](docs/collection.md)
 - [Standalone reports, investigation folders, and recovery](docs/reporting.md)
 - [Machine-readable snapshot JSON Schema](docs/snapshot.schema.json)
-- [Accepted v1 design and milestone sequence](docs/architecture.md)
+- [Architecture and implementation sequence](docs/architecture.md)
 - [Verification evidence and limitations](docs/testing.md)
 - [Release validation and Windows desktop checklist](docs/release-validation.md)
-- [Portfolio value, résumé wording, and completion assessment](docs/portfolio.md)
+- [Project walkthrough and design decisions](docs/portfolio.md)
 - [Synthetic sample provenance](samples/README.md)
 
 ## Development
@@ -171,4 +171,4 @@ For fixture development on the current macOS host, create a virtual environment 
 
 Models are mutable for straightforward collector construction. Mutating a nested list or assigning a field is not an automatic validation boundary; revalidate before consumption. `write_snapshot` and the interpretation APIs revalidate their model inputs. Collection-time values remain distinct from event times: an unknown process start or task execution time is never inferred from an observation timestamp.
 
-No credentials, personal endpoint records, or malicious commands are needed to run this milestone's tests. Synthetic paths and usernames in fixtures are example data, not collection defaults.
+No credentials, personal endpoint records, or malicious commands are needed to run the tests. Synthetic paths and usernames in fixtures are example data, not collection defaults.

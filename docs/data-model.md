@@ -1,7 +1,7 @@
 # IRSnapshot data model — schema 1.0
 
 
-The tables below specify the serialized data model implemented in Milestone 1. `T?` means `T | None`, with a default of `None`. Collections use `list[T]` with independent empty defaults, except Finding.artifact_ids and Finding.evidence, which are required and nonempty. Other fields are required unless a default is stated. No arbitrary `dict[str, Any]` crosses component boundaries. Dictionaries from future external APIs must be validated immediately into typed adapter responses.
+The tables below specify the serialized data model used by collection, analysis, and reporting. `T?` means `T | None`, with a default of `None`. Collections use `list[T]` with independent empty defaults, except Finding.artifact_ids and Finding.evidence, which are required and nonempty. Other fields are required unless a default is stated. No arbitrary `dict[str, Any]` crosses component boundaries. External API dictionaries are validated at typed adapter boundaries.
 
 ### Shared types and invariants
 
@@ -62,7 +62,7 @@ Every completed collection attempt records all seven collector runs, including f
 | `AnalysisResult` | `schema_version: Literal["1.0"] = "1.0"`, `snapshot_id: UUID`, `ruleset_version: str`, `complete: bool`, `findings: list[Finding]`, `process_tree: ProcessTree`, `network_links: list[NetworkProcessLink]`, `finding_context: list[FindingContext]`, `timeline: list[TimelineEvent]`, `issues: list[AnalysisIssue]` |
 | `InvestigationReport` | `snapshot: SystemSnapshot`, `analysis: AnalysisResult` |
 
-Findings require at least one evidence item and referenced artifact. Finding ID generation and deterministic analysis are future engine responsibilities. This milestone validates the finding/report data contract; it does not generate findings.
+Findings require at least one evidence item and referenced artifact. The analysis engine generates deterministic finding IDs and validates derived results against this contract.
 
 
 ## Validation boundaries

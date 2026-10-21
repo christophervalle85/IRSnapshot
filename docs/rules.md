@@ -21,7 +21,7 @@ Office recognition uses the fixed basename set `WINWORD.EXE`, `EXCEL.EXE`, `POWE
 
 P007's Programs exclusion applies to the conventional `Programs` child of a captured local AppData root, or the conventional `AppData\Local\Programs` subtree under a captured profile. Directory boundaries matter: `ProgramsElsewhere` is not `Programs`. A folder named Programs at an unrelated level is not exempt.
 
-PowerShell process matching uses the [Milestone 2 host parser](interpretation.md). Its explicit prefix/alias table stops at command/file payload boundaries and retains parsing limitations. Findings describe recognized syntax, not whether the host accepted a command. Arbitrary inline code is never evaluated.
+PowerShell process matching uses the [PowerShell host parser](interpretation.md). Its explicit prefix/alias table stops at command/file payload boundaries and retains parsing limitations. Findings describe recognized syntax, not whether the host accepted a command. Arbitrary inline code is never evaluated.
 
 The certutil fetch requirement follows Microsoft's explanation that `-f` forces URL retrieval in the [certutil reference](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certutil). The narrow script-oriented binary patterns are informed by MITRE's [Rundll32 technique](https://attack.mitre.org/techniques/T1218/011/) and [Regsvr32 technique](https://attack.mitre.org/techniques/T1218/010/). These references explain review patterns, not attribution of any particular finding.
 

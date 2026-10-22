@@ -1,17 +1,17 @@
-# Project walkthrough and design decisions
+# My IRSnapshot design decisions and walkthrough
 
-IRSnapshot collects a point-in-time Windows triage snapshot and turns it into explainable findings, related evidence, and standalone reports. The implementation includes four CLI commands, seven collection categories, thirteen behavioral rules, process and network correlation, and JSON/HTML reporting.
+I built IRSnapshot around a saved Windows triage snapshot so I could separate collection from analysis and reporting. The implementation includes four CLI commands, seven collection categories, thirteen behavioral rules, process and network correlation, and JSON/HTML reporting.
 
-## Design decisions
+## Why I chose this design
 
-| Decision | Purpose |
+| Decision | My reasoning |
 |---|---|
-| Typed evidence and explicit collection coverage | Preserve the distinction between unavailable evidence and a successful empty result. |
-| Deterministic rules and finding identifiers | Make findings reproducible and traceable to their source artifacts. |
-| Separate collection, analysis, correlation, and reporting | Allow saved snapshots to be analyzed offline and components to be tested independently. |
-| Save the snapshot before generating reports | Retain collected evidence when a downstream operation fails. |
-| Fixed Windows queries and escaped report content | Keep captured evidence separate from executable code and presentation markup. |
-| Atomic publication and explicit overwrite protection | Preserve existing files when publication fails or a destination is already occupied. |
+| Typed evidence and explicit collection coverage | I wanted unavailable evidence to remain distinct from a successful empty result. |
+| Deterministic rules and finding identifiers | I wanted each finding to be reproducible and traceable to its source artifacts. |
+| Separate collection, analysis, correlation, and reporting | I kept these stages separate so saved snapshots can be analyzed offline and components can be tested independently. |
+| Save the snapshot before generating reports | I save the snapshot first so a later failure leaves collected evidence available for recovery. |
+| Fixed Windows queries and escaped report content | I keep captured evidence separate from executable code and presentation markup. |
+| Atomic publication and explicit overwrite protection | I preserve existing files when publication fails or a destination is already occupied. |
 
 ## Example investigation
 

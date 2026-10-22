@@ -1,35 +1,25 @@
 # IRSnapshot
 
-A Windows endpoint incident-response and triage CLI in Python. It collects a point-in-time snapshot, applies transparent deterministic rules, and produces analyst-friendly reports. It is not an EDR, antivirus, or background agent.
+I built IRSnapshot to collect a point-in-time Windows triage snapshot and turn it into findings an analyst can trace back to the original evidence. It is a Python command-line tool with seven collection sources, thirteen deterministic rules, and standalone JSON/HTML reports.
+
+I keep collection coverage visible throughout the investigation: an inaccessible source is different from a successful collection that found nothing. The snapshot is saved before analysis and reporting, so a later failure does not discard the collected evidence.
 
 **Current release: 0.5.0 — Windows triage collection, analysis, and standalone reporting.**
 
-Milestone 6 has passing Windows Server CI on Python 3.12 and 3.15, including clean installation and live collection. Windows 10/11 desktop sessions and printed report appearance remain release gates. See the [release checklist](docs/release-validation.md) and [project walkthrough](docs/portfolio.md).
+Recorded Windows Server CI passed on Python 3.12 and 3.15, including clean installation and live collection. Windows 10/11 desktop sessions and printed report appearance remain release gates. See the [release checklist](docs/release-validation.md) and [my design decisions](docs/portfolio.md).
 
 Explore the [sample reports](portfolio-demo/README.md) or download the [demo ZIP](portfolio-demo.zip). The synthetic HTML reports open locally on macOS or Windows without installing Python.
 
-Implemented:
+## What I implemented
 
-- Pydantic evidence, collection-coverage, findings, and report models.
-- Strict validation, aware UTC timestamps, UUID references, and JSON serialization.
-- Validated snapshot loading and atomic file writing with overwrite protection.
-- Working `irsnapshot --help`, `irsnapshot --version`, and `python -m irsnapshot`.
-- A clearly labelled synthetic snapshot, JSON Schema, and fixture-based tests.
-- Deterministic process trees with missing-parent, time-conflict, and cycle handling.
-- Conservative Windows path and PowerShell command interpretation with explicit uncertainty.
-- Network ownership associations, finding context, and a factual UTC timeline.
-- Literal-text Rich process-tree rendering and a read-only offline demonstration.
-- Thirteen documented process and persistence rules with fixed severities and source evidence.
-- Reproducible finding IDs, rule-failure isolation, and separate collection/analysis status.
-- A working `analyze` command with console output and atomic JSON report saving.
-- Windows collectors for system, processes, network, users, services, scheduled tasks, and persistence.
-- Typed Windows adapters, fixed PowerShell queries, and a collection pipeline that records source failures.
-- A working `collect` command with explicit coverage and overwrite protection.
-- A standalone HTML report with prioritized findings, evidence, coverage, process ancestry, network ownership, persistence, and a UTC timeline.
-- A working `report` command for saved snapshots and `run` for a complete investigation folder.
-- Snapshot-first orchestration and a local diagnostic log that preserve evidence when a downstream stage fails.
+- **Windows collection:** system details, processes, network connections, users, services, scheduled tasks, and persistence, with explicit source coverage and access failures.
+- **Typed evidence:** Pydantic validation, aware UTC timestamps, UUID references, JSON Schema, and atomic snapshot/report writes with overwrite protection.
+- **Explainable analysis:** thirteen process and persistence rules, reproducible finding IDs, isolated rule failures, and original source evidence beside each finding.
+- **Investigation context:** process ancestry, network ownership associations, conservative command/path interpretation, and a factual UTC timeline with uncertainty retained.
+- **Portable reporting:** console output and self-contained HTML/JSON reports, plus collect, analyze, report, and run commands.
+- **Recovery and verification:** snapshot-first investigation folders, local diagnostics, synthetic examples, fixture-based regression tests, and clean-wheel Windows CI.
 
-Collection requires Windows; saved snapshots and the synthetic samples can be analyzed and rendered offline. HTML reports contain their own styles and use no JavaScript or external assets. Hosted Windows Server administrator collection has passed; Windows 10/11 desktop coverage is still pending. See the [verification record](docs/testing.md).
+Collection requires Windows; saved snapshots and the synthetic samples can be analyzed and rendered offline. HTML reports contain their own styles and use no JavaScript or external assets. Hosted Windows Server administrator collection has passed; Windows 10/11 desktop coverage is still pending. See the [verification record](docs/testing.md). IRSnapshot is a triage tool, not an EDR, antivirus, or background agent; findings are review prompts rather than malware verdicts.
 
 ## Install and verify on Windows
 

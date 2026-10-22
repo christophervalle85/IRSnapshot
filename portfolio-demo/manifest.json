@@ -30,7 +30,7 @@
     }
   ],
   "files_sha256": {
-    "README.md": "a15e018835fe86fce23266e0440630cd5ed238cb78a2b05df6a33b47515a4532",
+    "README.md": "cb4be85dc06d21b7c264299a5d214d8f6ef61f964aea429720b24dc86b153e5c",
     "benign.analysis.json": "dfc6c1568b6d00edbe8abf78d1f21f99333995d72006c0d4ec6b05ccb5f6fed4",
     "benign.html": "f2269a9678b209d9f76a572420d145b45e47dcb01efa73d70fdf0a720c748ff7",
     "partial.analysis.json": "06caae333328813775faf6fd1f8530026dfc19e0f2919f36e8c62ebe7756d336",
@@ -46,5 +46,5 @@
     "Visual print/PDF inspection",
     "Final version and release artifacts"
   ],
-  "walkthrough_updated_date": "2026-10-20"
+  "walkthrough_updated_date": "2026-10-22"
 }

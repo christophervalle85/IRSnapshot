@@ -1,10 +1,10 @@
 # IRSnapshot sample reports
 
-Three synthetic investigations demonstrate evidence collection coverage, explainable findings, and standalone reporting. These files contain invented evidence rather than live endpoint captures. The reports open locally on macOS or Windows without Python or external services.
+I included three synthetic investigations to demonstrate evidence collection coverage, explainable findings, and standalone reporting. These files contain invented evidence rather than live endpoint captures. The reports open locally on macOS or Windows without Python or external services.
 
 ## View the reports
 
-Download or clone the repository, or extract [portfolio-demo.zip](https://github.com/christophervalle85/IRSnapshot/blob/milestone-6/portfolio-demo.zip), then open the HTML files locally. GitHub displays HTML source rather than rendering these reports.
+Download or clone the repository, or extract [portfolio-demo.zip](https://github.com/christophervalle85/IRSnapshot/blob/main/portfolio-demo.zip), then open the HTML files locally. GitHub displays HTML source rather than rendering these reports.
 
 | Report | Findings | Demonstrates |
 |---|---:|---|
@@ -22,4 +22,4 @@ The [recorded Windows run](https://github.com/christophervalle85/IRSnapshot/acti
 
 Synthetic examples establish expected behavior, not detection accuracy. Zero findings do not establish that a host is clean. The Mac supports offline sample analysis rather than live endpoint collection.
 
-See the [project walkthrough](https://github.com/christophervalle85/IRSnapshot/blob/milestone-6/docs/portfolio.md), [rule reference](https://github.com/christophervalle85/IRSnapshot/blob/milestone-6/docs/rules.md), and [release checklist](https://github.com/christophervalle85/IRSnapshot/blob/milestone-6/docs/release-validation.md). Regenerate the reports with the repository's `analyze` and `report` commands using the included snapshots.
+See [my design decisions and walkthrough](https://github.com/christophervalle85/IRSnapshot/blob/main/docs/portfolio.md), [rule reference](https://github.com/christophervalle85/IRSnapshot/blob/main/docs/rules.md), and [release checklist](https://github.com/christophervalle85/IRSnapshot/blob/main/docs/release-validation.md). Regenerate the reports with the repository's `analyze` and `report` commands using the included snapshots.

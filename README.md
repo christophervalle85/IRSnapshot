@@ -4,9 +4,9 @@ I built IRSnapshot to collect a point-in-time Windows triage snapshot and turn i
 
 I keep collection coverage visible throughout the investigation: an inaccessible source is different from a successful collection that found nothing. The snapshot is saved before analysis and reporting, so a later failure does not discard the collected evidence.
 
-**Current release: 0.5.0 — Windows triage collection, analysis, and standalone reporting.**
+**Current release: 1.0.0 — Windows triage collection, analysis, and standalone reporting.**
 
-Recorded Windows Server CI passed on Python 3.12 and 3.15, including clean installation and live collection. Windows 10/11 desktop sessions and printed report appearance remain release gates. See the [release checklist](docs/release-validation.md) and [my design decisions](docs/portfolio.md).
+Recorded Windows Server CI passed on Python 3.12 and 3.15, including clean installation and live collection. Windows 10/11 x64 desktop validation is deferred; ordinary-user and desktop-specific behavior remain unverified. See [release verification](docs/release-validation.md), [known limitations](docs/limitations.md), and [my design decisions](docs/portfolio.md).
 
 Explore the [sample reports](portfolio-demo/README.md) or download the [demo ZIP](portfolio-demo.zip). The synthetic HTML reports open locally on macOS or Windows without installing Python.
 
@@ -19,7 +19,20 @@ Explore the [sample reports](portfolio-demo/README.md) or download the [demo ZIP
 - **Portable reporting:** console output and self-contained HTML/JSON reports, plus collect, analyze, report, and run commands.
 - **Recovery and verification:** snapshot-first investigation folders, local diagnostics, synthetic examples, fixture-based regression tests, and clean-wheel Windows CI.
 
-Collection requires Windows; saved snapshots and the synthetic samples can be analyzed and rendered offline. HTML reports contain their own styles and use no JavaScript or external assets. Hosted Windows Server administrator collection has passed; Windows 10/11 desktop coverage is still pending. See the [verification record](docs/testing.md). IRSnapshot is a triage tool, not an EDR, antivirus, or background agent; findings are review prompts rather than malware verdicts.
+Collection requires Windows; saved snapshots and the synthetic samples can be analyzed and rendered offline. HTML reports contain their own styles and use no JavaScript or external assets. Hosted Windows Server administrator collection has passed; Windows 10/11 x64 desktop coverage is deferred. See the [verification record](docs/testing.md). IRSnapshot is a triage tool, not an EDR, antivirus, or background agent; findings are review prompts rather than malware verdicts.
+
+## Release packages
+
+Download the wheel, source archive, or sample-report demo from the [v1.0.0 release](https://github.com/christophervalle85/IRSnapshot/releases/tag/v1.0.0). Verify downloads with the supplied `SHA256SUMS.txt`.
+
+To install the downloaded wheel with Python 3.12 or newer:
+
+```powershell
+py -3.12 -m pip install .\irsnapshot-1.0.0-py3-none-any.whl
+irsnapshot --version
+```
+
+The wheel includes the application and HTML template. The source archive also includes tests, documentation, examples, and synthetic snapshots. Neither package contains real endpoint captures. Ongoing follow-ups are tracked in [repository issues](https://github.com/christophervalle85/IRSnapshot/issues).
 
 ## Install and verify on Windows
 
@@ -35,7 +48,7 @@ py -3.12 -m venv .venv
 .\.venv\Scripts\irsnapshot.exe analyze --help
 ```
 
-Use your installed Python version in place of `-3.12` if needed. Activation is unnecessary. Version output is `IRSnapshot 0.5.0`. Bare `irsnapshot` displays help and succeeds. Unknown commands exit with status 2.
+Use your installed Python version in place of `-3.12` if needed. Activation is unnecessary. Version output is `IRSnapshot 1.0.0`. Bare `irsnapshot` displays help and succeeds. Unknown commands exit with status 2.
 
 The current code is portable for development and offline fixture interpretation. Endpoint collection targets Windows 10/11 x64, 64-bit Python, and Windows PowerShell 5.1. No Windows integration behavior has been validated by a macOS test run; see [testing evidence](docs/testing.md).
 
@@ -142,7 +155,7 @@ All seven collectors require a `CollectorRun` record describing scope, count, st
 - [Machine-readable snapshot JSON Schema](docs/snapshot.schema.json)
 - [Architecture and implementation sequence](docs/architecture.md)
 - [Verification evidence and limitations](docs/testing.md)
-- [Release validation and Windows desktop checklist](docs/release-validation.md)
+- [Release verification and optional desktop checks](docs/release-validation.md)
 - [Project walkthrough and design decisions](docs/portfolio.md)
 - [Synthetic sample provenance](samples/README.md)
 

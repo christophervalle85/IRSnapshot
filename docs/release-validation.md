@@ -1,10 +1,10 @@
 # Release validation
 
-Milestone 5 is released as `0.5.0`. Milestone 6 has passing hosted Windows execution; its Windows 10/11 desktop and print review gates remain open. The [testing record](testing.md) contains observed results. A workflow file or a checklist alone is not evidence that a platform passed.
+Version `1.0.0` completes the four-command triage workflow and release packaging. Native verification covers elevated Windows Server 2025 x64. Windows 10/11 x64 desktop checks are deferred and do not block this release. The [testing record](testing.md) contains observed results. A workflow file or a checklist alone is not evidence that a platform passed.
 
 ## Automated Windows checks
 
-`.github/workflows/windows.yml` runs on push, pull request, or manual dispatch in the private repository. It uses Windows Server 2025 x64 and Python `3.12` plus `3.x`, which selects the latest stable Python 3. Each job records its resolved Python and runner context. [setup-python documents version ranges](https://github.com/actions/setup-python/blob/v6/docs/advanced-usage.md#specifying-a-python-version).
+`.github/workflows/windows.yml` runs on push, pull request, or manual dispatch in the repository. It uses Windows Server 2025 x64 and Python `3.12` plus `3.x`, which selects the latest stable Python 3. Each job records its resolved Python and runner context. [setup-python documents version ranges](https://github.com/actions/setup-python/blob/v6/docs/advanced-usage.md#specifying-a-python-version).
 
 The workflow runs the portable suite, builds a wheel, installs it into a fresh environment, checks dependencies, and exercises the installed command entry points and template with synthetic samples. It then adds pytest to that environment and explicitly selects three live Windows tests using isolated Python. These cover trusted LocalAccounts discovery, snapshot round trips and all four CLI commands, JSON snapshot equality and matching HTML snapshot identifiers, partial exit codes, overwrite refusal, deterministic report replacement and investigation artifacts. The account-discovery regression requires elevation and allows 120 seconds to isolate module loading from timeouts; the real CLI uses the production 30-second query limit. The workflow tests require basic system/process evidence and all seven collector records, while allowing partial sources. Source-level limitations still need review before a release.
 
@@ -12,7 +12,9 @@ GitHub's Windows runners use administrator accounts with UAC disabled. Successfu
 
 The [first successful Windows run](https://github.com/christophervalle85/IRSnapshot/actions/runs/38105710915) verified commit `bd93193685c642be26a575873ec8fe81f13f4726` on Python 3.12.10 and 3.15.0, Windows Server 2025 build 26100, x64, elevated. Each job passed 562 portable cases, clean-wheel checks and the original live snapshot test. Expanded live-command results are recorded in [testing.md](testing.md).
 
-The [final corrected-source run](https://github.com/christophervalle85/IRSnapshot/actions/runs/38686690894) verified `51e635b665f6053f578d1e8f5d614b91b15baf5c`: each Python version passed 562 portable cases, clean-wheel validation and all 3 live tests. LocalAccounts discovery and all four installed CLI commands passed. Six collection sources were fully available in the reported captures; process-access denials correctly produced partial process coverage and exit 3. Desktop and visual print gates below remain separate.
+The [final corrected-source run](https://github.com/christophervalle85/IRSnapshot/actions/runs/38686690894) verified `51e635b665f6053f578d1e8f5d614b91b15baf5c`: each Python version passed 562 portable cases, clean-wheel validation and all 3 live tests. LocalAccounts discovery and all four installed CLI commands passed. Six collection sources were fully available in the reported captures; process-access denials correctly produced partial process coverage and exit 3. The optional desktop checks below describe additional platform verification beyond this release scope.
+
+Hosted reruns currently report an account billing/spending-limit restriction before executing any steps. The dated native evidence remains distinct from the fresh local 1.0.0 package checks; see [testing.md](testing.md).
 
 ## Reproduce a clean wheel check
 
@@ -50,7 +52,7 @@ Expected synthetic results:
 
 The validator also checks overwrite refusal, deterministic explicit replacement, offline HTML links, and all four investigation files with collection replaced by synthetic input. It never executes captured commands or performs live collection. Exit `3` for the partial sample is expected; the validator itself returns `0` only after every check passes.
 
-## Windows desktop execution
+## Optional Windows desktop verification
 
 Use a Windows 10/11 x64 test endpoint you control, 64-bit Python 3.12 or newer, and Windows PowerShell 5.1. Run first in an ordinary PowerShell session, then repeat in a separately opened elevated session. The tool never requests elevation. Record whether elevation changes the collecting identity, because HKCU and Startup scope follow that identity.
 
@@ -84,20 +86,18 @@ Inspect all seven coverage rows and issues in both reports. An exit of `3` can b
 
 Record locally for every run: date, source commit, wheel version/hash, Windows edition/build, Python version/bitness, PowerShell version, actual captured elevation, whether the collecting identity changed, command exits, seven collector statuses/counts, and reviewed limitations. Share only a reviewed summary; real evidence contains identity and command data.
 
-| Required evidence | Result |
+| Environment | Recorded coverage |
 |---|---|
 | Hosted Windows matrix, Python 3.12 and latest stable | Passed on Python 3.12.10 / 3.15.0; see execution record |
-| Windows 10 x64, ordinary session | Unverified; no compatible desktop available |
-| Windows 10 x64, elevated session | Unverified; no compatible desktop available |
-| Windows 11 x64, ordinary session | Unverified; no compatible desktop available |
-| Windows 11 x64, elevated session | Unverified; no compatible desktop available |
+| Windows 10 x64, ordinary session | Deferred; ordinary/elevated desktop behavior remains unverified |
+| Windows 10 x64, elevated session | Deferred; ordinary/elevated desktop behavior remains unverified |
+| Windows 11 x64, ordinary session | Deferred; ordinary/elevated desktop behavior remains unverified |
+| Windows 11 x64, elevated session | Deferred; ordinary/elevated desktop behavior remains unverified |
 
-## HTML and final release review
+## Release artifacts
 
-Open the synthetic review and partial reports in a browser with networking disabled. Confirm readable wide/narrow layouts, working local navigation, expandable evidence, visible partial coverage, escaped source text, and no external resource requests. Existing Milestone 5 browser results are in the testing record.
+Version `1.0.0` ships an installable wheel, a source ZIP, and a synthetic demonstration ZIP with SHA-256 checksums. The source archive includes tests, examples, documentation, and snapshots. The wheel includes the HTML template. Real endpoint evidence is excluded.
 
-Inspect print preview or export to PDF on both review and partial reports. Check long tables, page breaks, evidence visibility, and coverage labels; record browser/version and result. Manual print appearance remains unverified.
+Release verification includes the portable test suite, a fresh wheel installation, dependency integrity, isolated installed-command checks, synthetic output validation, and archive/source comparisons. Historical native Windows evidence is dated in [testing.md](testing.md); it is not relabeled as a new Windows execution when version metadata or documentation changes.
 
-Pay particular attention to evidence inside initially closed disclosure sections. Confirm the intended evidence appears in the printed output, and explicitly expand required sections before printing if the browser does not include closed content. Do not infer printed evidence visibility from its presence in the HTML source.
-
-Only close Milestone 6 after recording the Windows results, reviewing remaining limitations, completing print review, rerunning checks on the chosen release commit, and updating the changelog/version and release artifacts together. Keep the completed `0.5.0` artifacts as historical releases.
+Follow-up work is tracked in [repository issues](https://github.com/christophervalle85/IRSnapshot/issues). The earlier `0.5.0` artifacts remain historical releases.

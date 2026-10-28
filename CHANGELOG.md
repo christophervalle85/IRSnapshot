@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased — Milestone 6 validation
+## 1.0.0 — 2026-10-28
 
 - Add a Windows CI matrix for Python 3.12 and the latest stable Python, with portable tests, wheel building, clean installation, and explicit live smoke selection.
 - Add a reusable synthetic installed-package check for command entry points, packaged HTML, analysis results, output protection, and investigation orchestration.
@@ -9,7 +9,7 @@
 - Extend installed-wheel live validation to all four commands, report replacement, snapshot preservation, and privacy-safe collection summaries.
 - Fix local-user and administrator-member collection when Windows installs the LocalAccounts manifest in a version subdirectory; retain trusted absolute module discovery and add a native Windows regression.
 
-The released version remains `0.5.0`. The corrected source passed 562 portable and 3 installed-wheel live tests on both Windows Python versions, including all four commands. Desktop live evidence and manual print inspection remain open. This is not a completed Milestone 6 release.
+Finalize the four-command triage workflow as version `1.0.0`. Snapshot and analysis schemas remain `1.0`; the ruleset remains `1.0.0`. Recorded native Windows validation passed 562 portable and 3 installed-wheel live tests per Python version. Windows 10/11 x64 ordinary/elevated desktop validation is deferred and remains outside the verified environment. Follow-up tasks are tracked in repository issues.
 
 ## 0.5.0 — Milestone 5
 

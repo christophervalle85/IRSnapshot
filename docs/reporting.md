@@ -86,4 +86,4 @@ Inspect `irsnapshot.log` and coverage records to understand what succeeded. Thes
 
 Findings alone do not change a successful exit code. The review sample produces thirteen findings and exit 0. The partial sample produces eleven findings and exit 3 because its evidence coverage is incomplete.
 
-Reports contain the original evidence and can expose usernames, paths, addresses, command arguments, and diagnostic context. Keep real investigation folders local and review content before sharing. See [operational limits](limitations.md) and [verification evidence](testing.md); live Windows collection still requires validation on Windows.
+Reports contain the original evidence and can expose usernames, paths, addresses, command arguments, and diagnostic context. Keep real investigation folders local and review content before sharing. See [operational limits](limitations.md) and [verification evidence](testing.md); native collection has recorded Windows Server coverage, while Windows 10/11 desktop validation is deferred.

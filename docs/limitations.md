@@ -1,6 +1,6 @@
 # Interpretation and operational limits
 
-IRSnapshot 0.5.0 implements local Windows evidence collection, offline analysis, standalone HTML reports, and investigation orchestration. It is a point-in-time triage tool, not an EDR, antivirus, continuous monitor, remediation tool, or forensic acquisition system. Windows collectors have fixture tests and passing hosted Windows Server live validation; Windows 10/11 desktop validation remains open.
+IRSnapshot 1.0.0 implements local Windows evidence collection, offline analysis, standalone HTML reports, and investigation orchestration. It is a point-in-time triage tool, not an EDR, antivirus, continuous monitor, remediation tool, or forensic acquisition system. Windows collectors have fixture tests and passing hosted Windows Server live validation; Windows 10/11 x64 ordinary/elevated desktop validation is deferred and is not part of the verified v1.0.0 environment.
 
 ## Snapshot scope
 
@@ -34,6 +34,6 @@ Snapshot input is bounded at 64 MiB. JSON and HTML investigation-report output a
 
 Portable tests and clean-install checks passed on macOS and hosted Windows Server 2025 x64. The Windows runs exercise native file publication, installed command entry points and real collection in an administrator context. They do not establish every desktop permission, filesystem or endpoint configuration. No captured fixture command is executed on any platform. The [verification record](testing.md) reports actual versions, results and collection limitations.
 
-The Milestone 6 Windows workflow has executed successfully. Hosted Windows Server administrator coverage cannot substitute for ordinary-user or elevated Windows 10/11 desktop checks. The [release checklist](release-validation.md) tracks those separately. Print styles exist, but printed output still requires visual inspection.
+The recorded Windows Server workflow passed in an administrator context. Windows 10/11 desktop permissions, ordinary-user behavior, and ARM64 Windows collection are not verified. This release does not extend the supported collection architecture to ARM64. See [release verification](release-validation.md) for exact execution scope; ongoing follow-ups are tracked in [repository issues](https://github.com/christophervalle85/IRSnapshot/issues).
 
 Hosted captures encountered process-access denials and occasional 30-second PowerShell query timeouts, including scheduled-task enumeration. Such sources remain partial or failed with explicit issues; dependent persistence coverage is also reduced. A successful investigation means the available evidence was preserved and analyzed, not that every source was readable. Native regression work also identified and corrected LocalAccounts module discovery for versioned Windows installations.

@@ -41,12 +41,11 @@ Use a new output path, or explicitly pass `--overwrite` to replace an existing r
 | Installed Windows commands | Clean-wheel installation and 3 live tests passed per Python version, including all four commands. |
 | Native Windows environment | Elevated Windows Server 2025 x64; Python 3.12.10 and 3.15.0. |
 | Synthetic reports | Benign/review/partial samples produce 0/13/11 findings. |
-| Windows 10/11 x64 desktop sessions | Ordinary and elevated sessions remain unverified. |
-| Printed reports | Visual print/PDF inspection remains pending. |
+| Windows 10/11 x64 desktop sessions | Ordinary and elevated desktop sessions are deferred and remain unverified. |
 
 Native execution exposed a LocalAccounts module-import defect. A failing regression established the cause before correction; the final Windows matrix passed after the query switched to the trusted absolute module directory. In those reported CLI captures, system, network, users, services, scheduled tasks, and persistence succeeded. Four process-access denials remained explicitly partial.
 
-The [verification record](testing.md) contains exact environments, source revisions, test results, and execution links. The [release checklist](release-validation.md) tracks the remaining desktop, print, and release checks. The application feature set is implemented; M6 and the final v1 release remain open.
+The [verification record](testing.md) contains exact environments, source revisions, test results, and execution links. Version 1.0.0 completes the application feature set and M6 release packaging. The [release verification record](release-validation.md) distinguishes the tested Windows Server environment from deferred Windows 10/11 desktop validation. Ongoing work is tracked in [repository issues](https://github.com/christophervalle85/IRSnapshot/issues).
 
 ## Interpretation limits
 

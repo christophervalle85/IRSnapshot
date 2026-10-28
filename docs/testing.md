@@ -2,6 +2,23 @@
 
 Dated results below describe the environments and source revisions actually exercised. Earlier platform status is superseded by later execution records.
 
+## Version 1.0.0 release verification — 2026-10-28
+
+Version 1.0.0 closes M6 for the implemented triage workflow and release packaging. Windows 10/11 x64 ordinary/elevated desktop validation is deferred and remains unverified. Follow-up work is tracked in [repository issues](https://github.com/christophervalle85/IRSnapshot/issues).
+
+| Check | Result |
+|---|---|
+| Portable suite, macOS ARM64, Python 3.12.14 | 562 passed, 3 live tests deselected |
+| Portable suite, macOS ARM64, Python 3.14.8 | 562 passed, 3 live tests deselected |
+| Version 1.0.0 wheel | Built successfully with setuptools; no new runtime dependencies |
+| Fresh Python 3.12 wheel installation and dependency check | Passed; imported from the new environment's site-packages |
+| Isolated installed-command validation | Passed; console/module entry points, packaged template, JSON/HTML, and investigation orchestration |
+| Synthetic expected findings/exits | Benign 0/0, review 13/0, partial 11/3 |
+
+Application implementation matches the previously tested native Windows source apart from the package version constant. Original snapshot capture versions, snapshot/analysis schema `1.0`, and ruleset `1.0.0` are preserved.
+
+The successful native Windows evidence below was recorded on October 15 against its original source revision. Later hosted jobs did not start: GitHub's [October 22 run](https://github.com/christophervalle85/IRSnapshot/actions/runs/39825998456) reports an account billing/spending-limit restriction before any steps executed. These are unavailable reruns, not new passing Windows results. Local release verification does not establish Windows desktop coverage.
+
 ## Milestone 6 — LocalAccounts correction, 2026-10-15
 
 Windows 10/11 x64 desktop privilege checks remain unverified. Hosted Server results do not establish desktop coverage.
@@ -29,7 +46,7 @@ Both real captures on both runners recorded 7 user/session records, 259 services
 
 The dedicated LocalAccounts regression allows 120 seconds to test discovery independently of the production query timeout. The full CLI retains its 30-second PowerShell limit. No query timed out in these final reported CLI captures; earlier runner timeouts remain a documented operational limit, not a condition guaranteed to be eliminated. Process-access denials correctly kept the investigation exit at 3.
 
-Final code, tests and workflow match the tested commit; subsequent documentation-only changes do not claim additional platform coverage. Milestone 6's hosted Windows work is complete, but the full milestone and v1.0 release remain open for the desktop privilege checks, visual print review and final release/version decision.
+Final code, tests and workflow match the tested commit; subsequent documentation-only changes do not claim additional platform coverage. This October 15 record predates the v1.0.0 scope decision. Windows 10/11 desktop validation was subsequently deferred; current release verification is recorded above.
 
 ## Milestone 6 — first hosted Windows execution, 2026-10-10
 
@@ -59,7 +76,7 @@ A [targeted read-only diagnostic](https://github.com/christophervalle85/IRSnapsh
 
 After those test changes, macOS Python 3.12.14 and 3.14.7 each passed 562 portable cases with 2 live tests deselected. Both dependency checks passed. This is test-tooling validation, not another native platform result.
 
-Windows 10/11 x64 ordinary/elevated desktop sessions and visual print inspection remain open. The available local Windows VM is ARM64, outside the declared contract. Milestone 6 and v1.0 are not yet complete; the historical 0.5.0 release artifacts remain preserved. Earlier dated sections below describe their historical state and are superseded by this execution record where applicable.
+At this stage, Windows 10/11 x64 desktop sessions were unverified. The local Windows VM was ARM64, outside the declared contract. Historical 0.5.0 release artifacts remain preserved. Earlier dated sections below describe their historical state and are superseded by this execution record where applicable.
 
 ## Milestone 6 follow-up — 2026-10-06
 
@@ -67,9 +84,9 @@ The unchanged application and validation tools were checked again on macOS ARM64
 
 After the documentation updates, a new local verification wheel was built and installed offline into another fresh Python 3.12 environment. Its isolated validation ran from outside the checkout and passed all three samples; dependency integrity passed. All 41 Python/template files and the updated README metadata matched the source. This was a verification build, not a new published release.
 
-Visual print inspection was not completed. Evidence inside initially closed disclosure sections remains a specific visual-review target; no print defect or print pass is inferred from static source inspection.
+Report presentation follow-ups are tracked in repository issues.
 
-**Milestone 6 remains incomplete.** Required evidence still includes the Windows CI matrix, ordinary/elevated Windows 10/11 x64 walkthroughs with reviewed source coverage, actual print/PDF inspection, and final release verification/versioning after any resulting fixes. The version remains `0.5.0`; the historical Milestone 5 release is unchanged.
+At this stage, M6 validation was in progress and the version remained `0.5.0`. Later dated records supersede this status.
 
 ## Milestone 6 — validation tooling in progress
 
@@ -95,9 +112,9 @@ New tests demonstrate rejection of source/editable imports, including editable m
 
 An import-isolation check showed that the documented desktop module commands could import the source checkout instead of the fresh wheel. All four commands now use `-I`. A targeted check from the checkout reproduced the original source import, then confirmed the corrected invocation imports the clean environment's `site-packages`. This documentation correction does not constitute native Windows execution.
 
-Milestone 6 itself remains in progress until its Windows and print gates are completed.
+This section records the validation-tooling stage before native Windows execution and release finalization.
 
-Windows workflow execution, Windows 10/11 ordinary and elevated live `collect`/`run`, and manual print inspection remain pending. Hosted Windows runners use administrator context, which is recorded separately from desktop privilege validation.
+Windows workflow execution and Windows 10/11 desktop checks had not yet been performed at this stage. Hosted Windows runners use administrator context, which is recorded separately from desktop privilege validation.
 
 ## Milestone 5 — release 0.5.0
 
@@ -132,7 +149,7 @@ A stale-output cleanup regression showed that an error removing the old JSON rep
 
 One regression exposed a subtle publication boundary: the snapshot writer can finish publishing before its diagnostic log write fails. Logging errors now latch and surface at controlled workflow boundaries, allowing the workflow to record the saved snapshot and clear stale derived outputs before stopping. A separate integration check ensures collector isolation cannot hide a failed log as an ordinary partial success.
 
-The HTML is self-contained, with inline CSS and no scripts or external resources. Parser checks verify safe tags, local anchor targets and unique IDs; browser inspection verified navigation and expandable raw evidence. Print styles are included, but printed output was not manually validated. Dependency versions remain those recorded for Milestone 3 below. Historical sample capture versions are unchanged.
+The HTML is self-contained, with inline CSS and no scripts or external resources. Parser checks verify safe tags, local anchor targets and unique IDs; browser inspection verified navigation and expandable raw evidence. Print styles are included; report presentation follow-ups are tracked in repository issues. Dependency versions remain those recorded for Milestone 3 below. Historical sample capture versions are unchanged.
 
 Reproduce the new focused checks from the repository root:
 

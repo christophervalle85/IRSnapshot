@@ -16,7 +16,7 @@ Expand a finding to inspect the source evidence, reason for review, and possible
 
 ## Provenance and verification
 
-The reports were generated on October 17, 2026, from the source revision recorded in [manifest.json](manifest.json). The manifest includes file hashes, expected findings and exit codes, snapshot identifiers, and the producing package version. Structural checks covered JSON validation, matching snapshot identifiers, internal HTML anchors, and absence of active content or external resources.
+The reports were generated on October 28, 2026, from the source revision recorded in [manifest.json](manifest.json). The manifest includes file hashes, expected findings and exit codes, snapshot identifiers, and the producing package version. Structural checks covered JSON validation, matching snapshot identifiers, internal HTML anchors, and absence of active content or external resources.
 
 The [recorded Windows run](https://github.com/christophervalle85/IRSnapshot/actions/runs/38686690894) passed 562 portable tests and three live installed-wheel tests per Python version on elevated Windows Server 2025 x64. Windows 10/11 x64 ordinary/elevated desktop validation is deferred. This demonstration is included with version 1.0.0; its manifest records the generating version and original snapshot metadata. Ongoing work is tracked in [repository issues](https://github.com/christophervalle85/IRSnapshot/issues).
 
